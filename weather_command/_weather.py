@@ -4,7 +4,7 @@ from enum import Enum
 
 import httpx
 
-from weather_command.models.current_weather import CurrentWeather
+from weather_command.models.weather import CurrentWeather
 
 
 def get_current_weather(url: str) -> CurrentWeather:
@@ -14,13 +14,17 @@ def get_current_weather(url: str) -> CurrentWeather:
 
 
 class WeatherIcons(Enum):
+    BROKEN_CLOUDS = ":sun_behind_cloud:"
+    OVERCAST_CLOUDS = ":sun_behind_cloud:"
+    CLEAR_SKY = ":sun:"
     CLOUDS = ":cloud:"
     MIST = ":cloud_with_rain:"
     RAIN = ":cloud_with_rain:"
     SUN = ":sun:"
+    THUNDERSTORM = ":cloud_with_lightning:"
 
     @classmethod
-    def get_value(cls, weather_type: str) -> str | None:
+    def get_icon(cls, weather_type: str) -> str | None:
         upper_weather_type = weather_type.upper()
         try:
             return cls[upper_weather_type].value

@@ -7,17 +7,41 @@ from rich.table import Table
 
 from weather_command._config import BASE_URL, apppend_api_key
 from weather_command._weather import WeatherIcons, get_current_weather
+from weather_command.models.weather import CurrentWeather
 
 
-def show_current_weather_by_city(
-    city: str,
+def show_current(
+    how: str,
     *,
+    city_zip: str,
     state_code: str | None = None,
     country_code: str | None = None,
     units: str = "metric",
     am_pm: bool = False,
+    temp_only: bool = False,
+    terminal_width: int | None = None,
 ) -> None:
-    url = f"{BASE_URL}?q={city}&units={units}"
+    url = _build_url(how, city_zip, units, state_code, country_code)
+
+    console = Console()
+    console.width = terminal_width
+
+    with console.status("Getting weather..."):
+        current_weather = get_current_weather(url)
+
+    if not temp_only:
+        console.print(_current_weather_all(current_weather, units, am_pm))
+    else:
+        console.print(_current_weather_temp(current_weather, units))
+
+
+def _build_url(
+    how: str, city_zip: str, units: str, state_code: str | None, country_code: str | None
+) -> str:
+    if how == "city":
+        url = f"{BASE_URL}/weather?q={city_zip}&units={units}"
+    else:
+        url = f"{BASE_URL}/weather?zip={city_zip}&units={units}"
 
     if state_code:
         url = f"{url}&state_code={state_code}"
@@ -25,18 +49,15 @@ def show_current_weather_by_city(
     if country_code:
         url = f"{url}&country_code={country_code}"
 
-    url = apppend_api_key(url)
+    return apppend_api_key(url)
 
-    console = Console()
 
-    with console.status("Getting weather..."):
-        current_weather = get_current_weather(url)
-
-    temp_unit = "C" if units == "metric" else "F"
-    speed_unit = "kph" if units == "metric" else "mph"
-    precip_unit = "cm" if units == "metric" else "in"
+def _current_weather_all(current_weather: CurrentWeather, units: str, am_pm: bool) -> Table:
+    temp_unit = _temp_units(units)
+    speed_unit = _speed_units(units)
+    precip_unit = _precip_units(units)
     main_condition = current_weather.weather[0].main
-    weather_icon = WeatherIcons.get_value(main_condition)
+    weather_icon = WeatherIcons.get_icon(main_condition)
     if weather_icon:
         main_condition += f" {weather_icon}"
     if not am_pm:
@@ -98,4 +119,42 @@ def show_current_weather_by_city(
         sunset,
     )
 
-    console.print(table)
+    return table
+
+
+def _current_weather_temp(current_weather: CurrentWeather, units: str) -> Table:
+    temp_unit = _temp_units(units)
+
+    table = Table(title=f"Current weather for {current_weather.name}")
+    table.add_column(f"Temperature ({temp_unit}) :thermometer:")
+    table.add_column(f"Feels Like ({temp_unit}) :thermometer:")
+    table.add_column(f"Low ({temp_unit}) :thermometer:")
+    table.add_column(f"High ({temp_unit}) :thermometer:")
+    table.add_row(
+        str(round(current_weather.main.temp)),
+        str(round(current_weather.main.feels_like)),
+        str(round(current_weather.main.temp_min)),
+        str(round(current_weather.main.temp_max)),
+    )
+
+    return table
+
+
+def _precip_units(units: str) -> str:
+    _validate_units(units)
+    return "mm" if units == "metric" else "in"
+
+
+def _speed_units(units: str) -> str:
+    _validate_units(units)
+    return "kph" if units == "metric" else "mph"
+
+
+def _temp_units(units: str) -> str:
+    _validate_units(units)
+    return "C" if units == "metric" else "F"
+
+
+def _validate_units(units: str) -> None:
+    if units not in ["metric", "imperial"]:
+        raise ValueError("Units must either be metric or imperial")
