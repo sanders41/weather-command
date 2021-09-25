@@ -32,6 +32,10 @@ constains your API key.
 export OPEN_WEATHER_API_KEY=your-api-key
 ```
 
+Each time the shell is restarted this variable will be cleared. To avoid this it can be added to your
+profile. For example if your shell is zsh the API key can be added to the `~/.zshenv` file. Doing this
+will prevent the need to re-add the key each time the shell is started.
+
 To get the weather for a city:
 
 ```sh
