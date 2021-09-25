@@ -17,14 +17,17 @@ def main(
         ...,
         help="The name of the city or zip code for which the weather should be retrieved. If the first argument is 'city' this should be the name of the city, or if 'zip' it should be the zip code.",
     ),
-    units: str = Option(
-        "metric", "--units", "-u", help="The units to use. Accepted values are metric and imperial."
-    ),
     state_code: Optional[str] = Option(
         None, "--state-code", "-s", help="The name of the state where the city is located."
     ),
     country_code: Optional[str] = Option(
         None, "--country-code", "-c", help="The country code where the city is located."
+    ),
+    imperial: bool = Option(
+        False,
+        "--imperial",
+        "-i",
+        help="If this flag is used the units will be imperial, otherwise units will be metric.",
     ),
     am_pm: bool = Option(
         False,
@@ -39,7 +42,8 @@ def main(
     ),
 ) -> None:
     _validate_how(how)
-    _validate_units(units)
+
+    units = "imperial" if imperial else "metric"
 
     show_current(
         how,
@@ -56,11 +60,6 @@ def main(
 def _validate_how(how: str) -> None:
     if how not in ("city", "zip"):
         raise BadParameter("The first argument must either be 'city' or 'zip'")
-
-
-def _validate_units(units: str) -> None:
-    if units not in ("metric", "imperial"):
-        raise BadParameter("Only 'metric' and 'imperial' are accepted for '-u/--units'")
 
 
 if __name__ == "__main__":
