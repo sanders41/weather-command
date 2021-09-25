@@ -12,27 +12,27 @@ app = Typer()
 
 @app.command()
 def main(
-    how: str = Argument("city", help="How to get the weather. Accepted values are city and zip"),
+    how: str = Argument("city", help="How to get the weather. Accepted values are city and zip."),
     city_zip: str = Argument(
         ...,
-        help="The name of the city or zip code for which the weather should be retrieved. If the first argument is 'city' this should be the name of the city, or if 'zip' it should be the zip code",
+        help="The name of the city or zip code for which the weather should be retrieved. If the first argument is 'city' this should be the name of the city, or if 'zip' it should be the zip code.",
     ),
     units: str = Option(
-        "metric", "--units", "-u", help="The units to use. Accepted values are metric and imperial"
+        "metric", "--units", "-u", help="The units to use. Accepted values are metric and imperial."
     ),
     state_code: Optional[str] = Option(
-        None, "--state-code", "-s", help="The name of the state where the city is located"
+        None, "--state-code", "-s", help="The name of the state where the city is located."
     ),
     country_code: Optional[str] = Option(
-        None, "--country-code", "-c", help="The country code where the city is located"
+        None, "--country-code", "-c", help="The country code where the city is located."
     ),
     am_pm: bool = Option(
         False,
         "--am-pm",
-        help="If this flag is set the times will be displayed in 12 hour format, otherwise times will be 24 hour format",
+        help="If this flag is set the times will be displayed in 12 hour format, otherwise times will be 24 hour format.",
     ),
     temp_only: bool = Option(
-        False, "--temp-only", "-t", help="If this flag is set only tempatures will be displayed"
+        False, "--temp-only", "-t", help="If this flag is set only tempatures will be displayed."
     ),
     terminal_width: Optional[int] = Option(
         None, "--terminal_width", help="Allows for overriding the default terminal width."

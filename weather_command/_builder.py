@@ -24,7 +24,8 @@ def show_current(
     url = _build_url(how, city_zip, units, state_code, country_code)
 
     console = Console()
-    console.width = terminal_width
+    if terminal_width:
+        console.width = terminal_width
 
     with console.status("Getting weather..."):
         current_weather = get_current_weather(url)

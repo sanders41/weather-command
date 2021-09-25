@@ -5,6 +5,10 @@ description = "Command line weather app"
 authors = ["Paul Sanders <psanders1@gmail.com>"]
 license = "MIT"
 readme = "README.md"
+repository = "https://github.com/sanders41/weather-command"
+homepage = "https://github.com/sanders41/weather-command"
+documentation = "https://github.com/sanders41/weather-command"
+keywords = ["weather", "cli"]
 
 [tool.poetry.dependencies]
 python = "^3.7"
