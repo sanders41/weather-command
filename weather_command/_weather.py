@@ -15,11 +15,17 @@ def get_current_weather(url: str) -> CurrentWeather:
 
 class WeatherIcons(Enum):
     BROKEN_CLOUDS = ":sun_behind_cloud:"
-    OVERCAST_CLOUDS = ":sun_behind_cloud:"
     CLEAR_SKY = ":sun:"
     CLOUDS = ":cloud:"
+    FEW_CLOUDS = ":sun_behind_coud:"
+    HEAVY_RAIN = ":cloud_with_rain:"
+    LIGHT_RAIN = ":cloud_with_rain:"
     MIST = ":cloud_with_rain:"
+    MODERATE_RAIN = ":cloud_with_rain:"
+    OVERCAST_CLOUDS = ":sun_behind_cloud:"
     RAIN = ":cloud_with_rain:"
+    SCATTERED_CLOUDS = ":sun_behind_cloud:"
+    SNOW = ":snowflake:"
     SUN = ":sun:"
     THUNDERSTORM = ":cloud_with_lightning:"
 
