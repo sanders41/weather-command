@@ -6,16 +6,7 @@ from weather_command.__main__ import app
 
 
 @pytest.mark.parametrize("how, city_zip", [("city", "Greensboro"), ("zip", "27405")])
-@pytest.mark.parametrize(
-    "units, units_flag",
-    [
-        (None, None),
-        ("metric", "-u"),
-        ("metric", "--units"),
-        ("imperial", "-u"),
-        ("imperial", "--units"),
-    ],
-)
+@pytest.mark.parametrize("imperial", [None, "--imperial", "-i"])
 @pytest.mark.parametrize(
     "state_code, state_code_flag", [(None, None), ("NC", "-s"), ("NC", "--state-code")]
 )
@@ -27,8 +18,7 @@ from weather_command.__main__ import app
 def test_current_weather_by_city(
     how,
     city_zip,
-    units,
-    units_flag,
+    imperial,
     state_code,
     state_code_flag,
     country_code,
@@ -40,9 +30,8 @@ def test_current_weather_by_city(
 ):
     args = [how, city_zip, "--terminal_width", 180]
 
-    if units:
-        args.append(units_flag)
-        args.append(units)
+    if imperial:
+        args.append(imperial)
 
     if state_code:
         args.append(state_code_flag)
@@ -63,7 +52,7 @@ def test_current_weather_by_city(
 
     out = result.stdout
 
-    if units == "imperial":
+    if imperial:
         temp_unit = "F"
         wind_unit = "mph"
         precip_unit = "in"
@@ -93,9 +82,4 @@ def test_missing_api_key(test_runner, monkeypatch):
 
 def test_bad_how(test_runner):
     result = test_runner.invoke(app, ["bad", "Greensboro"])
-    assert result.exit_code != 0
-
-
-def test_bad_units(test_runner):
-    result = test_runner.invoke(app, ["city", "Greensboro", "-u", "bad"])
     assert result.exit_code != 0

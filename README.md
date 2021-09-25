@@ -51,9 +51,9 @@ code. [required]
 
 ### Options
 
-* -u, --units: The units to use. Accepted values are metricand imperial. [default: metric]
 * -s, --state-code: The name of the state where the city is located.
 * -c, --country-code: The country code where the city is located.
+* -i, --imperial: If this flag is used the units will be imperial, otherwise units will be metric.
 * --am-pm: If this flag is set the times will be displayed in 12 hour format, otherwise times
 will be 24 hour format.
 * -t, --temp-only: If this flag is set only tempatures will be displayed.
