@@ -25,7 +25,7 @@ class WeatherIcons(Enum):
 
     @classmethod
     def get_icon(cls, weather_type: str) -> str | None:
-        upper_weather_type = weather_type.upper()
+        upper_weather_type = weather_type.upper().replace(" ", "_")
         try:
             return cls[upper_weather_type].value
         except KeyError:

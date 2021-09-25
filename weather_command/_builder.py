@@ -57,10 +57,10 @@ def _current_weather_all(current_weather: CurrentWeather, units: str, am_pm: boo
     temp_unit = _temp_units(units)
     speed_unit = _speed_units(units)
     precip_unit = _precip_units(units)
-    main_condition = current_weather.weather[0].main
-    weather_icon = WeatherIcons.get_icon(main_condition)
+    conditions = current_weather.weather[0].description
+    weather_icon = WeatherIcons.get_icon(conditions)
     if weather_icon:
-        main_condition += f" {weather_icon}"
+        conditions += f" {weather_icon}"
     if not am_pm:
         sunrise = str(
             (current_weather.sys.sunrise + timedelta(seconds=current_weather.timezone)).time()
@@ -95,7 +95,7 @@ def _current_weather_all(current_weather: CurrentWeather, units: str, am_pm: boo
         str(round(current_weather.main.temp)),
         str(round(current_weather.main.feels_like)),
         f"{current_weather.main.humidity}%" if current_weather.main.humidity else "0%",
-        main_condition,
+        conditions,
         str(round(current_weather.main.temp_min)),
         str(round(current_weather.main.temp_max)),
         str(round(current_weather.wind.speed))
