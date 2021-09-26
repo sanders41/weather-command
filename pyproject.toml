@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "weather-command"
-version = "0.2.0"
+version = "0.2.1"
 description = "Command line weather app"
 authors = ["Paul Sanders <psanders1@gmail.com>"]
 license = "MIT"
@@ -12,7 +12,6 @@ keywords = ["weather", "cli"]
 
 [tool.poetry.dependencies]
 python = "^3.7"
-mypy = "^0.910"
 rich = "^10.11.0"
 httpx = "^0.19.0"
 python-dotenv = "^0.19.0"
