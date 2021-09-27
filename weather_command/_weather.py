@@ -17,7 +17,7 @@ class WeatherIcons(Enum):
     BROKEN_CLOUDS = ":sun_behind_cloud:"
     CLEAR_SKY = ":sun:"
     CLOUDS = ":cloud:"
-    FEW_CLOUDS = ":sun_behind_coud:"
+    FEW_CLOUDS = ":sun_behind_cloud:"
     HEAVY_RAIN = ":cloud_with_rain:"
     LIGHT_RAIN = ":cloud_with_rain:"
     MIST = ":cloud_with_rain:"
