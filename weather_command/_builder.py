@@ -81,8 +81,6 @@ def _current_weather_all(current_weather: CurrentWeather, units: str, am_pm: boo
     table.add_column(f"Feels Like ({temp_unit}) :thermometer:")
     table.add_column("Humidity")
     table.add_column("Conditions")
-    table.add_column(f"Low ({temp_unit}) :thermometer:")
-    table.add_column(f"High ({temp_unit}) :thermometer:")
     table.add_column(f"Wind Speed ({speed_unit})")
     table.add_column(f"Wind Gusts ({speed_unit})")
     table.add_column(f"Rain 1 Hour ({precip_unit}) :cloud_with_rain:")
@@ -96,8 +94,6 @@ def _current_weather_all(current_weather: CurrentWeather, units: str, am_pm: boo
         str(round(current_weather.main.feels_like)),
         f"{current_weather.main.humidity}%" if current_weather.main.humidity else "0%",
         conditions,
-        str(round(current_weather.main.temp_min)),
-        str(round(current_weather.main.temp_max)),
         str(round(current_weather.wind.speed))
         if current_weather.wind and current_weather.wind.speed
         else "0",
@@ -129,13 +125,9 @@ def _current_weather_temp(current_weather: CurrentWeather, units: str) -> Table:
     table = Table(title=f"Current weather for {current_weather.name}")
     table.add_column(f"Temperature ({temp_unit}) :thermometer:")
     table.add_column(f"Feels Like ({temp_unit}) :thermometer:")
-    table.add_column(f"Low ({temp_unit}) :thermometer:")
-    table.add_column(f"High ({temp_unit}) :thermometer:")
     table.add_row(
         str(round(current_weather.main.temp)),
         str(round(current_weather.main.feels_like)),
-        str(round(current_weather.main.temp_min)),
-        str(round(current_weather.main.temp_max)),
     )
 
     return table

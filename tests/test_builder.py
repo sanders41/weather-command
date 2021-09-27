@@ -8,14 +8,14 @@ from weather_command._config import BASE_URL
 @pytest.mark.parametrize("am_pm", [False, True])
 def test_current_weather_all(mock_current_weather, units, am_pm):
     table = _builder._current_weather_all(mock_current_weather, units, am_pm)
-    assert len(table.columns) == 14
+    assert len(table.columns) == 12
     assert table.row_count == 1
 
 
 @pytest.mark.parametrize("units", ["metric", "imperial"])
 def test_current_weather_temp(mock_current_weather, units):
     table = _builder._current_weather_temp(mock_current_weather, units)
-    assert len(table.columns) == 4
+    assert len(table.columns) == 2
     assert table.row_count == 1
 
 
