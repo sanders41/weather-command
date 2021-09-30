@@ -4,13 +4,19 @@ from enum import Enum
 
 import httpx
 
-from weather_command.models.weather import CurrentWeather
+from weather_command.models.weather import CurrentWeather, OneCallWeather
 
 
 def get_current_weather(url: str) -> CurrentWeather:
     response = httpx.get(url)
     response.raise_for_status()
     return CurrentWeather(**response.json())
+
+
+def get_one_call_current_weather(url: str) -> OneCallWeather:
+    response = httpx.get(url)
+    response.raise_for_status()
+    return OneCallWeather(**response.json())
 
 
 class WeatherIcons(Enum):

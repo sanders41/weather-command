@@ -3,6 +3,8 @@ from unittest.mock import patch
 import pytest
 
 from weather_command.__main__ import app
+from weather_command._config import LOCATION_BASE_URL
+from weather_command.errors import MissingApiKey
 
 
 @pytest.mark.parametrize("how, city_zip", [("city", "Greensboro"), ("zip", "27405")])
@@ -14,8 +16,12 @@ from weather_command.__main__ import app
     "country_code, country_code_flag", [(None, None), ("US", "-c"), ("US", "--country-code")]
 )
 @pytest.mark.parametrize("am_pm", [None, "--am-pm"])
+@pytest.mark.parametrize(
+    "forecast_type, forecast_type_flag",
+    [(None, None), ("current", "--forecast-type"), ("hourly", "-f")],
+)
 @pytest.mark.parametrize("temp_only", [None, "-t", "--temp-only"])
-def test_current_weather_by_city(
+def test_main(
     how,
     city_zip,
     imperial,
@@ -24,9 +30,13 @@ def test_current_weather_by_city(
     country_code,
     country_code_flag,
     am_pm,
+    forecast_type,
+    forecast_type_flag,
     temp_only,
     test_runner,
     mock_current_weather_response,
+    mock_one_call_weather_response,
+    mock_location_response,
 ):
     args = [how, city_zip, "--terminal_width", 180]
 
@@ -44,11 +54,26 @@ def test_current_weather_by_city(
     if am_pm:
         args.append(am_pm)
 
+    if forecast_type:
+        args.append(forecast_type_flag)
+        args.append(forecast_type)
+
     if temp_only:
         args.append(temp_only)
 
-    with patch("httpx.get", return_value=mock_current_weather_response):
-        result = test_runner.invoke(app, args)
+    if forecast_type == "current" or not forecast_type:
+        with patch("httpx.get", return_value=mock_current_weather_response):
+            result = test_runner.invoke(app, args)
+    else:
+
+        def mock_return(*args, **kwargs):
+            if LOCATION_BASE_URL in args[0]:
+                return mock_location_response
+
+            return mock_one_call_weather_response
+
+        with patch("httpx.get", side_effect=mock_return):
+            result = test_runner.invoke(app, args)
 
     out = result.stdout
 
@@ -69,17 +94,21 @@ def test_current_weather_by_city(
         assert precip_unit in out
 
         if am_pm:
-            assert " AM" in out
-            assert " PM" in out
+            assert " AM" or " PM" in out
 
 
 def test_missing_api_key(test_runner, monkeypatch):
     monkeypatch.delenv("OPEN_WEATHER_API_KEY", raising=False)
 
-    result = test_runner.invoke(app, ["city", "Greensboro"])
-    assert result.exit_code != 0
+    with pytest.raises(MissingApiKey):
+        test_runner.invoke(app, ["city", "Greensboro"], catch_exceptions=False)
 
 
 def test_bad_how(test_runner):
     result = test_runner.invoke(app, ["bad", "Greensboro"])
-    assert result.exit_code != 0
+    assert result.exit_code > 1
+
+
+def test_bad_forecast_type(test_runner):
+    result = test_runner.invoke(app, ["city", "Greensboro", "-f", "bad"])
+    assert result.exit_code > 1
