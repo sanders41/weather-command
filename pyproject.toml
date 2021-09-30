@@ -72,4 +72,4 @@ minversion = "6.0"
 addopts = "-n auto --cov=weather_command"
 
 [tool.coverage.report]
-exclude_lines = ["if __name__ == .__main__.:"]
+exclude_lines = ["if __name__ == .__main__.:", "pragma: no cover"]

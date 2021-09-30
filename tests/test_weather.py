@@ -1,7 +1,10 @@
+from unittest.mock import patch
+
 import pytest
+from httpx import HTTPStatusError, Request, Response
 from rich._emoji_codes import EMOJI
 
-from weather_command._weather import WeatherIcons
+from weather_command._weather import WeatherIcons, get_current_weather, get_one_call_current_weather
 
 
 @pytest.mark.parametrize(
@@ -16,3 +19,71 @@ def test_get_icon(condition, expected):
 @pytest.mark.parametrize("icon", [x.value for x in WeatherIcons])
 def test_icons(icon):
     assert icon.replace(":", "") in list(EMOJI.keys())
+
+
+def test_current_weather_http_error_404(test_console, capfd):
+    with pytest.raises(SystemExit):
+        with patch(
+            "httpx.get",
+            return_value=Response(404, request=Request("get", url="https://test.com")),
+        ):
+            get_current_weather(url="https://test.com", console=test_console)
+
+    out, _ = capfd.readouterr()
+    assert "Unable" in out
+
+
+def test_get_current_weather_https_error(test_console):
+    with pytest.raises(HTTPStatusError):
+        with patch(
+            "httpx.get",
+            return_value=Response(500, request=Request("get", url="https://test.com")),
+        ):
+            get_current_weather(url="https://test.com", console=test_console)
+
+
+def test_get_current_weather_validation_error(test_console, capfd):
+    data = {"bad": None}
+    with pytest.raises(SystemExit):
+        with patch(
+            "httpx.get",
+            return_value=Response(200, request=Request("get", url="https://test.com"), json=data),
+        ):
+            get_current_weather(url="https://test.com", console=test_console)
+
+    out, _ = capfd.readouterr()
+    assert "Unable" in out
+
+
+def test_one_call_current_weather_http_error_404(test_console, capfd):
+    with pytest.raises(SystemExit):
+        with patch(
+            "httpx.get",
+            return_value=Response(404, request=Request("get", url="https://test.com")),
+        ):
+            get_one_call_current_weather(url="https://test.com", console=test_console)
+
+    out, _ = capfd.readouterr()
+    assert "Unable" in out
+
+
+def test_get_one_callcurrent_weather_https_error(test_console):
+    with pytest.raises(HTTPStatusError):
+        with patch(
+            "httpx.get",
+            return_value=Response(500, request=Request("get", url="https://test.com")),
+        ):
+            get_one_call_current_weather(url="https://test.com", console=test_console)
+
+
+def test_get_one_call_current_weather_validation_error(test_console, capfd):
+    data = {"bad": None}
+    with pytest.raises(SystemExit):
+        with patch(
+            "httpx.get",
+            return_value=Response(200, request=Request("get", url="https://test.com"), json=data),
+        ):
+            get_one_call_current_weather(url="https://test.com", console=test_console)
+
+    out, _ = capfd.readouterr()
+    assert "Unable" in out
