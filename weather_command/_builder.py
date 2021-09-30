@@ -40,7 +40,7 @@ def show_current(
         console.width = terminal_width
 
     with console.status("Getting weather..."):
-        current_weather = get_current_weather(url)
+        current_weather = get_current_weather(url, console)
 
     if not temp_only:
         console.print(_current_weather_all(current_weather, units, am_pm))
@@ -65,10 +65,10 @@ def show_hourly(
 
     with console.status("Getting weather..."):
         location = get_location_details(
-            how=how, city_zip=city_zip, state=state_code, country=country_code
+            how=how, city_zip=city_zip, state=state_code, country=country_code, console=console
         )
         url = _build_url(forecast_type="hourly", units=units, lon=location.lon, lat=location.lat)
-        weather = get_one_call_current_weather(url)
+        weather = get_one_call_current_weather(url, console)
         if not temp_only:
             console.print(_hourly_all(weather, units, am_pm, location))
         else:

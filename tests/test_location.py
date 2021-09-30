@@ -1,7 +1,7 @@
 from unittest.mock import patch
 
 import pytest
-from httpx import Request, Response
+from httpx import HTTPStatusError, Request, Response
 
 from weather_command._location import get_location_details
 from weather_command.errors import UnknownSearchTypeError
@@ -31,7 +31,7 @@ def mock_location_data():
 
 @pytest.mark.parametrize("how", ["city", "zip"])
 @pytest.mark.parametrize("return_type", ["list", "dict"])
-def test_get_location_details(how, return_type, mock_location_data):
+def test_get_location_details(how, return_type, mock_location_data, test_console):
     if return_type == "list":
         return_json = mock_location_data
     else:
@@ -42,13 +42,49 @@ def test_get_location_details(how, return_type, mock_location_data):
             200, request=Request("get", url="https://test.com"), json=return_json
         ),
     ):
-        response = get_location_details(how=how, city_zip="test", state="test", country="test")
+        response = get_location_details(
+            how=how, city_zip="test", state="test", country="test", console=test_console
+        )
 
     assert response.display_name == mock_location_data[0]["display_name"]
     assert response.lat == float(mock_location_data[0]["lat"])
     assert response.lon == float(mock_location_data[0]["lon"])
 
 
-def test_get_location_details_error():
+def test_get_location_details_http_error_404(test_console, capfd):
+    with pytest.raises(SystemExit):
+        with patch(
+            "httpx.get",
+            return_value=Response(404, request=Request("get", url="https://test.com")),
+        ):
+            get_location_details(how="city", city_zip="test", console=test_console)
+
+    out, _ = capfd.readouterr()
+    assert "Unable" in out
+
+
+def test_get_location_details_https_error(test_console):
+    with pytest.raises(HTTPStatusError):
+        with patch(
+            "httpx.get",
+            return_value=Response(500, request=Request("get", url="https://test.com")),
+        ):
+            get_location_details(how="city", city_zip="test", console=test_console)
+
+
+def test_get_location_details_validation_error(test_console, capfd):
+    data = {"bad": None}
+    with pytest.raises(SystemExit):
+        with patch(
+            "httpx.get",
+            return_value=Response(200, request=Request("get", url="https://test.com"), json=data),
+        ):
+            get_location_details(how="city", city_zip="test", console=test_console)
+
+    out, _ = capfd.readouterr()
+    assert "Unable" in out
+
+
+def test_get_location_details_error(test_console):
     with pytest.raises(UnknownSearchTypeError):
-        get_location_details(how="bad", city_zip="test")
+        get_location_details(how="bad", city_zip="test", console=test_console)
