@@ -1,10 +1,11 @@
+from __future__ import annotations
+
 from os import getenv
 
-BASE_URL = "https://api.openweathermap.org/data/2.5"
+from weather_command.errors import MissingApiKey
 
-
-class MissingApiKey(Exception):
-    pass
+WEATHER_BASE_URL = "https://api.openweathermap.org/data/2.5"
+LOCATION_BASE_URL = "https://nominatim.openstreetmap.org/search?format=json&limit=1"
 
 
 def apppend_api_key(url: str) -> str:
