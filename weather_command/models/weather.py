@@ -102,9 +102,9 @@ class OneCallCurrent(CamelBase):
     uvi: float
     clouds: int
     visibility: int
-    wind_speed: float
-    wind_deg: int
-    wind_gust: float
+    wind_speed: float = 0.0
+    wind_deg: int = 0
+    wind_gust: float = 0.0
     weather: List[Weather]
 
 
@@ -129,9 +129,9 @@ class Daily(CamelBase):
     pressure: int
     humidity: int
     dew_point: float
-    wind_speed: float
-    wind_deg: int
-    wind_gust: float
+    wind_speed: float = 0.0
+    wind_deg: int = 0
+    wind_gust: float = 0.0
     weather: List[Weather]
     clouds: int
     pop: int
