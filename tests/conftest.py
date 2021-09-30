@@ -74,7 +74,7 @@ def mock_current_weather(mock_current_weather_dict):
 def mock_current_weather_response(mock_current_weather_dict):
     return httpx.Response(
         200,
-        request=httpx.request("GET", "https://fakeurl.com"),
+        request=httpx.Request("GET", "https://localhost"),
         json=mock_current_weather_dict,
     )
 
