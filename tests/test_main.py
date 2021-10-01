@@ -18,7 +18,7 @@ from weather_command.errors import MissingApiKey
 @pytest.mark.parametrize("am_pm", [None, "--am-pm"])
 @pytest.mark.parametrize(
     "forecast_type, forecast_type_flag",
-    [(None, None), ("current", "--forecast-type"), ("hourly", "-f")],
+    [(None, None), ("current", "--forecast-type"), ("hourly", "-f"), ("daily", "-f")],
 )
 @pytest.mark.parametrize("temp_only", [None, "-t", "--temp-only"])
 def test_main(
@@ -91,6 +91,8 @@ def test_main(
 
     if not temp_only:
         assert wind_unit in out
+
+    if not temp_only and forecast_type != "daily":
         assert precip_unit in out
 
         if am_pm:

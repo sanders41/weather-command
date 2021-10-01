@@ -109,12 +109,12 @@ class OneCallCurrent(CamelBase):
 
 
 class Temp(CamelBase):
-    day: float
-    min: Optional[float] = None
-    max: Optional[float] = None
-    night: float
-    eve: float
-    morn: float
+    day: float = 0.0
+    min: float = 0.0
+    max: float = 0.0
+    night: float = 0.0
+    eve: float = 0.0
+    morn: float = 0.0
 
 
 class Daily(CamelBase):

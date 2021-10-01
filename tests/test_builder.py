@@ -25,6 +25,26 @@ def test_current_weather_temp(mock_current_weather, units):
 
 @pytest.mark.parametrize("units", UNITS)
 @pytest.mark.parametrize("am_pm", [False, True])
+def test_daily_all(mock_one_call_weather, mock_location, units, am_pm):
+    table = _builder._daily_all(
+        weather=mock_one_call_weather, units=units, am_pm=am_pm, location=mock_location
+    )
+    assert len(table.columns) == 13
+    assert table.row_count == len(mock_one_call_weather.daily)
+
+
+@pytest.mark.parametrize("units", UNITS)
+@pytest.mark.parametrize("am_pm", [False, True])
+def test_daily_temp_only(mock_one_call_weather, mock_location, units, am_pm):
+    table = _builder._daily_temp_only(
+        weather=mock_one_call_weather, units=units, am_pm=am_pm, location=mock_location
+    )
+    assert len(table.columns) == 4
+    assert table.row_count == len(mock_one_call_weather.daily)
+
+
+@pytest.mark.parametrize("units", UNITS)
+@pytest.mark.parametrize("am_pm", [False, True])
 def test_hourly_all(mock_one_call_weather, mock_location, units, am_pm):
     table = _builder._hourly_all(
         weather=mock_one_call_weather, units=units, am_pm=am_pm, location=mock_location

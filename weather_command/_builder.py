@@ -48,6 +48,33 @@ def show_current(
         console.print(_current_weather_temp(current_weather, units))
 
 
+def show_daily(
+    console: Console,
+    how: str,
+    city_zip: str,
+    *,
+    state_code: str | None = None,
+    country_code: str | None = None,
+    units: str = "metric",
+    am_pm: bool = False,
+    temp_only: bool = False,
+    terminal_width: int | None = None,
+) -> None:
+    if terminal_width:
+        console.width = terminal_width
+
+    with console.status("Getting weather..."):
+        location = get_location_details(
+            how=how, city_zip=city_zip, state=state_code, country=country_code, console=console
+        )
+        url = _build_url(forecast_type="daily", units=units, lon=location.lon, lat=location.lat)
+        weather = get_one_call_current_weather(url, console)
+        if not temp_only:
+            console.print(_daily_all(weather, units, am_pm, location))
+        else:
+            console.print(_daily_temp_only(weather, units, am_pm, location))
+
+
 def show_hourly(
     console: Console,
     how: str,
@@ -182,6 +209,91 @@ def _current_weather_temp(current_weather: CurrentWeather, units: str) -> Table:
         str(round(current_weather.main.temp)),
         str(round(current_weather.main.feels_like)),
     )
+
+    return table
+
+
+def _daily_all(weather: OneCallWeather, units: str, am_pm: bool, location: Location) -> Table:
+    temp_unit = _temp_units(units)
+    speed_unit = _speed_units(units)
+    table = Table(
+        title=f"Hourly weather for {location.display_name}",
+        header_style=HEADER_ROW_STYLE,
+        show_lines=True,
+    )
+    table.add_column("Date/Time :date:")
+    table.add_column(f"Temperature ({temp_unit}) :thermometer:")
+    table.add_column("Low :thermometer:")
+    table.add_column("High :thermometer:")
+    table.add_column("Humidity")
+    table.add_column(f"Dew Point ({temp_unit})")
+    table.add_column("Pressure")
+    table.add_column("UVI")
+    table.add_column("Clouds")
+    table.add_column(f"Wind ({speed_unit})")
+    table.add_column(f"Wind Gusts {speed_unit}")
+    table.add_column("Sunrise :sunrise:")
+    table.add_column("Sunset :sunset:")
+
+    for daily in weather.daily:
+        if not am_pm:
+            dt = datetime.strftime(
+                (daily.dt + timedelta(seconds=weather.timezone_offset)), "%Y-%m-%d"
+            )
+            sunrise = str((daily.sunrise + timedelta(seconds=weather.timezone_offset)).time())
+            sunset = str((daily.sunset + timedelta(seconds=weather.timezone_offset)).time())
+        else:
+            dt = datetime.strftime(
+                (daily.dt + timedelta(seconds=weather.timezone_offset)),
+                "%Y-%m-%d",
+            )
+            sunrise = datetime.strftime(
+                (daily.sunrise + timedelta(seconds=weather.timezone_offset)), "%I:%M %p"
+            )
+            sunset = datetime.strftime(
+                (daily.sunset + timedelta(seconds=weather.timezone_offset)), "%I:%M %p"
+            )
+
+        table.add_row(
+            dt,
+            str(round(daily.temp.day)),
+            str(round(daily.temp.min)),
+            str(round(daily.temp.max)),
+            f"{daily.humidity}%",
+            str(round(daily.dew_point)),
+            str(daily.pressure),
+            str(daily.uvi),
+            f"{daily.clouds}%",
+            str(round(daily.wind_speed)),
+            str(round(daily.wind_gust)),
+            sunrise,
+            sunset,
+        )
+
+    return table
+
+
+def _daily_temp_only(weather: OneCallWeather, units: str, am_pm: bool, location: Location) -> Table:
+    temp_unit = _temp_units(units)
+    table = Table(
+        title=f"Hourly weather for {location.display_name}",
+        header_style=HEADER_ROW_STYLE,
+        show_lines=True,
+    )
+    table.add_column("Date/Time :date:")
+    table.add_column(f"Temperature ({temp_unit}) :thermometer:")
+    table.add_column("Low :thermometer:")
+    table.add_column("High :thermometer:")
+
+    for daily in weather.daily:
+        dt = datetime.strftime((daily.dt + timedelta(seconds=weather.timezone_offset)), "%Y-%m-%d")
+
+        table.add_row(
+            dt,
+            str(round(daily.temp.day)),
+            str(round(daily.temp.min)),
+            str(round(daily.temp.max)),
+        )
 
     return table
 
