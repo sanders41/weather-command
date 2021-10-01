@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 from rich.console import Console
 from typer import Argument, BadParameter, Option, Typer
 
-from weather_command._builder import show_current, show_hourly
+from weather_command._builder import show_current, show_daily, show_hourly
 
 load_dotenv()
 
@@ -42,7 +42,7 @@ def main(
         "current",
         "--forecast-type",
         "-f",
-        help="The type of forecast to display. Accepted values are 'current' and 'hourly'.",
+        help="The type of forecast to display. Accepted values are 'current' 'daily', and 'hourly'.",
     ),
     temp_only: bool = Option(
         False, "--temp-only", "-t", help="If this flag is set only tempatures will be displayed."
@@ -58,6 +58,18 @@ def main(
 
     if forecast_type == "current":
         show_current(
+            console=console,
+            how=how,
+            city_zip=city_zip,
+            units=units,
+            state_code=state_code,
+            country_code=country_code,
+            am_pm=am_pm,
+            temp_only=temp_only,
+            terminal_width=terminal_width,
+        )
+    elif forecast_type == "daily":
+        show_daily(
             console=console,
             how=how,
             city_zip=city_zip,
@@ -88,10 +100,11 @@ def _validate_how(how: str) -> None:
 
 
 def _validate_forecast_type(forecast_type: str) -> None:
-    # TODO: Add daily and alert
-    valid_types = ("current", "hourly")
+    valid_types = ("current", "daily", "hourly")
     if forecast_type not in valid_types:
-        raise BadParameter("Only 'current' and 'hourly' are accetped for -f/--forecast-type")
+        raise BadParameter(
+            "Only 'current' 'daily', and 'hourly' are accetped for -f/--forecast-type"
+        )
 
 
 if __name__ == "__main__":
