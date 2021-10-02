@@ -222,9 +222,8 @@ def _daily_all(weather: OneCallWeather, units: str, am_pm: bool, location: Locat
         show_lines=True,
     )
     table.add_column("Date/Time :date:")
-    table.add_column(f"Temperature ({temp_unit}) :thermometer:")
-    table.add_column("Low :thermometer:")
-    table.add_column("High :thermometer:")
+    table.add_column(f"Low ({temp_unit}) :thermometer:")
+    table.add_column(f"High ({temp_unit}) :thermometer:")
     table.add_column("Humidity")
     table.add_column(f"Dew Point ({temp_unit})")
     table.add_column("Pressure")
@@ -256,7 +255,6 @@ def _daily_all(weather: OneCallWeather, units: str, am_pm: bool, location: Locat
 
         table.add_row(
             dt,
-            str(round(daily.temp.day)),
             str(round(daily.temp.min)),
             str(round(daily.temp.max)),
             f"{daily.humidity}%",
@@ -281,16 +279,14 @@ def _daily_temp_only(weather: OneCallWeather, units: str, am_pm: bool, location:
         show_lines=True,
     )
     table.add_column("Date/Time :date:")
-    table.add_column(f"Temperature ({temp_unit}) :thermometer:")
-    table.add_column("Low :thermometer:")
-    table.add_column("High :thermometer:")
+    table.add_column(f"Low ({temp_unit}) :thermometer:")
+    table.add_column(f"High ({temp_unit}) :thermometer:")
 
     for daily in weather.daily:
         dt = datetime.strftime((daily.dt + timedelta(seconds=weather.timezone_offset)), "%Y-%m-%d")
 
         table.add_row(
             dt,
-            str(round(daily.temp.day)),
             str(round(daily.temp.min)),
             str(round(daily.temp.max)),
         )
