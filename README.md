@@ -56,10 +56,9 @@ code. [required]
 * -i, --imperial: If this flag is used the units will be imperial, otherwise units will be metric.
 * --am-pm: If this flag is set the times will be displayed in 12 hour format, otherwise times
 will be 24 hour format.
+* -f, --forecast-type: The type of forecast to display. Accepted values are 'current' 'daily', and 'hourly'. [default: current]
 * -t, --temp-only: If this flag is set only tempatures will be displayed.
 * --terminal_width: Allows for overriding the default terminal width.
-* --install-completion [bash|zsh|fish|powershell|pwsh]: Install completion for the specified shell.
-* --show-completion [bash|zsh|fish|powershell|pwsh]: Show completion for the specified shell, to
 copy it or customize the installation.
 * --help: Show this message and exit.
 
