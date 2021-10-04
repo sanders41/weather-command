@@ -338,8 +338,8 @@ def _hourly_all(weather: OneCallWeather, units: str, am_pm: bool, location: Loca
             f"{hourly.clouds}%",
             str(round(hourly.wind_speed)),
             str(round(hourly.wind_gust)),
-            str(round(hourly.rain)) if hourly.rain else "0",
-            str(round(hourly.snow)) if hourly.snow else "0",
+            str(round(hourly.rain.one_hour)) if hourly.rain else "0",
+            str(round(hourly.snow.one_hour)) if hourly.snow else "0",
         )
 
     return table

@@ -15,8 +15,8 @@ class Clouds(CamelBase):
 
 
 class PrecipAmount(CamelBase):
-    one_hour: Optional[float] = Field(None, alias="1h")
-    three_hour: Optional[float] = Field(None, alias="3h")
+    one_hour: float = Field(0.0, alias="1h")
+    three_hour: float = Field(0.0, alias="3h")
 
 
 class Weather(CamelBase):
@@ -85,8 +85,8 @@ class Hourly(CamelBase):
     wind_speed: float
     wind_gust: float
     wind_deg: int
-    rain: Optional[float] = None
-    snow: Optional[float] = None
+    rain: Optional[PrecipAmount] = None
+    snow: Optional[PrecipAmount] = None
     pop: int
 
 
@@ -135,6 +135,7 @@ class Daily(CamelBase):
     weather: List[Weather]
     clouds: int
     pop: int
+    rain: float = 0.0
     uvi: float
 
 
