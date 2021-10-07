@@ -167,6 +167,43 @@ def _current_weather_all(current_weather: CurrentWeather, units: str, am_pm: boo
     table.add_column(f"Snow 3 Hour ({precip_unit}) :snowflake:")
     table.add_column("Sunrise :sunrise:")
     table.add_column("Sunset :sunset:")
+
+    if current_weather.rain and current_weather.rain.one_hour:
+        rain_one_hour = (
+            str(_mm_to_in(current_weather.rain.one_hour))
+            if units == "imperial"
+            else str(current_weather.rain.one_hour)
+        )
+    else:
+        rain_one_hour = "0"
+
+    if current_weather.rain and current_weather.rain.three_hour:
+        rain_three_hour = (
+            str(_mm_to_in(current_weather.rain.three_hour))
+            if units == "imperial"
+            else str(current_weather.rain.three_hour)
+        )
+    else:
+        rain_three_hour = "0"
+
+    if current_weather.snow and current_weather.snow.one_hour:
+        snow_one_hour = (
+            str(_mm_to_in(current_weather.snow.one_hour))
+            if units == "imperial"
+            else str(current_weather.snow.one_hour)
+        )
+    else:
+        snow_one_hour = "0"
+
+    if current_weather.snow and current_weather.snow.three_hour:
+        snow_three_hour = (
+            str(_mm_to_in(current_weather.snow.three_hour))
+            if units == "imperial"
+            else str(current_weather.snow.three_hour)
+        )
+    else:
+        snow_three_hour = "0"
+
     table.add_row(
         str(round(current_weather.main.temp)),
         str(round(current_weather.main.feels_like)),
@@ -178,18 +215,10 @@ def _current_weather_all(current_weather: CurrentWeather, units: str, am_pm: boo
         str(round(current_weather.wind.gust))
         if current_weather.wind and current_weather.wind.gust
         else "0",
-        (str(current_weather.rain.one_hour) if current_weather.rain.one_hour else "0")
-        if current_weather.rain
-        else "0",
-        (str(current_weather.rain.three_hour) if current_weather.rain.three_hour else "0")
-        if current_weather.rain
-        else "0",
-        (str(current_weather.snow.one_hour) if current_weather.snow.one_hour else "0")
-        if current_weather.snow
-        else "0",
-        (str(current_weather.snow.three_hour) if current_weather.snow.three_hour else "0")
-        if current_weather.snow
-        else "0",
+        rain_one_hour,
+        rain_three_hour,
+        snow_one_hour,
+        snow_three_hour,
         sunrise,
         sunset,
     )
@@ -327,6 +356,24 @@ def _hourly_all(weather: OneCallWeather, units: str, am_pm: bool, location: Loca
                 "%Y-%m-%d %I:%M %p",
             )
 
+        if hourly.rain:
+            rain = (
+                str(_mm_to_in(hourly.rain.one_hour))
+                if units == "imperial"
+                else str(hourly.rain.one_hour)
+            )
+        else:
+            rain = "0"
+
+        if hourly.snow:
+            snow = (
+                str(_mm_to_in(hourly.snow.one_hour))
+                if units == "imperial"
+                else str(hourly.snow.one_hour)
+            )
+        else:
+            snow = "0"
+
         table.add_row(
             dt,
             str(round(hourly.temp)),
@@ -338,8 +385,8 @@ def _hourly_all(weather: OneCallWeather, units: str, am_pm: bool, location: Loca
             f"{hourly.clouds}%",
             str(round(hourly.wind_speed)),
             str(round(hourly.wind_gust)),
-            str(hourly.rain.one_hour) if hourly.rain else "0",
-            str(hourly.snow.one_hour) if hourly.snow else "0",
+            rain,
+            snow,
         )
 
     return table
@@ -376,6 +423,10 @@ def _hourly_temp_only(
         )
 
     return table
+
+
+def _mm_to_in(value: float) -> float:
+    return round(value / 25.4, 2)
 
 
 def _precip_units(units: str) -> str:

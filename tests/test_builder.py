@@ -4,13 +4,28 @@ import pytest
 
 from weather_command import _builder
 from weather_command._config import WEATHER_BASE_URL
+from weather_command.models.weather import PrecipAmount
 
 UNITS = ("metric", "imperial")
 
 
 @pytest.mark.parametrize("units", UNITS)
 @pytest.mark.parametrize("am_pm", [False, True])
-def test_current_weather_all(mock_current_weather, units, am_pm):
+@pytest.mark.parametrize("rain", [None, PrecipAmount(one_hour=0.1, three_hour=0.3)])
+@pytest.mark.parametrize("snow", [None, PrecipAmount(one_hour=0.1, three_hour=0.3)])
+def test_current_weather_all(mock_current_weather, units, am_pm, rain, snow):
+    if mock_current_weather.rain and not rain:
+        mock_current_weather.rain = None
+
+    if rain:
+        mock_current_weather.rain = rain
+
+    if mock_current_weather.snow and not snow:
+        mock_current_weather.snow = None
+
+    if snow:
+        mock_current_weather.snow = snow
+
     table = _builder._current_weather_all(mock_current_weather, units, am_pm)
     assert len(table.columns) == 12
     assert table.row_count == 1
@@ -45,7 +60,24 @@ def test_daily_temp_only(mock_one_call_weather, mock_location, units, am_pm):
 
 @pytest.mark.parametrize("units", UNITS)
 @pytest.mark.parametrize("am_pm", [False, True])
-def test_hourly_all(mock_one_call_weather, mock_location, units, am_pm):
+@pytest.mark.parametrize("rain", [None, PrecipAmount(one_hour=0.1, three_hour=0.0)])
+@pytest.mark.parametrize("snow", [None, PrecipAmount(one_hour=0.1, three_hour=0.0)])
+def test_hourly_all(mock_one_call_weather, mock_location, units, am_pm, rain, snow):
+    if mock_one_call_weather.hourly[0].rain and not rain:
+        mock_one_call_weather.hourly[0].rain = None
+
+    if rain:
+        mock_one_call_weather.hourly[0].rain = rain
+
+    if mock_one_call_weather.hourly[0].snow and not snow:
+        mock_one_call_weather.hourly[0].snow = None
+
+    if mock_one_call_weather.hourly[0].snow and not snow:
+        mock_one_call_weather.hourly[0].snow = None
+
+    if snow:
+        mock_one_call_weather.hourly[0].snow = snow
+
     table = _builder._hourly_all(
         weather=mock_one_call_weather, units=units, am_pm=am_pm, location=mock_location
     )
@@ -112,6 +144,10 @@ def test_build_url_one_one_call(units, forecast_type):
     assert f"lon={lon}" in got
     assert f"lat={lat}" in got
     assert f"&appid={getenv('OPEN_WEATHER_API_KEY')}" in got
+
+
+def test_mm_to_in():
+    assert _builder._mm_to_in(1) == 0.04
 
 
 @pytest.mark.parametrize("units, expected", [("metric", "mm"), ("imperial", "in")])
