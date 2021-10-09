@@ -4,7 +4,7 @@ import pytest
 
 from weather_command import _builder
 from weather_command._config import WEATHER_BASE_URL
-from weather_command.models.weather import PrecipAmount
+from weather_command.models.weather import PrecipAmount, Wind
 
 UNITS = ("metric", "imperial")
 
@@ -13,7 +13,8 @@ UNITS = ("metric", "imperial")
 @pytest.mark.parametrize("am_pm", [False, True])
 @pytest.mark.parametrize("rain", [None, PrecipAmount(one_hour=0.1, three_hour=0.3)])
 @pytest.mark.parametrize("snow", [None, PrecipAmount(one_hour=0.1, three_hour=0.3)])
-def test_current_weather_all(mock_current_weather, units, am_pm, rain, snow):
+@pytest.mark.parametrize("wind", [None, Wind(speed=1.2, deg=23, gust=2.1)])
+def test_current_weather_all(mock_current_weather, units, am_pm, rain, snow, wind):
     if mock_current_weather.rain and not rain:
         mock_current_weather.rain = None
 
@@ -25,6 +26,8 @@ def test_current_weather_all(mock_current_weather, units, am_pm, rain, snow):
 
     if snow:
         mock_current_weather.snow = snow
+
+    mock_current_weather.wind = wind
 
     table = _builder._current_weather_all(mock_current_weather, units, am_pm)
     assert len(table.columns) == 12
@@ -40,7 +43,14 @@ def test_current_weather_temp(mock_current_weather, units):
 
 @pytest.mark.parametrize("units", UNITS)
 @pytest.mark.parametrize("am_pm", [False, True])
-def test_daily_all(mock_one_call_weather, mock_location, units, am_pm):
+@pytest.mark.parametrize("wind", [None, 1.2])
+@pytest.mark.parametrize("gust", [None, 2.1])
+@pytest.mark.parametrize("pressure", [None, 1000])
+def test_daily_all(mock_one_call_weather, mock_location, units, am_pm, wind, gust, pressure):
+    mock_one_call_weather.daily[0].wind_speed = wind
+    mock_one_call_weather.daily[0].wind_gust = wind
+    mock_one_call_weather.daily[0].pressure = pressure
+
     table = _builder._daily_all(
         weather=mock_one_call_weather, units=units, am_pm=am_pm, location=mock_location
     )
@@ -62,7 +72,12 @@ def test_daily_temp_only(mock_one_call_weather, mock_location, units, am_pm):
 @pytest.mark.parametrize("am_pm", [False, True])
 @pytest.mark.parametrize("rain", [None, PrecipAmount(one_hour=0.1, three_hour=0.0)])
 @pytest.mark.parametrize("snow", [None, PrecipAmount(one_hour=0.1, three_hour=0.0)])
-def test_hourly_all(mock_one_call_weather, mock_location, units, am_pm, rain, snow):
+@pytest.mark.parametrize("wind", [None, 1.2])
+@pytest.mark.parametrize("gust", [None, 2.1])
+@pytest.mark.parametrize("pressure", [None, 1000])
+def test_hourly_all(
+    mock_one_call_weather, mock_location, units, am_pm, rain, snow, wind, gust, pressure
+):
     if mock_one_call_weather.hourly[0].rain and not rain:
         mock_one_call_weather.hourly[0].rain = None
 
@@ -77,6 +92,10 @@ def test_hourly_all(mock_one_call_weather, mock_location, units, am_pm, rain, sn
 
     if snow:
         mock_one_call_weather.hourly[0].snow = snow
+
+    mock_one_call_weather.hourly[0].wind_speed = wind
+    mock_one_call_weather.hourly[0].wind_gust = wind
+    mock_one_call_weather.hourly[0].pressure = pressure
 
     table = _builder._hourly_all(
         weather=mock_one_call_weather, units=units, am_pm=am_pm, location=mock_location
@@ -144,6 +163,16 @@ def test_build_url_one_one_call(units, forecast_type):
     assert f"lon={lon}" in got
     assert f"lat={lat}" in got
     assert f"&appid={getenv('OPEN_WEATHER_API_KEY')}" in got
+
+
+def test_hpa_to_in():
+    assert _builder._hpa_to_in(1000) == 29.53
+
+
+def test_kph_to_mph():
+    # Rounding to account for imprecision in floating point numbers. As long as this is accurate to
+    # 2 digits that is good enough.
+    assert round(_builder._kph_to_mph(1), 2) == 0.62
 
 
 def test_mm_to_in():
