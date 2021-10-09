@@ -204,17 +204,31 @@ def _current_weather_all(current_weather: CurrentWeather, units: str, am_pm: boo
     else:
         snow_three_hour = "0"
 
+    if current_weather.wind and current_weather.wind.speed:
+        wind = (
+            str(round(_kph_to_mph(current_weather.wind.speed)))
+            if units == "imperial"
+            else str(round(current_weather.wind.speed))
+        )
+    else:
+        wind = "0"
+
+    if current_weather.wind and current_weather.wind.gust:
+        gusts = (
+            str(round(_kph_to_mph(current_weather.wind.gust)))
+            if units == "imperial"
+            else str(round(current_weather.wind.gust))
+        )
+    else:
+        gusts = "0"
+
     table.add_row(
         str(round(current_weather.main.temp)),
         str(round(current_weather.main.feels_like)),
         f"{current_weather.main.humidity}%" if current_weather.main.humidity else "0%",
         conditions,
-        str(round(current_weather.wind.speed))
-        if current_weather.wind and current_weather.wind.speed
-        else "0",
-        str(round(current_weather.wind.gust))
-        if current_weather.wind and current_weather.wind.gust
-        else "0",
+        wind,
+        gusts,
         rain_one_hour,
         rain_three_hour,
         snow_one_hour,
@@ -245,6 +259,7 @@ def _current_weather_temp(current_weather: CurrentWeather, units: str) -> Table:
 def _daily_all(weather: OneCallWeather, units: str, am_pm: bool, location: Location) -> Table:
     temp_unit = _temp_units(units)
     speed_unit = _speed_units(units)
+    pressure_unit = _pressure_units(units)
     table = Table(
         title=f"Hourly weather for {location.display_name}",
         header_style=HEADER_ROW_STYLE,
@@ -255,7 +270,7 @@ def _daily_all(weather: OneCallWeather, units: str, am_pm: bool, location: Locat
     table.add_column(f"High ({temp_unit}) :thermometer:")
     table.add_column("Humidity")
     table.add_column(f"Dew Point ({temp_unit})")
-    table.add_column("Pressure")
+    table.add_column(f"Pressure {pressure_unit}")
     table.add_column("UVI")
     table.add_column("Clouds")
     table.add_column(f"Wind ({speed_unit})")
@@ -282,17 +297,42 @@ def _daily_all(weather: OneCallWeather, units: str, am_pm: bool, location: Locat
                 (daily.sunset + timedelta(seconds=weather.timezone_offset)), "%I:%M %p"
             )
 
+        if daily.wind_speed:
+            wind = (
+                str(round(_kph_to_mph(daily.wind_speed)))
+                if units == "imperial"
+                else str(round(daily.wind_speed))
+            )
+        else:
+            wind = "0"
+
+        if daily.wind_gust:
+            gusts = (
+                str(round(_kph_to_mph(daily.wind_gust)))
+                if units == "imperial"
+                else str(round(daily.wind_gust))
+            )
+        else:
+            gusts = "0"
+
+        if daily.pressure:
+            pressure = (
+                str(_hpa_to_in(daily.pressure)) if units == "imperial" else str(daily.pressure)
+            )
+        else:
+            pressure = "0"
+
         table.add_row(
             dt,
             str(round(daily.temp.min)),
             str(round(daily.temp.max)),
             f"{daily.humidity}%",
             str(round(daily.dew_point)),
-            str(daily.pressure),
+            pressure,
             str(daily.uvi),
             f"{daily.clouds}%",
-            str(round(daily.wind_speed)),
-            str(round(daily.wind_gust)),
+            wind,
+            gusts,
             sunrise,
             sunset,
         )
@@ -327,6 +367,7 @@ def _hourly_all(weather: OneCallWeather, units: str, am_pm: bool, location: Loca
     temp_unit = _temp_units(units)
     speed_unit = _speed_units(units)
     precip_units = _precip_units(units)
+    pressure_units = _pressure_units(units)
     table = Table(
         title=f"Hourly weather for {location.display_name}",
         header_style=HEADER_ROW_STYLE,
@@ -337,7 +378,7 @@ def _hourly_all(weather: OneCallWeather, units: str, am_pm: bool, location: Loca
     table.add_column(f"Feels Like ({temp_unit}) :thermometer:")
     table.add_column("Humidity")
     table.add_column(f"Dew Point ({temp_unit})")
-    table.add_column("Pressure")
+    table.add_column(f"Pressure {pressure_units}")
     table.add_column("UVI")
     table.add_column("Clouds")
     table.add_column(f"Wind ({speed_unit})")
@@ -374,17 +415,42 @@ def _hourly_all(weather: OneCallWeather, units: str, am_pm: bool, location: Loca
         else:
             snow = "0"
 
+        if hourly.wind_speed:
+            wind = (
+                str(round(_kph_to_mph(hourly.wind_speed)))
+                if units == "imperial"
+                else str(round(hourly.wind_speed))
+            )
+        else:
+            wind = "0"
+
+        if hourly.wind_gust:
+            gusts = (
+                str(round(_kph_to_mph(hourly.wind_gust)))
+                if units == "imperial"
+                else str(round(hourly.wind_gust))
+            )
+        else:
+            gusts = "0"
+
+        if hourly.pressure:
+            pressure = (
+                str(_hpa_to_in(hourly.pressure)) if units == "imperial" else str(hourly.pressure)
+            )
+        else:
+            pressure = "0"
+
         table.add_row(
             dt,
             str(round(hourly.temp)),
             str(round(hourly.feels_like)),
             f"{hourly.humidity}%",
             str(round(hourly.dew_point)),
-            str(hourly.pressure),
+            pressure,
             str(hourly.uvi),
             f"{hourly.clouds}%",
-            str(round(hourly.wind_speed)),
-            str(round(hourly.wind_gust)),
+            wind,
+            gusts,
             rain,
             snow,
         )
@@ -425,6 +491,14 @@ def _hourly_temp_only(
     return table
 
 
+def _hpa_to_in(value: float) -> float:
+    return round(value / 33.863886666667, 2)
+
+
+def _kph_to_mph(value: float) -> float:
+    return value / 1.609
+
+
 def _mm_to_in(value: float) -> float:
     return round(value / 25.4, 2)
 
@@ -432,6 +506,10 @@ def _mm_to_in(value: float) -> float:
 def _precip_units(units: str) -> str:
     _validate_units(units)
     return "mm" if units == "metric" else "in"
+
+
+def _pressure_units(units: str) -> str:
+    return "hPa" if units == "metric" else "in"
 
 
 def _speed_units(units: str) -> str:
