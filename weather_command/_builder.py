@@ -155,58 +155,25 @@ def _current_weather_all(current_weather: CurrentWeather, units: str, am_pm: boo
     table.add_column("Sunrise :sunrise:")
     table.add_column("Sunset :sunset:")
 
-    if current_weather.rain and current_weather.rain.one_hour:
-        rain_one_hour = (
-            str(_mm_to_in(current_weather.rain.one_hour))
-            if units == "imperial"
-            else str(current_weather.rain.one_hour)
-        )
+    if current_weather.rain:
+        rain_one_hour = _format_precip(current_weather.rain.one_hour, units)
+        rain_three_hour = _format_precip(current_weather.rain.three_hour, units)
     else:
         rain_one_hour = "0"
-
-    if current_weather.rain and current_weather.rain.three_hour:
-        rain_three_hour = (
-            str(_mm_to_in(current_weather.rain.three_hour))
-            if units == "imperial"
-            else str(current_weather.rain.three_hour)
-        )
-    else:
         rain_three_hour = "0"
 
-    if current_weather.snow and current_weather.snow.one_hour:
-        snow_one_hour = (
-            str(_mm_to_in(current_weather.snow.one_hour))
-            if units == "imperial"
-            else str(current_weather.snow.one_hour)
-        )
+    if current_weather.snow:
+        snow_one_hour = _format_precip(current_weather.snow.one_hour, units)
+        snow_three_hour = _format_precip(current_weather.snow.three_hour, units)
     else:
         snow_one_hour = "0"
-
-    if current_weather.snow and current_weather.snow.three_hour:
-        snow_three_hour = (
-            str(_mm_to_in(current_weather.snow.three_hour))
-            if units == "imperial"
-            else str(current_weather.snow.three_hour)
-        )
-    else:
         snow_three_hour = "0"
 
-    if current_weather.wind and current_weather.wind.speed:
-        wind = (
-            str(round(_kph_to_mph(current_weather.wind.speed)))
-            if units == "imperial"
-            else str(round(current_weather.wind.speed))
-        )
+    if current_weather.wind:
+        wind = _format_wind(current_weather.wind.speed, units)
+        gusts = _format_wind(current_weather.wind.gust, units)
     else:
         wind = "0"
-
-    if current_weather.wind and current_weather.wind.gust:
-        gusts = (
-            str(round(_kph_to_mph(current_weather.wind.gust)))
-            if units == "imperial"
-            else str(round(current_weather.wind.gust))
-        )
-    else:
         gusts = "0"
 
     table.add_row(
@@ -269,30 +236,9 @@ def _daily_all(weather: OneCallWeather, units: str, am_pm: bool, location: Locat
             am_pm, daily.sunrise, daily.sunset, weather.timezone_offset
         )
 
-        if daily.wind_speed:
-            wind = (
-                str(round(_kph_to_mph(daily.wind_speed)))
-                if units == "imperial"
-                else str(round(daily.wind_speed))
-            )
-        else:
-            wind = "0"
-
-        if daily.wind_gust:
-            gusts = (
-                str(round(_kph_to_mph(daily.wind_gust)))
-                if units == "imperial"
-                else str(round(daily.wind_gust))
-            )
-        else:
-            gusts = "0"
-
-        if daily.pressure:
-            pressure = (
-                str(_hpa_to_in(daily.pressure)) if units == "imperial" else str(daily.pressure)
-            )
-        else:
-            pressure = "0"
+        wind = _format_wind(daily.wind_speed, units)
+        gusts = _format_wind(daily.wind_gust, units)
+        pressure = _format_pressure(daily.pressure, units)
 
         table.add_row(
             dt,
@@ -347,6 +293,27 @@ def _format_date_time(am_pm: bool, dt: datetime, timezone: int) -> str:
         )
 
 
+def _format_precip(precip_amount: float | None, units: str) -> str:
+    if not precip_amount:
+        return "0"
+
+    return str(_mm_to_in(precip_amount)) if units == "imperial" else str(precip_amount)
+
+
+def _format_pressure(pressure: int | None, units: str) -> str:
+    if not pressure:
+        return "0"
+
+    return str(_hpa_to_in(pressure)) if units == "imperial" else str(pressure)
+
+
+def _format_wind(speed: float | None, units: str) -> str:
+    if not speed:
+        return "0"
+
+    return str(round(_kph_to_mph(speed))) if units == "imperial" else str(round(speed))
+
+
 def _format_sunrise_sunset(
     am_pm: bool, sunrise: datetime, sunset: datetime, timezone: int
 ) -> tuple[str, str]:
@@ -398,49 +365,11 @@ def _hourly_all(weather: OneCallWeather, units: str, am_pm: bool, location: Loca
 
     for hourly in weather.hourly:
         dt = _format_date_time(am_pm, hourly.dt, weather.timezone_offset)
-
-        if hourly.rain:
-            rain = (
-                str(_mm_to_in(hourly.rain.one_hour))
-                if units == "imperial"
-                else str(hourly.rain.one_hour)
-            )
-        else:
-            rain = "0"
-
-        if hourly.snow:
-            snow = (
-                str(_mm_to_in(hourly.snow.one_hour))
-                if units == "imperial"
-                else str(hourly.snow.one_hour)
-            )
-        else:
-            snow = "0"
-
-        if hourly.wind_speed:
-            wind = (
-                str(round(_kph_to_mph(hourly.wind_speed)))
-                if units == "imperial"
-                else str(round(hourly.wind_speed))
-            )
-        else:
-            wind = "0"
-
-        if hourly.wind_gust:
-            gusts = (
-                str(round(_kph_to_mph(hourly.wind_gust)))
-                if units == "imperial"
-                else str(round(hourly.wind_gust))
-            )
-        else:
-            gusts = "0"
-
-        if hourly.pressure:
-            pressure = (
-                str(_hpa_to_in(hourly.pressure)) if units == "imperial" else str(hourly.pressure)
-            )
-        else:
-            pressure = "0"
+        rain = _format_precip(hourly.rain.one_hour, units) if hourly.rain else "0"
+        snow = _format_precip(hourly.snow.one_hour, units) if hourly.snow else "0"
+        wind = _format_wind(hourly.wind_speed, units)
+        gusts = _format_wind(hourly.wind_gust, units)
+        pressure = _format_pressure(hourly.pressure, units)
 
         table.add_row(
             dt,
