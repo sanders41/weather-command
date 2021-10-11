@@ -179,31 +179,14 @@ def test_mm_to_in():
     assert _builder._mm_to_in(1) == 0.04
 
 
-@pytest.mark.parametrize("units, expected", [("metric", "mm"), ("imperial", "in")])
-def test_precip_units(units, expected):
-    assert _builder._precip_units(units) == expected
+@pytest.mark.parametrize(
+    "units, expected",
+    [("metric", ("mm", "hPa", "kph", "C")), ("imperial", ("in", "in", "mph", "F"))],
+)
+def test_get_units(units, expected):
+    assert _builder._get_units(units) == expected
 
 
-def test_precip_units_error():
+def test_get_units_error():
     with pytest.raises(ValueError):
-        _builder._precip_units("bad")
-
-
-@pytest.mark.parametrize("units, expected", [("metric", "kph"), ("imperial", "mph")])
-def test_speed_units(units, expected):
-    assert _builder._speed_units(units) == expected
-
-
-def test_speed_units_error():
-    with pytest.raises(ValueError):
-        _builder._speed_units("bad")
-
-
-@pytest.mark.parametrize("units, expected", [("metric", "C"), ("imperial", "F")])
-def test_temp_units(units, expected):
-    assert _builder._temp_units(units) == expected
-
-
-def test_temp_units_error():
-    with pytest.raises(ValueError):
-        _builder._speed_units("bad")
+        _builder._get_units("bad")

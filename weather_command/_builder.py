@@ -130,37 +130,24 @@ def _build_url(
 
 
 def _current_weather_all(current_weather: CurrentWeather, units: str, am_pm: bool) -> Table:
-    temp_unit = _temp_units(units)
-    speed_unit = _speed_units(units)
-    precip_unit = _precip_units(units)
+    precip_unit, _, speed_units, temp_units = _get_units(units)
     conditions = current_weather.weather[0].description
     weather_icon = WeatherIcons.get_icon(conditions)
     if weather_icon:
         conditions += f" {weather_icon}"
-    if not am_pm:
-        sunrise = str(
-            (current_weather.sys.sunrise + timedelta(seconds=current_weather.timezone)).time()
-        )
-        sunset = str(
-            (current_weather.sys.sunset + timedelta(seconds=current_weather.timezone)).time()
-        )
-    else:
-        sunrise = datetime.strftime(
-            (current_weather.sys.sunrise + timedelta(seconds=current_weather.timezone)), "%I:%M %p"
-        )
-        sunset = datetime.strftime(
-            (current_weather.sys.sunset + timedelta(seconds=current_weather.timezone)), "%I:%M %p"
-        )
+    sunrise, sunset = _format_sunrise_sunset(
+        am_pm, current_weather.sys.sunrise, current_weather.sys.sunset, current_weather.timezone
+    )
 
     table = Table(
         title=f"Current weather for {current_weather.name}", header_style=HEADER_ROW_STYLE
     )
-    table.add_column(f"Temperature ({temp_unit}) :thermometer:")
-    table.add_column(f"Feels Like ({temp_unit}) :thermometer:")
+    table.add_column(f"Temperature ({temp_units}) :thermometer:")
+    table.add_column(f"Feels Like ({temp_units}) :thermometer:")
     table.add_column("Humidity")
     table.add_column("Conditions")
-    table.add_column(f"Wind Speed ({speed_unit})")
-    table.add_column(f"Wind Gusts ({speed_unit})")
+    table.add_column(f"Wind Speed ({speed_units})")
+    table.add_column(f"Wind Gusts ({speed_units})")
     table.add_column(f"Rain 1 Hour ({precip_unit}) :cloud_with_rain:")
     table.add_column(f"Rain 3 Hour ({precip_unit}) :cloud_with_rain:")
     table.add_column(f"Snow 1 Hour ({precip_unit}) :snowflake:")
@@ -241,13 +228,13 @@ def _current_weather_all(current_weather: CurrentWeather, units: str, am_pm: boo
 
 
 def _current_weather_temp(current_weather: CurrentWeather, units: str) -> Table:
-    temp_unit = _temp_units(units)
+    _, _, _, temp_units = _get_units(units)
 
     table = Table(
         title=f"Current weather for {current_weather.name}", header_style=HEADER_ROW_STYLE
     )
-    table.add_column(f"Temperature ({temp_unit}) :thermometer:")
-    table.add_column(f"Feels Like ({temp_unit}) :thermometer:")
+    table.add_column(f"Temperature ({temp_units}) :thermometer:")
+    table.add_column(f"Feels Like ({temp_units}) :thermometer:")
     table.add_row(
         str(round(current_weather.main.temp)),
         str(round(current_weather.main.feels_like)),
@@ -257,45 +244,30 @@ def _current_weather_temp(current_weather: CurrentWeather, units: str) -> Table:
 
 
 def _daily_all(weather: OneCallWeather, units: str, am_pm: bool, location: Location) -> Table:
-    temp_unit = _temp_units(units)
-    speed_unit = _speed_units(units)
-    pressure_unit = _pressure_units(units)
+    _, pressure_units, speed_units, temp_units = _get_units(units)
     table = Table(
         title=f"Hourly weather for {location.display_name}",
         header_style=HEADER_ROW_STYLE,
         show_lines=True,
     )
     table.add_column("Date/Time :date:")
-    table.add_column(f"Low ({temp_unit}) :thermometer:")
-    table.add_column(f"High ({temp_unit}) :thermometer:")
+    table.add_column(f"Low ({temp_units}) :thermometer:")
+    table.add_column(f"High ({temp_units}) :thermometer:")
     table.add_column("Humidity")
-    table.add_column(f"Dew Point ({temp_unit})")
-    table.add_column(f"Pressure {pressure_unit}")
+    table.add_column(f"Dew Point ({temp_units})")
+    table.add_column(f"Pressure {pressure_units}")
     table.add_column("UVI")
     table.add_column("Clouds")
-    table.add_column(f"Wind ({speed_unit})")
-    table.add_column(f"Wind Gusts {speed_unit}")
+    table.add_column(f"Wind ({speed_units})")
+    table.add_column(f"Wind Gusts {speed_units}")
     table.add_column("Sunrise :sunrise:")
     table.add_column("Sunset :sunset:")
 
     for daily in weather.daily:
-        if not am_pm:
-            dt = datetime.strftime(
-                (daily.dt + timedelta(seconds=weather.timezone_offset)), "%Y-%m-%d"
-            )
-            sunrise = str((daily.sunrise + timedelta(seconds=weather.timezone_offset)).time())
-            sunset = str((daily.sunset + timedelta(seconds=weather.timezone_offset)).time())
-        else:
-            dt = datetime.strftime(
-                (daily.dt + timedelta(seconds=weather.timezone_offset)),
-                "%Y-%m-%d",
-            )
-            sunrise = datetime.strftime(
-                (daily.sunrise + timedelta(seconds=weather.timezone_offset)), "%I:%M %p"
-            )
-            sunset = datetime.strftime(
-                (daily.sunset + timedelta(seconds=weather.timezone_offset)), "%I:%M %p"
-            )
+        dt = _format_date_time(am_pm, daily.dt, weather.timezone_offset)
+        sunrise, sunset = _format_sunrise_sunset(
+            am_pm, daily.sunrise, daily.sunset, weather.timezone_offset
+        )
 
         if daily.wind_speed:
             wind = (
@@ -341,18 +313,18 @@ def _daily_all(weather: OneCallWeather, units: str, am_pm: bool, location: Locat
 
 
 def _daily_temp_only(weather: OneCallWeather, units: str, am_pm: bool, location: Location) -> Table:
-    temp_unit = _temp_units(units)
+    _, _, _, temp_units = _get_units(units)
     table = Table(
         title=f"Hourly weather for {location.display_name}",
         header_style=HEADER_ROW_STYLE,
         show_lines=True,
     )
     table.add_column("Date/Time :date:")
-    table.add_column(f"Low ({temp_unit}) :thermometer:")
-    table.add_column(f"High ({temp_unit}) :thermometer:")
+    table.add_column(f"Low ({temp_units}) :thermometer:")
+    table.add_column(f"High ({temp_units}) :thermometer:")
 
     for daily in weather.daily:
-        dt = datetime.strftime((daily.dt + timedelta(seconds=weather.timezone_offset)), "%Y-%m-%d")
+        dt = _format_date_time(am_pm, daily.dt, weather.timezone_offset)
 
         table.add_row(
             dt,
@@ -363,39 +335,69 @@ def _daily_temp_only(weather: OneCallWeather, units: str, am_pm: bool, location:
     return table
 
 
+def _format_date_time(am_pm: bool, dt: datetime, timezone: int) -> str:
+    if not am_pm:
+        return str(datetime.strftime((dt + timedelta(seconds=timezone)), "%Y-%m-%d %H:%M"))
+    else:
+        return str(
+            datetime.strftime(
+                (dt + timedelta(seconds=timezone)),
+                "%Y-%m-%d %I:%M %p",
+            )
+        )
+
+
+def _format_sunrise_sunset(
+    am_pm: bool, sunrise: datetime, sunset: datetime, timezone: int
+) -> tuple[str, str]:
+    if not am_pm:
+        sunrise_format = str((sunrise + timedelta(seconds=timezone)).time())
+        sunset_format = str((sunset + timedelta(seconds=timezone)).time())
+        return sunrise_format, sunset_format
+
+    sunrise_format = datetime.strftime((sunrise + timedelta(seconds=timezone)), "%I:%M %p")
+    sunset_format = datetime.strftime((sunset + timedelta(seconds=timezone)), "%I:%M %p")
+    return sunrise_format, sunset_format
+
+
+def _get_units(units: str) -> tuple[str, str, str, str]:
+    _validate_units(units)
+    if units == "metric":
+        precip_units = "mm"
+        pressure_units = "hPa"
+        speed_units = "kph"
+        temp_units = "C"
+        return precip_units, pressure_units, speed_units, temp_units
+
+    precip_units = "in"
+    pressure_units = "in"
+    speed_units = "mph"
+    temp_units = "F"
+    return precip_units, pressure_units, speed_units, temp_units
+
+
 def _hourly_all(weather: OneCallWeather, units: str, am_pm: bool, location: Location) -> Table:
-    temp_unit = _temp_units(units)
-    speed_unit = _speed_units(units)
-    precip_units = _precip_units(units)
-    pressure_units = _pressure_units(units)
+    precip_units, pressure_units, speed_units, temp_units = _get_units(units)
     table = Table(
         title=f"Hourly weather for {location.display_name}",
         header_style=HEADER_ROW_STYLE,
         show_lines=True,
     )
     table.add_column("Date/Time :date:")
-    table.add_column(f"Temperature ({temp_unit}) :thermometer:")
-    table.add_column(f"Feels Like ({temp_unit}) :thermometer:")
+    table.add_column(f"Temperature ({temp_units}) :thermometer:")
+    table.add_column(f"Feels Like ({temp_units}) :thermometer:")
     table.add_column("Humidity")
-    table.add_column(f"Dew Point ({temp_unit})")
+    table.add_column(f"Dew Point ({temp_units})")
     table.add_column(f"Pressure {pressure_units}")
     table.add_column("UVI")
     table.add_column("Clouds")
-    table.add_column(f"Wind ({speed_unit})")
-    table.add_column(f"Wind Gusts {speed_unit}")
+    table.add_column(f"Wind ({speed_units})")
+    table.add_column(f"Wind Gusts {speed_units}")
     table.add_column(f"Rain ({precip_units}) :cloud_with_rain:")
     table.add_column(f"Snow ({precip_units}) :snowflake:")
 
     for hourly in weather.hourly:
-        if not am_pm:
-            dt = datetime.strftime(
-                (hourly.dt + timedelta(seconds=weather.timezone_offset)), "%Y-%m-%d %H:%M"
-            )
-        else:
-            dt = datetime.strftime(
-                (hourly.dt + timedelta(seconds=weather.timezone_offset)),
-                "%Y-%m-%d %I:%M %p",
-            )
+        dt = _format_date_time(am_pm, hourly.dt, weather.timezone_offset)
 
         if hourly.rain:
             rain = (
@@ -461,26 +463,18 @@ def _hourly_all(weather: OneCallWeather, units: str, am_pm: bool, location: Loca
 def _hourly_temp_only(
     weather: OneCallWeather, units: str, am_pm: bool, location: Location
 ) -> Table:
-    temp_unit = _temp_units(units)
+    _, _, _, temp_units = _get_units(units)
     table = Table(
         title=f"Hourly weather for {location.display_name}",
         header_style=HEADER_ROW_STYLE,
         show_lines=True,
     )
     table.add_column("Date/Time :date:")
-    table.add_column(f"Temperature ({temp_unit}) :thermometer:")
-    table.add_column(f"Feels Like ({temp_unit}) :thermometer:")
+    table.add_column(f"Temperature ({temp_units}) :thermometer:")
+    table.add_column(f"Feels Like ({temp_units}) :thermometer:")
 
     for hourly in weather.hourly:
-        if not am_pm:
-            dt = datetime.strftime(
-                (hourly.dt + timedelta(seconds=weather.timezone_offset)), "%Y-%m-%d %H:%M"
-            )
-        else:
-            dt = datetime.strftime(
-                (hourly.dt + timedelta(seconds=weather.timezone_offset)),
-                "%Y-%m-%d %I:%M %p",
-            )
+        dt = _format_date_time(am_pm, hourly.dt, weather.timezone_offset)
 
         table.add_row(
             dt,
@@ -501,25 +495,6 @@ def _kph_to_mph(value: float) -> float:
 
 def _mm_to_in(value: float) -> float:
     return round(value / 25.4, 2)
-
-
-def _precip_units(units: str) -> str:
-    _validate_units(units)
-    return "mm" if units == "metric" else "in"
-
-
-def _pressure_units(units: str) -> str:
-    return "hPa" if units == "metric" else "in"
-
-
-def _speed_units(units: str) -> str:
-    _validate_units(units)
-    return "kph" if units == "metric" else "mph"
-
-
-def _temp_units(units: str) -> str:
-    _validate_units(units)
-    return "C" if units == "metric" else "F"
 
 
 def _validate_units(units: str) -> None:
