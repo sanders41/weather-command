@@ -2,9 +2,9 @@ from unittest.mock import patch
 
 import pytest
 
-from weather_command.__main__ import app
 from weather_command._config import LOCATION_BASE_URL
 from weather_command.errors import MissingApiKey
+from weather_command.main import app
 
 
 @pytest.mark.parametrize("how, city_zip", [("city", "Greensboro"), ("zip", "27405")])

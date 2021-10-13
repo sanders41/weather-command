@@ -35,7 +35,7 @@ requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
-weather-command = "weather_command.__main__:app"
+weather-command = "weather_command.main:app"
 
 [tool.black]
 line-length = 100
