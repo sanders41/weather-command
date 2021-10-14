@@ -1,8 +1,9 @@
+from enum import Enum
 from typing import Optional
 
 from dotenv import load_dotenv
 from rich.console import Console
-from typer import Argument, BadParameter, Option, Typer
+from typer import Argument, Option, Typer
 
 from weather_command._builder import show_current, show_daily, show_hourly
 
@@ -12,10 +13,22 @@ app = Typer()
 console = Console()
 
 
+class ForecastType(str, Enum):
+    CURRENT = "current"
+    DAILY = "daily"
+    HOURLY = "hourly"
+
+
+class How(str, Enum):
+    CITY = "city"
+    ZIP = "zip"
+
+
 @app.command()
 def main(
-    how: str = Argument(
-        "city", help="How to get the weather. Accepted values are 'city' and 'zip'."
+    how: How = Argument(
+        "city",
+        help="How to get the weather.",
     ),
     city_zip: str = Argument(
         ...,
@@ -25,7 +38,10 @@ def main(
         None, "--state-code", "-s", help="The name of the state where the city is located."
     ),
     country_code: Optional[str] = Option(
-        None, "--country-code", "-c", help="The country code where the city is located."
+        None,
+        "--country-code",
+        "-c",
+        help="The country code where the city is located.",
     ),
     imperial: bool = Option(
         False,
@@ -38,11 +54,11 @@ def main(
         "--am-pm",
         help="If this flag is set the times will be displayed in 12 hour format, otherwise times will be 24 hour format.",
     ),
-    forecast_type: str = Option(
-        "current",
+    forecast_type: ForecastType = Option(
+        ForecastType.CURRENT,
         "--forecast-type",
         "-f",
-        help="The type of forecast to display. Accepted values are 'current' 'daily', and 'hourly'.",
+        help="The type of forecast to display.",
     ),
     temp_only: bool = Option(
         False, "--temp-only", "-t", help="If this flag is set only tempatures will be displayed."
@@ -51,9 +67,6 @@ def main(
         None, "--terminal_width", help="Allows for overriding the default terminal width."
     ),
 ) -> None:
-    _validate_how(how)
-    _validate_forecast_type(forecast_type)
-
     units = "imperial" if imperial else "metric"
 
     if forecast_type == "current":
@@ -91,19 +104,6 @@ def main(
             am_pm=am_pm,
             temp_only=temp_only,
             terminal_width=terminal_width,
-        )
-
-
-def _validate_how(how: str) -> None:
-    if how not in ("city", "zip"):
-        raise BadParameter("The first argument must either be 'city' or 'zip'")
-
-
-def _validate_forecast_type(forecast_type: str) -> None:
-    valid_types = ("current", "daily", "hourly")
-    if forecast_type not in valid_types:
-        raise BadParameter(
-            "Only 'current' 'daily', and 'hourly' are accetped for -f/--forecast-type"
         )
 
 
