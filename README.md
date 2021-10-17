@@ -22,7 +22,7 @@ Alternatively Weather Command can be installed with pip.
 pip install weather-command
 ```
 
-## Useage
+## Usage
 
 First an API key is needed from [OpenWeather](https://openweathermap.org/), A free account is all that
 is needed. Once you have your API key create an environment variable named `OPEN_WEATHER_API_KEY` that
