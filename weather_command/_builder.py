@@ -231,7 +231,7 @@ def _daily_all(weather: OneCallWeather, units: str, am_pm: bool, location: Locat
     table.add_column("Sunset :sunset:")
 
     for daily in weather.daily:
-        dt = _format_date_time(am_pm, daily.dt, weather.timezone_offset)
+        dt = _format_date_time(am_pm, daily.dt, weather.timezone_offset, "daily")
         sunrise, sunset = _format_sunrise_sunset(
             am_pm, daily.sunrise, daily.sunset, weather.timezone_offset
         )
@@ -270,7 +270,7 @@ def _daily_temp_only(weather: OneCallWeather, units: str, am_pm: bool, location:
     table.add_column(f"High ({temp_units}) :thermometer:")
 
     for daily in weather.daily:
-        dt = _format_date_time(am_pm, daily.dt, weather.timezone_offset)
+        dt = _format_date_time(am_pm, daily.dt, weather.timezone_offset, "daily")
 
         table.add_row(
             dt,
@@ -281,7 +281,20 @@ def _daily_temp_only(weather: OneCallWeather, units: str, am_pm: bool, location:
     return table
 
 
-def _format_date_time(am_pm: bool, dt: datetime, timezone: int) -> str:
+def _format_date_time(
+    am_pm: bool, dt: datetime, timezone: int, forecast_type: str | None = None
+) -> str:
+    if forecast_type == "daily":
+        if not am_pm:
+            return str(datetime.strftime((dt + timedelta(seconds=timezone)), "%Y-%m-%d %H:%M %A"))
+        else:
+            return str(
+                datetime.strftime(
+                    (dt + timedelta(seconds=timezone)),
+                    "%Y-%m-%d %I:%M %p %A",
+                )
+            )
+
     if not am_pm:
         return str(datetime.strftime((dt + timedelta(seconds=timezone)), "%Y-%m-%d %H:%M"))
     else:
