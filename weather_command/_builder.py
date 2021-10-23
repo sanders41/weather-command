@@ -212,6 +212,7 @@ def _daily_all(weather: OneCallWeather, units: str, am_pm: bool, location: Locat
     table.add_column("Humidity")
     table.add_column(f"Dew Point ({temp_units})")
     table.add_column(f"Pressure {pressure_units}")
+    table.add_column("Conditions")
     table.add_column("UVI")
     table.add_column("Clouds")
     table.add_column(f"Wind ({speed_units})")
@@ -224,6 +225,10 @@ def _daily_all(weather: OneCallWeather, units: str, am_pm: bool, location: Locat
         sunrise, sunset = _format_sunrise_sunset(
             am_pm, daily.sunrise, daily.sunset, weather.timezone_offset
         )
+        conditions = daily.weather[0].description
+        weather_icon = WeatherIcons.get_icon(conditions)
+        if weather_icon:
+            conditions += f" {weather_icon}"
 
         wind = _format_wind(daily.wind_speed, units)
         gusts = _format_wind(daily.wind_gust, units)
@@ -236,6 +241,7 @@ def _daily_all(weather: OneCallWeather, units: str, am_pm: bool, location: Locat
             f"{daily.humidity}%",
             str(round(daily.dew_point)),
             pressure,
+            conditions,
             str(daily.uvi),
             f"{daily.clouds}%",
             wind,
@@ -350,6 +356,7 @@ def _hourly_all(weather: OneCallWeather, units: str, am_pm: bool, location: Loca
     table.add_column("Humidity")
     table.add_column(f"Dew Point ({temp_units})")
     table.add_column(f"Pressure {pressure_units}")
+    table.add_column("Conditions")
     table.add_column("UVI")
     table.add_column("Clouds")
     table.add_column(f"Wind ({speed_units})")
@@ -364,6 +371,10 @@ def _hourly_all(weather: OneCallWeather, units: str, am_pm: bool, location: Loca
         wind = _format_wind(hourly.wind_speed, units)
         gusts = _format_wind(hourly.wind_gust, units)
         pressure = _format_pressure(hourly.pressure, units)
+        conditions = hourly.weather[0].description
+        weather_icon = WeatherIcons.get_icon(conditions)
+        if weather_icon:
+            conditions += f" {weather_icon}"
 
         table.add_row(
             dt,
@@ -372,6 +383,7 @@ def _hourly_all(weather: OneCallWeather, units: str, am_pm: bool, location: Loca
             f"{hourly.humidity}%",
             str(round(hourly.dew_point)),
             pressure,
+            conditions,
             str(hourly.uvi),
             f"{hourly.clouds}%",
             wind,

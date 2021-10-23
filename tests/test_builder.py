@@ -57,7 +57,7 @@ def test_daily_all(mock_one_call_weather, mock_location, units, am_pm, wind, pre
     table = _builder._daily_all(
         weather=mock_one_call_weather, units=units, am_pm=am_pm, location=mock_location
     )
-    assert len(table.columns) == 12
+    assert len(table.columns) == 13
     assert table.row_count == len(mock_one_call_weather.daily)
 
 
@@ -103,7 +103,7 @@ def test_hourly_all(
     table = _builder._hourly_all(
         weather=mock_one_call_weather, units=units, am_pm=am_pm, location=mock_location
     )
-    assert len(table.columns) == 12
+    assert len(table.columns) == 13
     assert table.row_count == len(mock_one_call_weather.hourly)
 
 

@@ -80,6 +80,7 @@ class Hourly(CamelBase):
     humidity: int
     dew_point: float
     uvi: float
+    weather: List[Weather]
     clouds: int
     visibility: int
     wind_speed: float
