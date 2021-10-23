@@ -27,25 +27,25 @@ def show_current(
     temp_only: bool = False,
     terminal_width: int | None = None,
 ) -> None:
-    url = _build_url(
-        forecast_type="current",
-        how=how,
-        city_zip=city_zip,
-        units=units,
-        state_code=state_code,
-        country_code=country_code,
-    )
-
     if terminal_width:
         console.width = terminal_width
 
     with console.status("Getting weather..."):
+        location = get_location_details(
+            how=how, city_zip=city_zip, state=state_code, country=country_code, console=console
+        )
+        url = _build_url(
+            forecast_type="current",
+            units=units,
+            lon=location.lon,
+            lat=location.lat,
+        )
         current_weather = get_current_weather(url, console)
 
     if not temp_only:
-        console.print(_current_weather_all(current_weather, units, am_pm))
+        console.print(_current_weather_all(current_weather, units, am_pm, location))
     else:
-        console.print(_current_weather_temp(current_weather, units))
+        console.print(_current_weather_temp(current_weather, units, location))
 
 
 def show_daily(
@@ -105,31 +105,20 @@ def show_hourly(
 def _build_url(
     forecast_type: str,
     units: str,
-    how: str | None = None,
-    city_zip: str | None = None,
     lon: float | None = None,
     lat: float | None = None,
-    state_code: str | None = None,
-    country_code: str | None = None,
 ) -> str:
     if forecast_type == "current":
-        if how == "city":
-            url = f"{WEATHER_BASE_URL}/weather?q={city_zip}&units={units}"
-        else:
-            url = f"{WEATHER_BASE_URL}/weather?zip={city_zip}&units={units}"
-
-        if state_code:
-            url = f"{url}&state_code={state_code}"
-
-        if country_code:
-            url = f"{url}&country_code={country_code}"
+        url = f"{WEATHER_BASE_URL}/weather?lat={lat}&lon={lon}&units={units}"
     else:
         url = f"{WEATHER_BASE_URL}/onecall?lat={lat}&lon={lon}&units={units}"
 
     return apppend_api_key(url)
 
 
-def _current_weather_all(current_weather: CurrentWeather, units: str, am_pm: bool) -> Table:
+def _current_weather_all(
+    current_weather: CurrentWeather, units: str, am_pm: bool, location: Location
+) -> Table:
     precip_unit, _, speed_units, temp_units = _get_units(units)
     conditions = current_weather.weather[0].description
     weather_icon = WeatherIcons.get_icon(conditions)
@@ -140,7 +129,7 @@ def _current_weather_all(current_weather: CurrentWeather, units: str, am_pm: boo
     )
 
     table = Table(
-        title=f"Current weather for {current_weather.name}", header_style=HEADER_ROW_STYLE
+        title=f"Current weather for {location.display_name}", header_style=HEADER_ROW_STYLE
     )
     table.add_column(f"Temperature ({temp_units}) :thermometer:")
     table.add_column(f"Feels Like ({temp_units}) :thermometer:")
@@ -194,11 +183,11 @@ def _current_weather_all(current_weather: CurrentWeather, units: str, am_pm: boo
     return table
 
 
-def _current_weather_temp(current_weather: CurrentWeather, units: str) -> Table:
+def _current_weather_temp(current_weather: CurrentWeather, units: str, location: Location) -> Table:
     _, _, _, temp_units = _get_units(units)
 
     table = Table(
-        title=f"Current weather for {current_weather.name}", header_style=HEADER_ROW_STYLE
+        title=f"Current weather for {location.display_name}", header_style=HEADER_ROW_STYLE
     )
     table.add_column(f"Temperature ({temp_units}) :thermometer:")
     table.add_column(f"Feels Like ({temp_units}) :thermometer:")
