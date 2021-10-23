@@ -62,7 +62,14 @@ def test_main(
         args.append(temp_only)
 
     if forecast_type == "current" or not forecast_type:
-        with patch("httpx.get", return_value=mock_current_weather_response):
+
+        def mock_return(*args, **kwargs):
+            if LOCATION_BASE_URL in args[0]:
+                return mock_location_response
+
+            return mock_current_weather_response
+
+        with patch("httpx.get", side_effect=mock_return):
             result = test_runner.invoke(app, args)
     else:
 

@@ -14,7 +14,7 @@ UNITS = ("metric", "imperial")
 @pytest.mark.parametrize("rain", [None, PrecipAmount(one_hour=0.1, three_hour=0.3)])
 @pytest.mark.parametrize("snow", [None, PrecipAmount(one_hour=0.1, three_hour=0.3)])
 @pytest.mark.parametrize("wind", [None, Wind(speed=1.2, deg=23, gust=2.1)])
-def test_current_weather_all(mock_current_weather, units, am_pm, rain, snow, wind):
+def test_current_weather_all(mock_current_weather, units, am_pm, rain, snow, wind, mock_location):
     if mock_current_weather.rain and not rain:
         mock_current_weather.rain = None
 
@@ -29,14 +29,18 @@ def test_current_weather_all(mock_current_weather, units, am_pm, rain, snow, win
 
     mock_current_weather.wind = wind
 
-    table = _builder._current_weather_all(mock_current_weather, units, am_pm)
+    table = _builder._current_weather_all(mock_current_weather, units, am_pm, mock_location)
     assert len(table.columns) == 12
     assert table.row_count == 1
 
 
 @pytest.mark.parametrize("units", UNITS)
-def test_current_weather_temp(mock_current_weather, units):
-    table = _builder._current_weather_temp(mock_current_weather, units)
+def test_current_weather_temp(
+    mock_current_weather,
+    units,
+    mock_location,
+):
+    table = _builder._current_weather_temp(mock_current_weather, units, mock_location)
     assert len(table.columns) == 2
     assert table.row_count == 1
 
@@ -44,9 +48,8 @@ def test_current_weather_temp(mock_current_weather, units):
 @pytest.mark.parametrize("units", UNITS)
 @pytest.mark.parametrize("am_pm", [False, True])
 @pytest.mark.parametrize("wind", [None, 1.2])
-@pytest.mark.parametrize("gust", [None, 2.1])
 @pytest.mark.parametrize("pressure", [None, 1000])
-def test_daily_all(mock_one_call_weather, mock_location, units, am_pm, wind, gust, pressure):
+def test_daily_all(mock_one_call_weather, mock_location, units, am_pm, wind, pressure):
     mock_one_call_weather.daily[0].wind_speed = wind
     mock_one_call_weather.daily[0].wind_gust = wind
     mock_one_call_weather.daily[0].pressure = pressure
@@ -119,34 +122,20 @@ def test_hourly_temp_only(mock_one_call_weather, mock_location, units, am_pm):
 @pytest.mark.parametrize("state_code", ["NC", None])
 @pytest.mark.parametrize("country_code", ["US", None])
 def test_build_url_current(how, city_zip, units, state_code, country_code):
+    lon = 0.123
+    lat = 789.1
     got = _builder._build_url(
         forecast_type="current",
-        how=how,
-        city_zip=city_zip,
         units=units,
-        state_code=state_code,
-        country_code=country_code,
+        lon=lon,
+        lat=lat,
     )
 
     assert got.startswith(WEATHER_BASE_URL)
-
-    if how == "city":
-        assert f"weather?q={city_zip}" in got
-    else:
-        assert f"weather?zip={city_zip}" in got
-
+    assert "/weather?" in got
     assert f"&units={units}" in got
-
-    if state_code:
-        assert f"&state_code={state_code}" in got
-    else:
-        assert f"&state_code={state_code}" not in got
-
-    if country_code:
-        assert f"&country_code={country_code}" in got
-    else:
-        assert f"&country_code={country_code}" not in got
-
+    assert f"lon={lon}" in got
+    assert f"lat={lat}" in got
     assert f"&appid={getenv('OPEN_WEATHER_API_KEY')}" in got
 
 
@@ -158,7 +147,7 @@ def test_build_url_one_one_call(units, forecast_type):
     got = _builder._build_url(forecast_type=forecast_type, units=units, lon=lon, lat=lat)
 
     assert got.startswith(WEATHER_BASE_URL)
-
+    assert "/onecall?" in got
     assert f"units={units}" in got
     assert f"lon={lon}" in got
     assert f"lat={lat}" in got
