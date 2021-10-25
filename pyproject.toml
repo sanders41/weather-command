@@ -67,6 +67,10 @@ src_paths = ["weather_command", "tests"]
 check_untyped_defs = true
 disallow_untyped_defs = true
 
+[[tool.mypy.overrides]]
+module = ["tests.*"]
+disallow_untyped_defs = false
+
 [tool.pytest.ini_options]
 minversion = "6.0"
 addopts = "-n auto --cov=weather_command"
