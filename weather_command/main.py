@@ -3,12 +3,14 @@ from typing import Optional
 
 from dotenv import load_dotenv
 from rich.console import Console
+from rich.traceback import install
 from typer import Argument, Option, Typer
 
 from weather_command._builder import show_current, show_daily, show_hourly
 
 load_dotenv()
 
+install(show_locals=True)
 app = Typer()
 console = Console()
 
