@@ -10,7 +10,7 @@ from weather_command._builder import show_current, show_daily, show_hourly
 
 load_dotenv()
 
-install(show_locals=True)
+install()
 app = Typer()
 console = Console()
 
