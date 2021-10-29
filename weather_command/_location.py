@@ -7,7 +7,7 @@ from pydantic.error_wrappers import ValidationError
 from rich.console import Console
 
 from weather_command._config import LOCATION_BASE_URL
-from weather_command.errors import UnknownSearchTypeError, check_status_error
+from weather_command.errors import LocationNotFoundError, UnknownSearchTypeError, check_status_error
 from weather_command.models.location import Location
 
 
@@ -39,15 +39,23 @@ def get_location_details(
         response_json = response.json()
 
         if isinstance(response_json, list):
-            return Location(**response_json[0])
+            if response_json:
+                return Location(**response_json[0])
+            else:
+                raise LocationNotFoundError
 
-        return Location(**response_json)
+        location = Location(**response_json)
     except httpx.HTTPStatusError as e:
         check_status_error(e, console)
+    except LocationNotFoundError:
+        _print_location_not_found_error()
     except ValidationError:
-        console.print("[red]Unable to get information for the specified location.[/red]")
-        sys.exit(1)
+        _print_location_not_found_error()
 
-    # Shouldn't be possible to reach this. Here as a fail safe.
-    console.print("[red]Unable to get weather data[/red]")  # pragma: no cover
-    sys.exit(1)  # pragma: no cover
+    return location
+
+
+def _print_location_not_found_error() -> None:
+    console = Console()
+    console.print("[red]Unable to get information for the specified location.[/red]")
+    sys.exit(1)

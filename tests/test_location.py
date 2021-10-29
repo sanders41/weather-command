@@ -85,6 +85,17 @@ def test_get_location_details_validation_error(test_console, capfd):
     assert "Unable" in out
 
 
+def test_get_location_details_empty_list(test_console, capfd):
+    with patch(
+        "httpx.get",
+        return_value=Response(200, request=Request("get", url="https://test.com"), json=[]),
+    ):
+        with pytest.raises(SystemExit):
+            get_location_details(how="zip", city_zip="12345", console=test_console)
+            out, _ = capfd.readouterr()
+            assert "Unable" in out
+
+
 def test_get_location_details_error(test_console):
     with pytest.raises(UnknownSearchTypeError):
         get_location_details(how="bad", city_zip="test", console=test_console)
