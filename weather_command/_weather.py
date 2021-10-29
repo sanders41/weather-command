@@ -15,30 +15,26 @@ def get_current_weather(url: str, console: Console) -> CurrentWeather:
     response = httpx.get(url)
     try:
         response.raise_for_status()
-        return CurrentWeather(**response.json())
+        current_weather = CurrentWeather(**response.json())
     except httpx.HTTPStatusError as e:
         check_status_error(e, console)
     except ValidationError:
         _print_validation_error(console)
 
-    # Shouldn't be possible to reach this. Here as a fail safe.
-    console.print("[red]Unable to get weather data[/red]")  # pragma: no cover
-    sys.exit(1)  # pragma: no cover
+    return current_weather
 
 
 def get_one_call_current_weather(url: str, console: Console) -> OneCallWeather:
     response = httpx.get(url)
     try:
         response.raise_for_status()
-        return OneCallWeather(**response.json())
+        one_call_weather = OneCallWeather(**response.json())
     except httpx.HTTPStatusError as e:
         check_status_error(e, console)
     except ValidationError:
         _print_validation_error(console)
 
-    # Shouldn't be possible to reach this. Here as a fail safe.
-    console.print("[red]Unable to get weather data[/red]")  # pragma: no cover
-    sys.exit(1)  # pragma: no cover
+    return one_call_weather
 
 
 class WeatherIcons(Enum):
