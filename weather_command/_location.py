@@ -5,12 +5,22 @@ import sys
 import httpx
 from pydantic.error_wrappers import ValidationError
 from rich.console import Console
+from tenacity import retry
+from tenacity.retry import retry_if_exception_type, retry_unless_exception_type
+from tenacity.stop import stop_after_attempt
+from tenacity.wait import wait_fixed
 
 from weather_command._config import LOCATION_BASE_URL
 from weather_command.errors import LocationNotFoundError, UnknownSearchTypeError, check_status_error
 from weather_command.models.location import Location
 
 
+@retry(
+    retry=(retry_if_exception_type() & retry_unless_exception_type(UnknownSearchTypeError)),
+    stop=stop_after_attempt(5),
+    wait=wait_fixed(0.5),
+    reraise=True,
+)
 def get_location_details(
     *,
     how: str,
