@@ -6,11 +6,15 @@ from enum import Enum
 import httpx
 from pydantic.error_wrappers import ValidationError
 from rich.console import Console
+from tenacity import retry
+from tenacity.stop import stop_after_attempt
+from tenacity.wait import wait_fixed
 
 from weather_command.errors import check_status_error
 from weather_command.models.weather import CurrentWeather, OneCallWeather
 
 
+@retry(stop=stop_after_attempt(5), wait=wait_fixed(0.5), reraise=True)
 def get_current_weather(url: str, console: Console) -> CurrentWeather:
     response = httpx.get(url)
     try:
@@ -24,6 +28,7 @@ def get_current_weather(url: str, console: Console) -> CurrentWeather:
     return current_weather
 
 
+@retry(stop=stop_after_attempt(5), wait=wait_fixed(0.5), reraise=True)
 def get_one_call_current_weather(url: str, console: Console) -> OneCallWeather:
     response = httpx.get(url)
     try:
