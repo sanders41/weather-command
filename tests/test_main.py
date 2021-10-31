@@ -70,7 +70,7 @@ def test_main(
             return mock_current_weather_response
 
         with patch("httpx.get", side_effect=mock_return):
-            result = test_runner.invoke(app, args)
+            result = test_runner.invoke(app, args, catch_exceptions=False)
     else:
 
         def mock_return(*args, **kwargs):
@@ -80,7 +80,7 @@ def test_main(
             return mock_one_call_weather_response
 
         with patch("httpx.get", side_effect=mock_return):
-            result = test_runner.invoke(app, args)
+            result = test_runner.invoke(app, args, catch_exceptions=False)
 
     out = result.stdout
 

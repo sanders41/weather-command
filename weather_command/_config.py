@@ -2,6 +2,9 @@ from __future__ import annotations
 
 from os import getenv
 
+from rich.console import Console
+from rich.theme import Theme
+
 from weather_command.errors import MissingApiKey
 
 WEATHER_BASE_URL = "https://api.openweathermap.org/data/2.5"
@@ -16,3 +19,7 @@ def apppend_api_key(url: str) -> str:
         )
 
     return f"{url}&appid={api_key}"
+
+
+custom_style = Theme({"error": "red"})
+console = Console(theme=custom_style)

@@ -1,6 +1,5 @@
 import httpx
 import pytest
-from rich.console import Console
 from typer.testing import CliRunner
 
 from weather_command.models.location import Location
@@ -12,11 +11,6 @@ def env_vars(monkeypatch):
     monkeypatch.setenv("OPEN_WEATHER_API_KEY", "test")
     yield
     monkeypatch.delenv("OPEN_WEATHER_API_KEY", raising=False)
-
-
-@pytest.fixture
-def test_console():
-    return Console()
 
 
 @pytest.fixture

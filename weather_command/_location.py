@@ -10,7 +10,7 @@ from tenacity.retry import retry_if_exception_type, retry_unless_exception_type
 from tenacity.stop import stop_after_attempt
 from tenacity.wait import wait_fixed
 
-from weather_command._config import LOCATION_BASE_URL
+from weather_command._config import LOCATION_BASE_URL, console
 from weather_command.errors import LocationNotFoundError, UnknownSearchTypeError, check_status_error
 from weather_command.models.location import Location
 
@@ -27,7 +27,6 @@ def get_location_details(
     city_zip: str,
     state: str | None = None,
     country: str | None = None,
-    console: Console,
 ) -> Location:
     if how not in ["city", "zip"]:
         raise UnknownSearchTypeError(f"{type} is not a valid type")

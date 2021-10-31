@@ -2,7 +2,6 @@ from enum import Enum
 from typing import Optional
 
 from dotenv import load_dotenv
-from rich.console import Console
 from rich.traceback import install
 from typer import Argument, Option, Typer
 
@@ -12,7 +11,6 @@ load_dotenv()
 
 install()
 app = Typer()
-console = Console()
 
 
 class ForecastType(str, Enum):
@@ -73,7 +71,6 @@ def main(
 
     if forecast_type == "current":
         show_current(
-            console=console,
             how=how,
             city_zip=city_zip,
             units=units,
@@ -85,7 +82,6 @@ def main(
         )
     elif forecast_type == "daily":
         show_daily(
-            console=console,
             how=how,
             city_zip=city_zip,
             units=units,
@@ -97,7 +93,6 @@ def main(
         )
     elif forecast_type == "hourly":
         show_hourly(
-            console=console,
             how=how,
             city_zip=city_zip,
             units=units,
