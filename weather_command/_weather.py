@@ -5,17 +5,17 @@ from enum import Enum
 
 import httpx
 from pydantic.error_wrappers import ValidationError
-from rich.console import Console
 from tenacity import retry
 from tenacity.stop import stop_after_attempt
 from tenacity.wait import wait_fixed
 
+from weather_command._config import console
 from weather_command.errors import check_status_error
 from weather_command.models.weather import CurrentWeather, OneCallWeather
 
 
 @retry(stop=stop_after_attempt(5), wait=wait_fixed(0.5), reraise=True)
-def get_current_weather(url: str, console: Console) -> CurrentWeather:
+def get_current_weather(url: str) -> CurrentWeather:
     response = httpx.get(url)
     try:
         response.raise_for_status()
@@ -23,13 +23,13 @@ def get_current_weather(url: str, console: Console) -> CurrentWeather:
     except httpx.HTTPStatusError as e:
         check_status_error(e, console)
     except ValidationError:
-        _print_validation_error(console)
+        _print_validation_error()
 
     return current_weather
 
 
 @retry(stop=stop_after_attempt(5), wait=wait_fixed(0.5), reraise=True)
-def get_one_call_current_weather(url: str, console: Console) -> OneCallWeather:
+def get_one_call_current_weather(url: str) -> OneCallWeather:
     response = httpx.get(url)
     try:
         response.raise_for_status()
@@ -37,7 +37,7 @@ def get_one_call_current_weather(url: str, console: Console) -> OneCallWeather:
     except httpx.HTTPStatusError as e:
         check_status_error(e, console)
     except ValidationError:
-        _print_validation_error(console)
+        _print_validation_error()
 
     return one_call_weather
 
@@ -67,6 +67,6 @@ class WeatherIcons(Enum):
             return None
 
 
-def _print_validation_error(console: Console) -> None:
-    console.print("[red]Unable to get the weather data for the specified location[/red]")
+def _print_validation_error() -> None:
+    console.print("Unable to get the weather data for the specified location", style="error")
     sys.exit(1)

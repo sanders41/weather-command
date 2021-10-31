@@ -2,11 +2,10 @@ from __future__ import annotations
 
 from datetime import datetime, timedelta
 
-from rich.console import Console
 from rich.style import Style
 from rich.table import Table
 
-from weather_command._config import WEATHER_BASE_URL, apppend_api_key
+from weather_command._config import WEATHER_BASE_URL, apppend_api_key, console
 from weather_command._location import get_location_details
 from weather_command._weather import WeatherIcons, get_current_weather, get_one_call_current_weather
 from weather_command.models.location import Location
@@ -16,7 +15,6 @@ HEADER_ROW_STYLE = Style(color="sky_blue2", bold=True)
 
 
 def show_current(
-    console: Console,
     how: str,
     city_zip: str,
     *,
@@ -32,7 +30,7 @@ def show_current(
 
     with console.status("Getting weather..."):
         location = get_location_details(
-            how=how, city_zip=city_zip, state=state_code, country=country_code, console=console
+            how=how, city_zip=city_zip, state=state_code, country=country_code
         )
         url = _build_url(
             forecast_type="current",
@@ -40,7 +38,7 @@ def show_current(
             lon=location.lon,
             lat=location.lat,
         )
-        current_weather = get_current_weather(url, console)
+        current_weather = get_current_weather(url)
 
     if not temp_only:
         console.print(_current_weather_all(current_weather, units, am_pm, location))
@@ -49,7 +47,6 @@ def show_current(
 
 
 def show_daily(
-    console: Console,
     how: str,
     city_zip: str,
     *,
@@ -65,10 +62,10 @@ def show_daily(
 
     with console.status("Getting weather..."):
         location = get_location_details(
-            how=how, city_zip=city_zip, state=state_code, country=country_code, console=console
+            how=how, city_zip=city_zip, state=state_code, country=country_code
         )
         url = _build_url(forecast_type="daily", units=units, lon=location.lon, lat=location.lat)
-        weather = get_one_call_current_weather(url, console)
+        weather = get_one_call_current_weather(url)
         if not temp_only:
             console.print(_daily_all(weather, units, am_pm, location))
         else:
@@ -76,7 +73,6 @@ def show_daily(
 
 
 def show_hourly(
-    console: Console,
     how: str,
     city_zip: str,
     *,
@@ -92,10 +88,10 @@ def show_hourly(
 
     with console.status("Getting weather..."):
         location = get_location_details(
-            how=how, city_zip=city_zip, state=state_code, country=country_code, console=console
+            how=how, city_zip=city_zip, state=state_code, country=country_code
         )
         url = _build_url(forecast_type="hourly", units=units, lon=location.lon, lat=location.lat)
-        weather = get_one_call_current_weather(url, console)
+        weather = get_one_call_current_weather(url)
         if not temp_only:
             console.print(_hourly_all(weather, units, am_pm, location))
         else:

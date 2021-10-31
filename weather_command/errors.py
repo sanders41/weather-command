@@ -20,6 +20,6 @@ class UnknownSearchTypeError(Exception):
 
 def check_status_error(error: HTTPStatusError, console: Console) -> None:
     if error.response.status_code == 404:
-        console.print("[red]Unable to find weather data for the specified location[/red]")
+        console.print("Unable to find weather data for the specified location", style="error")
         sys.exit(1)
     raise error
