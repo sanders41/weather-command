@@ -46,7 +46,7 @@ jobs:
         poetry run flake8 weather_command tests --count --exit-zero --max-complexity=10 --max-line-length=100 --statistics
     - name: mypy check
       run: |
-        poetry run mypy weather_command
+        poetry run mypy .
   testing:
     strategy:
       fail-fast: false
