@@ -276,16 +276,13 @@ def _format_date_time(
     am_pm: bool, dt: datetime, timezone: int, forecast_type: str | None = None
 ) -> str:
     if forecast_type == "daily":
-        return str(datetime.strftime((dt + timedelta(seconds=timezone)), "%Y-%m-%d %A"))
+        return f"[date]{datetime.strftime(dt + timedelta(seconds=timezone), '%Y-%m-%d %A')}[/]"
 
     if not am_pm:
-        return str(datetime.strftime((dt + timedelta(seconds=timezone)), "%Y-%m-%d %H:%M"))
+        return f"[date]{datetime.strftime(dt + timedelta(seconds=timezone), '%Y-%m-%d %H:%M')}[/]"
     else:
-        return str(
-            datetime.strftime(
-                (dt + timedelta(seconds=timezone)),
-                "%Y-%m-%d %I:%M %p",
-            )
+        return (
+            f"[date]{datetime.strftime(dt + timedelta(seconds=timezone), '%Y-%m-%d %I:%M %p')}[/]"
         )
 
 
