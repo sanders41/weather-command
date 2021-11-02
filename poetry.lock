@@ -541,17 +541,6 @@ setproctitle = ["setproctitle"]
 testing = ["filelock"]
 
 [[package]]
-name = "python-dotenv"
-version = "0.19.1"
-description = "Read key-value pairs from a .env file and set them as environment variables"
-category = "main"
-optional = false
-python-versions = ">=3.5"
-
-[package.extras]
-cli = ["click (>=5.0)"]
-
-[[package]]
 name = "pyyaml"
 version = "6.0"
 description = "YAML parser and emitter for Python"
@@ -732,7 +721,7 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytes
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7"
-content-hash = "a6ac940610e2994383719508e1ffea3ceb20b92ee1413a56c492bb318e8a7246"
+content-hash = "1c8492a2321b11639e5b90f954fca2c98070ffe8e008e7466352a944b78fbf0e"
 
 [metadata.files]
 anyio = [
@@ -998,10 +987,6 @@ pytest-forked = [
 pytest-xdist = [
     {file = "pytest-xdist-2.4.0.tar.gz", hash = "sha256:89b330316f7fc475f999c81b577c2b926c9569f3d397ae432c0c2e2496d61ff9"},
     {file = "pytest_xdist-2.4.0-py3-none-any.whl", hash = "sha256:7b61ebb46997a0820a263553179d6d1e25a8c50d8a8620cd1aa1e20e3be99168"},
-]
-python-dotenv = [
-    {file = "python-dotenv-0.19.1.tar.gz", hash = "sha256:14f8185cc8d494662683e6914addcb7e95374771e707601dfc70166946b4c4b8"},
-    {file = "python_dotenv-0.19.1-py2.py3-none-any.whl", hash = "sha256:bbd3da593fc49c249397cbfbcc449cf36cb02e75afc8157fcc6a81df6fb7750a"},
 ]
 pyyaml = [
     {file = "PyYAML-6.0-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:d4db7c7aef085872ef65a8fd7d6d09a14ae91f691dec3e87ee5ee0539d516f53"},
