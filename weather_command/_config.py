@@ -21,5 +21,5 @@ def apppend_api_key(url: str) -> str:
     return f"{url}&appid={api_key}"
 
 
-custom_style = Theme({"error": "red"})
+custom_style = Theme({"error": "red", "date": "green"})
 console = Console(theme=custom_style)
