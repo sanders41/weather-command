@@ -30,11 +30,10 @@ jobs:
         key: venv-${{ runner.os }}-poetry-${{ hashFiles('**/poetry.lock') }}
         restore-keys: venv-${{ runner.os }}-poetry-
     - name: Ensure cache is healthy
-      if: steps.cache-poetry.outputs.cache-hit == 'true'
+      if: steps.poetry-cache.outputs.cache-hit == 'true'
       shell: bash
       run: timeout 10s poetry run pip --version || rm -rf .venv
     - name: Install Dependencies
-      if: steps.poetry-cache.outputs.cache-hit != 'true'
       run: poetry install
     - name: mypy check
       run: |
@@ -82,7 +81,6 @@ jobs:
       shell: bash
       run: timeout 10s poetry run pip --version || rm -rf .venv
     - name: Install Dependencies
-      if: steps.poetry-cache.outputs.cache-hit != 'true'
       run: poetry install
     - name: Test with pytest
       run: |
