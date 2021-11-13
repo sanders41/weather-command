@@ -70,8 +70,7 @@ code. [required]
 will be 24 hour format.
 * -f, --forecast-type: The type of forecast to display. Accepted values are 'current' 'daily', and 'hourly'. [default: current]
 * -t, --temp-only: If this flag is set only tempatures will be displayed.
-* --terminal_width: Allows for overriding the default terminal width.
-copy it or customize the installation.
+* --terminal_width INTEGER: Allows for overriding the default terminal width.
 * --help: Show this message and exit.
 
 ## Contributing
