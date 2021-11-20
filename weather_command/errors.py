@@ -6,10 +6,6 @@ from httpx import HTTPStatusError
 from rich.console import Console
 
 
-class LocationNotFoundError(Exception):
-    pass
-
-
 class MissingApiKey(Exception):
     pass
 

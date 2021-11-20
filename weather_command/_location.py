@@ -11,7 +11,7 @@ from tenacity.stop import stop_after_attempt
 from tenacity.wait import wait_fixed
 
 from weather_command._config import LOCATION_BASE_URL, console
-from weather_command.errors import LocationNotFoundError, UnknownSearchTypeError, check_status_error
+from weather_command.errors import UnknownSearchTypeError, check_status_error
 from weather_command.models.location import Location
 
 
@@ -33,7 +33,7 @@ def get_location_details(
 
     if how == "city":
         base_url = f"{LOCATION_BASE_URL}&city={city_zip}"
-    elif how == "zip":
+    else:
         base_url = f"{LOCATION_BASE_URL}&postalcode={city_zip}"
 
     if state:
@@ -45,26 +45,25 @@ def get_location_details(
     response = httpx.get(base_url, headers={"user-agent": "weather-command"})
     try:
         response.raise_for_status()
-        response_json = response.json()
-
-        if isinstance(response_json, list):
-            if response_json:
-                return Location(**response_json[0])
-            else:
-                raise LocationNotFoundError
-
-        location = Location(**response_json)
     except httpx.HTTPStatusError as e:
         check_status_error(e, console)
-    except LocationNotFoundError:
+
+    response_json = response.json()
+
+    if not response.json():
         _print_location_not_found_error()
+        sys.exit(1)
+
+    try:
+        if isinstance(response_json, list):
+            return Location(**response_json[0])
+        else:
+            return Location(**response_json)
     except ValidationError:
         _print_location_not_found_error()
-
-    return location
+        sys.exit(1)
 
 
 def _print_location_not_found_error() -> None:
     console = Console()
     console.print("[red]Unable to get information for the specified location.[/red]")
-    sys.exit(1)
