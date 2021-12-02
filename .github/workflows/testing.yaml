@@ -70,10 +70,6 @@ jobs:
       run: |
         poetry config virtualenvs.create true
         poetry config virtualenvs.in-project true
-    - name: Configure poetry Python 3.10
-      if: matrix.python-version == '3.10'  # Poetry installs are currently failing with the experimental installer on 3.10
-      run: |
-        poetry config experimental.new-installer false
     - name: Cache poetry venv
       uses: actions/cache@v2
       id: poetry-cache
