@@ -48,6 +48,7 @@ class WeatherIcons(Enum):
     CLOUDS = ":cloud:"
     FEW_CLOUDS = ":sun_behind_cloud:"
     HEAVY_RAIN = ":cloud_with_rain:"
+    HEAVY_INTENSITY_RAIN = ":cloud_with_rain:"
     LIGHT_RAIN = ":cloud_with_rain:"
     MIST = ":cloud_with_rain:"
     MODERATE_RAIN = ":cloud_with_rain:"
