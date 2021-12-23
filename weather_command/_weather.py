@@ -9,37 +9,48 @@ from tenacity import retry
 from tenacity.stop import stop_after_attempt
 from tenacity.wait import wait_fixed
 
+from weather_command._cache import Cache
 from weather_command._config import console
 from weather_command.errors import check_status_error
 from weather_command.models.weather import CurrentWeather, OneCallWeather
 
 
 @retry(stop=stop_after_attempt(5), wait=wait_fixed(0.5), reraise=True)
-def get_current_weather(url: str) -> CurrentWeather:
-    response = httpx.get(url)
+def get_current_weather(url: str, how: str, city_zip: str) -> CurrentWeather:
     try:
+        response = httpx.get(url)
         response.raise_for_status()
-        current_weather = CurrentWeather(**response.json())
+        weather = CurrentWeather(**response.json())
+        if how == "zip":
+            cache = Cache()
+            cache.add(city_zip=city_zip, current_weather=weather)
+        return weather
     except httpx.HTTPStatusError as e:
         check_status_error(e, console)
     except ValidationError:
         _print_validation_error()
 
-    return current_weather
+    # Make mypy happy
+    raise  # pragma: no cover
 
 
 @retry(stop=stop_after_attempt(5), wait=wait_fixed(0.5), reraise=True)
-def get_one_call_current_weather(url: str) -> OneCallWeather:
+def get_one_call_current_weather(url: str, how: str, city_zip: str) -> OneCallWeather:
     response = httpx.get(url)
     try:
         response.raise_for_status()
-        one_call_weather = OneCallWeather(**response.json())
+        weather = OneCallWeather(**response.json())
+        if how == "zip":
+            cache = Cache()
+            cache.add(city_zip=city_zip, one_call_weather=weather)
+        return weather
     except httpx.HTTPStatusError as e:
         check_status_error(e, console)
     except ValidationError:
         _print_validation_error()
 
-    return one_call_weather
+    # Make mypy happy
+    raise  # pragma: no cover
 
 
 class WeatherIcons(Enum):

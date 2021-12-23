@@ -5,6 +5,7 @@ from datetime import datetime, timedelta
 from rich.style import Style
 from rich.table import Table
 
+from weather_command._cache import Cache
 from weather_command._config import WEATHER_BASE_URL, apppend_api_key, console
 from weather_command._location import get_location_details
 from weather_command._weather import WeatherIcons, get_current_weather, get_one_call_current_weather
@@ -25,6 +26,12 @@ def show_current(
     temp_only: bool = False,
     terminal_width: int | None = None,
 ) -> None:
+    def print_weather(current_weather: CurrentWeather) -> None:
+        if not temp_only:
+            console.print(_current_weather_all(current_weather, units, am_pm, location))
+        else:
+            console.print(_current_weather_temp(current_weather, units, location))
+
     if terminal_width:
         console.width = terminal_width
 
@@ -32,18 +39,25 @@ def show_current(
         location = get_location_details(
             how=how, city_zip=city_zip, state=state_code, country=country_code
         )
+
+        current_weather: CurrentWeather
+
+        if how == "zip":
+            cache = Cache()
+            cache_hit = cache.get(city_zip)
+            if cache_hit and cache_hit.current_weather:
+                current_weather = cache_hit.current_weather.current_weather
+                print_weather(current_weather)
+                return None
+
         url = _build_url(
             forecast_type="current",
             units=units,
             lon=location.lon,
             lat=location.lat,
         )
-        current_weather = get_current_weather(url)
-
-    if not temp_only:
-        console.print(_current_weather_all(current_weather, units, am_pm, location))
-    else:
-        console.print(_current_weather_temp(current_weather, units, location))
+        current_weather = get_current_weather(url, how, city_zip)
+        print_weather(current_weather)
 
 
 def show_daily(
@@ -57,6 +71,12 @@ def show_daily(
     temp_only: bool = False,
     terminal_width: int | None = None,
 ) -> None:
+    def print_weather(weather: OneCallWeather) -> None:
+        if not temp_only:
+            console.print(_daily_all(weather, units, am_pm, location))
+        else:
+            console.print(_daily_temp_only(weather, units, am_pm, location))
+
     if terminal_width:
         console.width = terminal_width
 
@@ -64,12 +84,20 @@ def show_daily(
         location = get_location_details(
             how=how, city_zip=city_zip, state=state_code, country=country_code
         )
+
+        weather: OneCallWeather
+
+        if how == "zip":
+            cache = Cache()
+            cache_hit = cache.get(city_zip)
+            if cache_hit and cache_hit.one_call_weather:
+                weather = cache_hit.one_call_weather.one_call_weather
+                print_weather(weather)
+                return None
+
         url = _build_url(forecast_type="daily", units=units, lon=location.lon, lat=location.lat)
-        weather = get_one_call_current_weather(url)
-        if not temp_only:
-            console.print(_daily_all(weather, units, am_pm, location))
-        else:
-            console.print(_daily_temp_only(weather, units, am_pm, location))
+        weather = get_one_call_current_weather(url, how, city_zip)
+        print_weather(weather)
 
 
 def show_hourly(
@@ -83,6 +111,12 @@ def show_hourly(
     temp_only: bool = False,
     terminal_width: int | None = None,
 ) -> None:
+    def print_weather(weather: OneCallWeather) -> None:
+        if not temp_only:
+            console.print(_hourly_all(weather, units, am_pm, location))
+        else:
+            console.print(_hourly_temp_only(weather, units, am_pm, location))
+
     if terminal_width:
         console.width = terminal_width
 
@@ -90,12 +124,20 @@ def show_hourly(
         location = get_location_details(
             how=how, city_zip=city_zip, state=state_code, country=country_code
         )
+
+        weather: OneCallWeather
+
+        if how == "zip":
+            cache = Cache()
+            cache_hit = cache.get(city_zip)
+            if cache_hit and cache_hit.one_call_weather:
+                weather = cache_hit.one_call_weather.one_call_weather
+                print_weather(weather)
+                return None
+
         url = _build_url(forecast_type="hourly", units=units, lon=location.lon, lat=location.lat)
-        weather = get_one_call_current_weather(url)
-        if not temp_only:
-            console.print(_hourly_all(weather, units, am_pm, location))
-        else:
-            console.print(_hourly_temp_only(weather, units, am_pm, location))
+        weather = get_one_call_current_weather(url, how, city_zip)
+        print_weather(weather)
 
 
 def _build_url(

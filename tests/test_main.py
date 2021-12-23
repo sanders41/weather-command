@@ -1,3 +1,4 @@
+import json
 from unittest.mock import patch
 
 import pytest
@@ -21,6 +22,8 @@ from weather_command.main import app
     [(None, None), ("current", "--forecast-type"), ("hourly", "-f"), ("daily", "-f")],
 )
 @pytest.mark.parametrize("temp_only", [None, "-t", "--temp-only"])
+@pytest.mark.parametrize("clear_cache", [False, True])
+@pytest.mark.usefixtures("mock_cache_dir_with_file")
 def test_main(
     how,
     city_zip,
@@ -33,12 +36,14 @@ def test_main(
     forecast_type,
     forecast_type_flag,
     temp_only,
+    clear_cache,
     test_runner,
     mock_current_weather_response,
     mock_one_call_weather_response,
     mock_location_response,
+    cache_with_file,
 ):
-    args = [how, city_zip, "--terminal_width", 180]
+    args = [how, city_zip, "--terminal-width", 180]
 
     if imperial:
         args.append(imperial)
@@ -60,6 +65,9 @@ def test_main(
 
     if temp_only:
         args.append(temp_only)
+
+    if clear_cache:
+        args.append("--clear-cache")
 
     if forecast_type == "current" or not forecast_type:
 
@@ -105,7 +113,19 @@ def test_main(
         if am_pm:
             assert " AM" or " PM" in out
 
+    def load_cache():
+        with open(cache_with_file._cache_file, "r") as f:
+            return json.load(f)
 
+    if clear_cache and how != "zip":
+        assert not cache_with_file._cache_file.exists()
+    elif clear_cache:
+        assert load_cache().get("27455") is None
+    else:
+        assert load_cache().get("27455") is not None
+
+
+@pytest.mark.usefixtures("mock_cache_dir")
 def test_missing_api_key(test_runner, monkeypatch):
     monkeypatch.delenv("OPEN_WEATHER_API_KEY", raising=False)
 
@@ -113,11 +133,13 @@ def test_missing_api_key(test_runner, monkeypatch):
         test_runner.invoke(app, ["city", "Greensboro"], catch_exceptions=False)
 
 
+@pytest.mark.usefixtures("mock_cache_dir")
 def test_bad_how(test_runner):
     result = test_runner.invoke(app, ["bad", "Greensboro"])
     assert result.exit_code > 1
 
 
+@pytest.mark.usefixtures("mock_cache_dir")
 def test_bad_forecast_type(test_runner):
     result = test_runner.invoke(app, ["city", "Greensboro", "-f", "bad"])
     assert result.exit_code > 1

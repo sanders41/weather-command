@@ -1,9 +1,68 @@
+from pathlib import Path
+from shutil import copy
+from unittest.mock import patch
+
 import httpx
 import pytest
 from typer.testing import CliRunner
 
+from weather_command._cache import Cache
 from weather_command.models.location import Location
 from weather_command.models.weather import CurrentWeather, OneCallWeather
+
+ROOT_PATH = Path().absolute()
+ASSETS_PATH = ROOT_PATH / "tests" / "assets"
+
+
+@pytest.fixture(autouse=True, scope="session")
+def dont_write_to_home_directory():
+    """Makes sure a default directory is specified so that the home directory is not written to in
+    testing.
+    """
+
+    class ExplicitlyChooseCacheDirectory(AssertionError):
+        pass
+
+    with patch.object(
+        Cache,
+        "get_default_directory",
+        side_effect=ExplicitlyChooseCacheDirectory,
+    ):
+        yield
+
+
+@pytest.fixture
+def mock_cache_dir(tmp_path):
+    cache_path = tmp_path / "weather-command"
+    with patch.object(Cache, "get_default_directory", return_value=cache_path):
+        yield cache_path
+
+
+@pytest.fixture
+def mock_cache_dir_with_file(tmp_path):
+    cache_path = tmp_path / "weather-command"
+    if not cache_path.exists():
+        cache_path.mkdir()
+
+    copy(str(ASSETS_PATH / "cache.json"), str(cache_path / "cache.json"))
+
+    with patch.object(Cache, "get_default_directory", return_value=cache_path):
+        yield cache_path
+
+
+@pytest.fixture
+def cache(tmp_path):
+    yield Cache(tmp_path / "weather-command")
+
+
+@pytest.fixture
+def cache_with_file(tmp_path):
+    cache_path = tmp_path / "weather-command"
+    if not cache_path.exists():
+        cache_path.mkdir()
+
+    copy(str(ASSETS_PATH / "cache.json"), str(cache_path / "cache.json"))
+    yield Cache(cache_path)
 
 
 @pytest.fixture(autouse=True)

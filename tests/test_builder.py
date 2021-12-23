@@ -1,4 +1,6 @@
+from datetime import datetime
 from os import getenv
+from unittest.mock import Mock, patch
 
 import pytest
 
@@ -45,6 +47,15 @@ def test_current_weather_temp(
     assert table.row_count == 1
 
 
+@pytest.mark.usefixtures("mock_cache_dir_with_file")
+@patch("weather_command._cache.datetime")
+def test_current_weather_cache_hit(mock_dt, capfd):
+    mock_dt.utcnow = Mock(return_value=datetime(2021, 12, 22, 1, 36, 38))
+    _builder.show_current("zip", "27455")
+    out, _ = capfd.readouterr()
+    assert "Greensboro" in out
+
+
 @pytest.mark.parametrize("units", UNITS)
 @pytest.mark.parametrize("am_pm", [False, True])
 @pytest.mark.parametrize("wind", [None, 1.2])
@@ -69,6 +80,15 @@ def test_daily_temp_only(mock_one_call_weather, mock_location, units, am_pm):
     )
     assert len(table.columns) == 3
     assert table.row_count == len(mock_one_call_weather.daily)
+
+
+@pytest.mark.usefixtures("mock_cache_dir_with_file")
+@patch("weather_command._cache.datetime")
+def test_show_daily_cache_hit(mock_dt, capfd):
+    mock_dt.utcnow = Mock(return_value=datetime(2021, 12, 22, 1, 36, 38))
+    _builder.show_daily("zip", "27455")
+    out, _ = capfd.readouterr()
+    assert "Greensboro" in out
 
 
 @pytest.mark.parametrize("units", UNITS)
@@ -115,6 +135,15 @@ def test_hourly_temp_only(mock_one_call_weather, mock_location, units, am_pm):
     )
     assert len(table.columns) == 3
     assert table.row_count == len(mock_one_call_weather.hourly)
+
+
+@pytest.mark.usefixtures("mock_cache_dir_with_file")
+@patch("weather_command._cache.datetime")
+def test_show_hourly_cache_hit(mock_dt, capfd):
+    mock_dt.utcnow = Mock(return_value=datetime(2021, 12, 22, 1, 36, 38))
+    _builder.show_hourly("zip", "27455")
+    out, _ = capfd.readouterr()
+    assert "Greensboro" in out
 
 
 @pytest.mark.parametrize("how, city_zip", [("city", "Greensboro"), ("zip", "27405")])
