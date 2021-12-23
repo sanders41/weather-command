@@ -27,7 +27,7 @@ def test_current_weather_http_error_404(capfd):
             "httpx.get",
             return_value=Response(404, request=Request("get", url="https://test.com")),
         ):
-            get_current_weather(url="https://test.com")
+            get_current_weather(url="https://test.com", how="city", city_zip="test")
 
     out, _ = capfd.readouterr()
     assert "Unable" in out
@@ -39,7 +39,7 @@ def test_get_current_weather_https_error():
             "httpx.get",
             return_value=Response(500, request=Request("get", url="https://test.com")),
         ):
-            get_current_weather(url="https://test.com")
+            get_current_weather(url="https://test.com", how="city", city_zip="test")
 
 
 def test_get_current_weather_validation_error(capfd):
@@ -49,7 +49,7 @@ def test_get_current_weather_validation_error(capfd):
             "httpx.get",
             return_value=Response(200, request=Request("get", url="https://test.com"), json=data),
         ):
-            get_current_weather(url="https://test.com")
+            get_current_weather(url="https://test.com", how="city", city_zip="test")
 
     out, _ = capfd.readouterr()
     assert "Unable" in out
@@ -61,7 +61,7 @@ def test_one_call_current_weather_http_error_404(capfd):
             "httpx.get",
             return_value=Response(404, request=Request("get", url="https://test.com")),
         ):
-            get_one_call_current_weather(url="https://test.com")
+            get_one_call_current_weather(url="https://test.com", how="city", city_zip="test")
 
     out, _ = capfd.readouterr()
     assert "Unable" in out
@@ -73,7 +73,7 @@ def test_get_one_callcurrent_weather_https_error():
             "httpx.get",
             return_value=Response(500, request=Request("get", url="https://test.com")),
         ):
-            get_one_call_current_weather(url="https://test.com")
+            get_one_call_current_weather(url="https://test.com", how="city", city_zip="test")
 
 
 def test_get_one_call_current_weather_validation_error(capfd):
@@ -83,7 +83,7 @@ def test_get_one_call_current_weather_validation_error(capfd):
             "httpx.get",
             return_value=Response(200, request=Request("get", url="https://test.com"), json=data),
         ):
-            get_one_call_current_weather(url="https://test.com")
+            get_one_call_current_weather(url="https://test.com", how="city", city_zip="test")
 
     out, _ = capfd.readouterr()
     assert "Unable" in out

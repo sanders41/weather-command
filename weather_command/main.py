@@ -5,6 +5,7 @@ from rich.traceback import install
 from typer import Argument, Option, Typer
 
 from weather_command._builder import show_current, show_daily, show_hourly
+from weather_command._cache import Cache
 
 install()
 app = Typer()
@@ -60,10 +61,15 @@ def main(
     temp_only: bool = Option(
         False, "--temp-only", "-t", help="If this flag is set only tempatures will be displayed."
     ),
+    clear_cache: bool = Option(False, help="Clear the cache data before running."),
     terminal_width: Optional[int] = Option(
-        None, "--terminal_width", help="Allows for overriding the default terminal width."
+        None, help="Allows for overriding the default terminal width."
     ),
 ) -> None:
+    if clear_cache:
+        cache = Cache()
+        cache.clear()
+
     units = "imperial" if imperial else "metric"
 
     if forecast_type == "current":

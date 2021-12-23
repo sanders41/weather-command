@@ -31,6 +31,7 @@ def mock_location_data():
 
 @pytest.mark.parametrize("how", ["city", "zip"])
 @pytest.mark.parametrize("return_type", ["list", "dict"])
+@pytest.mark.usefixtures("mock_cache_dir")
 def test_get_location_details(how, return_type, mock_location_data):
     if return_type == "list":
         return_json = mock_location_data
@@ -49,6 +50,7 @@ def test_get_location_details(how, return_type, mock_location_data):
     assert response.lon == float(mock_location_data[0]["lon"])
 
 
+@pytest.mark.usefixtures("mock_cache_dir")
 def test_get_location_details_http_error_404(capfd):
     with pytest.raises(SystemExit):
         with patch(
@@ -61,6 +63,7 @@ def test_get_location_details_http_error_404(capfd):
     assert "Unable" in out
 
 
+@pytest.mark.usefixtures("mock_cache_dir")
 def test_get_location_details_https_error():
     with pytest.raises(HTTPStatusError):
         with patch(
@@ -70,6 +73,7 @@ def test_get_location_details_https_error():
             get_location_details(how="city", city_zip="test")
 
 
+@pytest.mark.usefixtures("mock_cache_dir")
 def test_get_location_details_validation_error(capfd):
     data = {"bad": None}
     with pytest.raises(SystemExit):
@@ -83,6 +87,7 @@ def test_get_location_details_validation_error(capfd):
     assert "Unable" in out
 
 
+@pytest.mark.usefixtures("mock_cache_dir")
 def test_get_location_details_empty_list(capfd):
     with patch(
         "httpx.get",
@@ -94,6 +99,7 @@ def test_get_location_details_empty_list(capfd):
             assert "Unable" in out
 
 
+@pytest.mark.usefixtures("mock_cache_dir")
 def test_get_location_details_error():
     with pytest.raises(UnknownSearchTypeError):
         get_location_details(how="bad", city_zip="test")

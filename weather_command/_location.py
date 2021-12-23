@@ -10,6 +10,7 @@ from tenacity.retry import retry_if_exception_type, retry_unless_exception_type
 from tenacity.stop import stop_after_attempt
 from tenacity.wait import wait_fixed
 
+from weather_command._cache import Cache
 from weather_command._config import LOCATION_BASE_URL, console
 from weather_command.errors import UnknownSearchTypeError, check_status_error
 from weather_command.models.location import Location
@@ -28,13 +29,19 @@ def get_location_details(
     state: str | None = None,
     country: str | None = None,
 ) -> Location:
-    if how not in ["city", "zip"]:
+    if how not in ("city", "zip"):
         raise UnknownSearchTypeError(f"{type} is not a valid type")
 
-    if how == "city":
-        base_url = f"{LOCATION_BASE_URL}&city={city_zip}"
-    else:
+    cache = Cache()
+
+    if how == "zip":
+        cache_hit = cache.get(city_zip)
+        if cache_hit and cache_hit.location:
+            return cache_hit.location
+
         base_url = f"{LOCATION_BASE_URL}&postalcode={city_zip}"
+    else:
+        base_url = f"{LOCATION_BASE_URL}&city={city_zip}"
 
     if state:
         base_url = f"{base_url}&state={state}"
@@ -56,9 +63,15 @@ def get_location_details(
 
     try:
         if isinstance(response_json, list):
-            return Location(**response_json[0])
+            location = Location(**response_json[0])
+            if how == "zip":
+                cache.add(city_zip=city_zip, location=location)
+            return location
         else:
-            return Location(**response_json)
+            location = Location(**response_json)
+            if how == "zip":
+                cache.add(city_zip=city_zip, location=location)
+            return location
     except ValidationError:
         _print_location_not_found_error()
         sys.exit(1)
