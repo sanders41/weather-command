@@ -40,9 +40,6 @@ class DateTimeEncoder(JSONEncoder):
             return obj.isoformat()
 
 
-CacheInfo = dict[str, CacheItem]
-
-
 def _get_default_directory() -> Path:
     cache_path = os.path.join(
         os.environ.get("XDG_CACHE_HOME") or os.path.expanduser("~/.cache"), "weather-command"
@@ -59,7 +56,7 @@ class Cache:
         if not self.cache_dir.exists():
             self.cache_dir.mkdir()
 
-        self._cache: CacheInfo | None = self._load()
+        self._cache: dict[str, CacheItem] | None = self._load()
 
     def add(
         self,
@@ -146,7 +143,7 @@ class Cache:
 
         return cache
 
-    def _load(self) -> CacheInfo | None:
+    def _load(self) -> dict[str, CacheItem] | None:
         if not self._cache_file.exists():
             return None
 
