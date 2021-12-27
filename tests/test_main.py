@@ -1,11 +1,29 @@
 import json
+from pathlib import Path
 from unittest.mock import patch
 
 import pytest
+from tomlkit import parse
 
 from weather_command._config import LOCATION_BASE_URL
 from weather_command.errors import MissingApiKey
-from weather_command.main import app
+from weather_command.main import __version__, app
+
+
+def test_versions_match():
+    pyproject_file = Path().absolute() / "pyproject.toml"
+    with open(pyproject_file, "r") as f:
+        content = f.read()
+        data = parse(content)
+        pyproject_version = data["tool"]["poetry"]["version"]  # type: ignore
+    assert __version__ == pyproject_version
+
+
+@pytest.mark.parametrize("args", [["--version"], ["-v"]])
+def test_version(args, test_runner):
+    result = test_runner.invoke(app, args, catch_exceptions=False)
+    out = result.stdout
+    assert __version__ in out
 
 
 @pytest.mark.parametrize("how, city_zip", [("city", "Greensboro"), ("zip", "27405")])
