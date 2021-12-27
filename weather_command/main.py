@@ -2,10 +2,12 @@ from enum import Enum
 from typing import Optional
 
 from rich.traceback import install
-from typer import Argument, Option, Typer
+from typer import Argument, Exit, Option, Typer, echo
 
 from weather_command._builder import show_current, show_daily, show_hourly
 from weather_command._cache import Cache
+
+__version__ = "2.1.0"
 
 install()
 app = Typer()
@@ -20,6 +22,12 @@ class ForecastType(str, Enum):
 class How(str, Enum):
     CITY = "city"
     ZIP = "zip"
+
+
+def version_callback(value: bool) -> None:
+    if value:
+        echo(__version__)
+        raise Exit()
 
 
 @app.command()
@@ -64,6 +72,14 @@ def main(
     clear_cache: bool = Option(False, help="Clear the cache data before running."),
     terminal_width: Optional[int] = Option(
         None, help="Allows for overriding the default terminal width."
+    ),
+    version: Optional[bool] = Option(
+        None,
+        "--version",
+        "-v",
+        callback=version_callback,
+        is_eager=True,
+        help="Show the installed weather command version",
     ),
 ) -> None:
     if clear_cache:

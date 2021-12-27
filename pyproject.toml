@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "weather-command"
-version = "2.0.0"
+version = "2.1.0"
 description = "Command line weather app"
 authors = ["Paul Sanders <psanders1@gmail.com>"]
 license = "MIT"
@@ -28,6 +28,7 @@ pre-commit = "^2.16.0"
 pytest = "^6.2.5"
 pytest-cov = "^3.0.0"
 tox = "^3.24.3"
+tomlkit = "^0.8.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
