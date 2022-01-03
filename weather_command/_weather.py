@@ -65,6 +65,7 @@ class WeatherIcons(Enum):
     MODERATE_RAIN = ":cloud_with_rain:"
     OVERCAST_CLOUDS = ":sun_behind_cloud:"
     RAIN = ":cloud_with_rain:"
+    RAIN_AND_SNOW = ":cloud_with_rain: :snowflake:"
     SCATTERED_CLOUDS = ":sun_behind_cloud:"
     SNOW = ":snowflake:"
     HEAVY_SNOW = ":snowflake:"

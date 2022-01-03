@@ -18,7 +18,9 @@ def test_get_icon(condition, expected):
 
 @pytest.mark.parametrize("icon", [x.value for x in WeatherIcons])
 def test_icons(icon):
-    assert icon.replace(":", "") in list(EMOJI.keys())
+    icons = icon.split(" ")
+    for icon in icons:
+        assert icon.replace(":", "") in list(EMOJI.keys())
 
 
 def test_current_weather_http_error_404(capfd):
