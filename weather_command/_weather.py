@@ -67,6 +67,8 @@ class WeatherIcons(Enum):
     RAIN = ":cloud_with_rain:"
     SCATTERED_CLOUDS = ":sun_behind_cloud:"
     SNOW = ":snowflake:"
+    HEAVY_SNOW = ":snowflake:"
+    HEAVY_INTENSITY_SNOW = ":snowflake:"
     SUN = ":sun:"
     THUNDERSTORM = ":cloud_with_lightning:"
 
