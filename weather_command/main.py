@@ -7,7 +7,7 @@ from typer import Argument, Exit, Option, Typer, echo
 from weather_command._builder import show_current, show_daily, show_hourly
 from weather_command._cache import Cache
 
-__version__ = "2.1.2"
+__version__ = "2.1.3"
 
 install()
 app = Typer()
