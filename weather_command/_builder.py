@@ -244,7 +244,7 @@ def _daily_all(weather: OneCallWeather, units: str, am_pm: bool, location: Locat
         header_style=HEADER_ROW_STYLE,
         show_lines=True,
     )
-    table.add_column("Date/Time :date:")
+    table.add_column("Date/Day :date:")
     table.add_column(f"Low ({temp_units}) :thermometer:")
     table.add_column(f"High ({temp_units}) :thermometer:")
     table.add_column("Humidity")
@@ -298,7 +298,7 @@ def _daily_temp_only(weather: OneCallWeather, units: str, am_pm: bool, location:
         header_style=HEADER_ROW_STYLE,
         show_lines=True,
     )
-    table.add_column("Date/Time :date:")
+    table.add_column("Date/Day :date:")
     table.add_column(f"Low ({temp_units}) :thermometer:")
     table.add_column(f"High ({temp_units}) :thermometer:")
 
