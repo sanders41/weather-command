@@ -42,8 +42,6 @@ class Main(CamelBase):
 
 
 class Sys(CamelBase):
-    type: int
-    id: int
     country: str
     sunrise: datetime
     sunset: datetime
