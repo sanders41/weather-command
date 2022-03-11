@@ -27,30 +27,54 @@ def test_version(args, test_runner):
 
 
 @pytest.mark.parametrize("how, city_zip", [("city", "Greensboro"), ("zip", "27405")])
-@pytest.mark.parametrize("imperial", [None, "--imperial", "-i"])
-@pytest.mark.parametrize(
-    "state_code, state_code_flag", [(None, None), ("NC", "-s"), ("NC", "--state-code")]
-)
-@pytest.mark.parametrize(
-    "country_code, country_code_flag", [(None, None), ("US", "-c"), ("US", "--country-code")]
-)
-@pytest.mark.parametrize("am_pm", [None, "--am-pm"])
-@pytest.mark.parametrize(
-    "forecast_type, forecast_type_flag",
-    [(None, None), ("current", "--forecast-type"), ("hourly", "-f"), ("daily", "-f")],
-)
-@pytest.mark.parametrize("temp_only", [None, "-t", "--temp-only"])
-@pytest.mark.parametrize("clear_cache", [False, True])
 @pytest.mark.usefixtures("mock_cache_dir_with_file")
-def test_main(
+def test_main_default_params(
     how,
     city_zip,
+    test_runner,
+    mock_current_weather_response,
+    mock_location_response,
+    cache_with_file,
+):
+    args = [how, city_zip, "--terminal-width", 180]
+
+    def mock_return(*args, **kwargs):
+        if LOCATION_BASE_URL in args[0]:
+            return mock_location_response
+
+        return mock_current_weather_response
+
+    with patch("httpx.get", side_effect=mock_return):
+        result = test_runner.invoke(app, args, catch_exceptions=False)
+
+    out = result.stdout
+
+    assert "Greensboro" in out
+    assert "C" in out
+    assert "kph" in out
+    assert "mm" in out
+
+    def load_cache():
+        with open(cache_with_file._cache_file, "r") as f:
+            return json.load(f)
+
+    assert load_cache().get("27455") is not None
+
+
+@pytest.mark.parametrize("imperial", ["--imperial", "-i"])
+@pytest.mark.parametrize("state_code_flag", ["-s", "--state-code"])
+@pytest.mark.parametrize("country_code_flag", ["-c", "--country-code"])
+@pytest.mark.parametrize(
+    "forecast_type, forecast_type_flag",
+    [("current", "--forecast-type"), ("hourly", "-f"), ("daily", "-f")],
+)
+@pytest.mark.parametrize("temp_only", ["-t", "--temp-only"])
+@pytest.mark.parametrize("clear_cache", [True, False])
+@pytest.mark.usefixtures("mock_cache_dir_with_file")
+def test_main_with_params(
     imperial,
-    state_code,
     state_code_flag,
-    country_code,
     country_code_flag,
-    am_pm,
     forecast_type,
     forecast_type_flag,
     temp_only,
@@ -61,28 +85,22 @@ def test_main(
     mock_location_response,
     cache_with_file,
 ):
-    args = [how, city_zip, "--terminal-width", 180]
-
-    if imperial:
-        args.append(imperial)
-
-    if state_code:
-        args.append(state_code_flag)
-        args.append(state_code)
-
-    if country_code:
-        args.append(country_code_flag)
-        args.append(country_code)
-
-    if am_pm:
-        args.append(am_pm)
-
-    if forecast_type:
-        args.append(forecast_type_flag)
-        args.append(forecast_type)
-
-    if temp_only:
-        args.append(temp_only)
+    args = [
+        "zip",
+        "27455",
+        "--am-pm",
+        imperial,
+        state_code_flag,
+        "NC",
+        country_code_flag,
+        "USA",
+        "--am-pm",
+        forecast_type_flag,
+        forecast_type,
+        temp_only,
+        "--terminal-width",
+        180,
+    ]
 
     if clear_cache:
         args.append("--clear-cache")
@@ -110,37 +128,16 @@ def test_main(
 
     out = result.stdout
 
-    if imperial:
-        temp_unit = "F"
-        wind_unit = "mph"
-        precip_unit = "in"
-    else:
-        temp_unit = "C"
-        wind_unit = "kph"
-        precip_unit = "mm"
-
     assert "Greensboro" in out
-    assert temp_unit in out
+    assert "F" in out
 
     if not temp_only:
-        assert wind_unit in out
+        assert "mph" in out
 
     if not temp_only and forecast_type != "daily":
-        assert precip_unit in out
+        assert "in" in out
 
-        if am_pm:
-            assert " AM" or " PM" in out
-
-    def load_cache():
-        with open(cache_with_file._cache_file, "r") as f:
-            return json.load(f)
-
-    if clear_cache and how != "zip":
-        assert not cache_with_file._cache_file.exists()
-    elif clear_cache:
-        assert load_cache().get("27455") is None
-    else:
-        assert load_cache().get("27455") is not None
+    assert " AM" or " PM" in out
 
 
 @pytest.mark.usefixtures("mock_cache_dir")
