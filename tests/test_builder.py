@@ -31,7 +31,7 @@ def test_current_weather_all(mock_current_weather, units, am_pm, rain, snow, win
 
     mock_current_weather.wind = wind
 
-    table = _builder._current_weather_all(mock_current_weather, units, am_pm, mock_location)
+    table = _builder.current_weather_all(mock_current_weather, units, am_pm, mock_location)
     assert len(table.columns) == 12
     assert table.row_count == 1
 
@@ -49,9 +49,9 @@ def test_current_weather_temp(
 
 @pytest.mark.usefixtures("mock_cache_dir_with_file")
 @patch("weather_command._cache.datetime")
-def test_current_weather_cache_hit(mock_dt, capfd):
+async def test_current_weather_cache_hit(mock_dt, capfd):
     mock_dt.utcnow = Mock(return_value=datetime(2021, 12, 22, 1, 36, 38))
-    _builder.show_current("zip", "27455")
+    await _builder.show_current("zip", "27455")
     out, _ = capfd.readouterr()
     assert "Greensboro" in out
 
@@ -65,7 +65,7 @@ def test_daily_all(mock_one_call_weather, mock_location, units, am_pm, wind, pre
     mock_one_call_weather.daily[0].wind_gust = wind
     mock_one_call_weather.daily[0].pressure = pressure
 
-    table = _builder._daily_all(
+    table = _builder.daily_all(
         weather=mock_one_call_weather, units=units, am_pm=am_pm, location=mock_location
     )
     assert len(table.columns) == 13
@@ -84,9 +84,9 @@ def test_daily_temp_only(mock_one_call_weather, mock_location, units, am_pm):
 
 @pytest.mark.usefixtures("mock_cache_dir_with_file")
 @patch("weather_command._cache.datetime")
-def test_show_daily_cache_hit(mock_dt, capfd):
+async def test_show_daily_cache_hit(mock_dt, capfd):
     mock_dt.utcnow = Mock(return_value=datetime(2021, 12, 22, 1, 36, 38))
-    _builder.show_daily("zip", "27455")
+    await _builder.show_daily("zip", "27455")
     out, _ = capfd.readouterr()
     assert "Greensboro" in out
 
@@ -120,7 +120,7 @@ def test_hourly_all(
     mock_one_call_weather.hourly[0].wind_gust = wind
     mock_one_call_weather.hourly[0].pressure = pressure
 
-    table = _builder._hourly_all(
+    table = _builder.hourly_all(
         weather=mock_one_call_weather, units=units, am_pm=am_pm, location=mock_location
     )
     assert len(table.columns) == 13
@@ -139,9 +139,9 @@ def test_hourly_temp_only(mock_one_call_weather, mock_location, units, am_pm):
 
 @pytest.mark.usefixtures("mock_cache_dir_with_file")
 @patch("weather_command._cache.datetime")
-def test_show_hourly_cache_hit(mock_dt, capfd):
+async def test_show_hourly_cache_hit(mock_dt, capfd):
     mock_dt.utcnow = Mock(return_value=datetime(2021, 12, 22, 1, 36, 38))
-    _builder.show_hourly("zip", "27455")
+    await _builder.show_hourly("zip", "27455")
     out, _ = capfd.readouterr()
     assert "Greensboro" in out
 
@@ -153,7 +153,7 @@ def test_show_hourly_cache_hit(mock_dt, capfd):
 def test_build_url_current(how, city_zip, units, state_code, country_code):
     lon = 0.123
     lat = 789.1
-    got = _builder._build_url(
+    got = _builder.build_url(
         forecast_type="current",
         units=units,
         lon=lon,
@@ -173,7 +173,7 @@ def test_build_url_current(how, city_zip, units, state_code, country_code):
 def test_build_url_one_one_call(units, forecast_type):
     lon = 0.123
     lat = 789.1
-    got = _builder._build_url(forecast_type=forecast_type, units=units, lon=lon, lat=lat)
+    got = _builder.build_url(forecast_type=forecast_type, units=units, lon=lon, lat=lat)
 
     assert got.startswith(WEATHER_BASE_URL)
     assert "/onecall?" in got

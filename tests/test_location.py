@@ -1,7 +1,5 @@
-from unittest.mock import patch
-
 import pytest
-from httpx import HTTPStatusError, Request, Response
+from httpx import AsyncClient, HTTPStatusError, Request, Response
 
 from weather_command._location import get_location_details
 from weather_command.errors import UnknownSearchTypeError
@@ -32,18 +30,17 @@ def mock_location_data():
 @pytest.mark.parametrize("how", ["city", "zip"])
 @pytest.mark.parametrize("return_type", ["list", "dict"])
 @pytest.mark.usefixtures("mock_cache_dir")
-def test_get_location_details(how, return_type, mock_location_data):
+async def test_get_location_details(how, return_type, mock_location_data, monkeypatch):
+    async def mock_get_response(*args, **kwargs):
+        return Response(200, request=Request("get", url="https://test.com"), json=return_json)
+
     if return_type == "list":
         return_json = mock_location_data
     else:
         return_json = mock_location_data[0]
-    with patch(
-        "httpx.get",
-        return_value=Response(
-            200, request=Request("get", url="https://test.com"), json=return_json
-        ),
-    ):
-        response = get_location_details(how=how, city_zip="test", state="test", country="test")
+
+    monkeypatch.setattr(AsyncClient, "get", mock_get_response)
+    response = await get_location_details(how=how, city_zip="test", state="test", country="test")
 
     assert response.display_name == mock_location_data[0]["display_name"]
     assert response.lat == float(mock_location_data[0]["lat"])
@@ -51,55 +48,58 @@ def test_get_location_details(how, return_type, mock_location_data):
 
 
 @pytest.mark.usefixtures("mock_cache_dir")
-def test_get_location_details_http_error_404(capfd):
+async def test_get_location_details_http_error_404(capfd, monkeypatch):
+    async def mock_get_response(*args, **kwargs):
+        return Response(404, request=Request("get", url="https://test.com"))
+
+    monkeypatch.setattr(AsyncClient, "get", mock_get_response)
     with pytest.raises(SystemExit):
-        with patch(
-            "httpx.get",
-            return_value=Response(404, request=Request("get", url="https://test.com")),
-        ):
-            get_location_details(how="city", city_zip="test")
+        await get_location_details(how="city", city_zip="test")
 
     out, _ = capfd.readouterr()
     assert "Unable" in out
 
 
 @pytest.mark.usefixtures("mock_cache_dir")
-def test_get_location_details_https_error():
+async def test_get_location_details_https_error(monkeypatch):
+    async def mock_get_response(*args, **kwargs):
+        return Response(500, request=Request("get", url="https://test.com"))
+
+    monkeypatch.setattr(AsyncClient, "get", mock_get_response)
+
     with pytest.raises(HTTPStatusError):
-        with patch(
-            "httpx.get",
-            return_value=Response(500, request=Request("get", url="https://test.com")),
-        ):
-            get_location_details(how="city", city_zip="test")
+        await get_location_details(how="city", city_zip="test")
 
 
 @pytest.mark.usefixtures("mock_cache_dir")
-def test_get_location_details_validation_error(capfd):
+async def test_get_location_details_validation_error(capfd, monkeypatch):
+    async def mock_get_response(*args, **kwargs):
+        return Response(200, request=Request("get", url="https://test.com"), json=data)
+
+    monkeypatch.setattr(AsyncClient, "get", mock_get_response)
+
     data = {"bad": None}
     with pytest.raises(SystemExit):
-        with patch(
-            "httpx.get",
-            return_value=Response(200, request=Request("get", url="https://test.com"), json=data),
-        ):
-            get_location_details(how="city", city_zip="test")
+        await get_location_details(how="city", city_zip="test")
 
     out, _ = capfd.readouterr()
     assert "Unable" in out
 
 
 @pytest.mark.usefixtures("mock_cache_dir")
-def test_get_location_details_empty_list(capfd):
-    with patch(
-        "httpx.get",
-        return_value=Response(200, request=Request("get", url="https://test.com"), json=[]),
-    ):
-        with pytest.raises(SystemExit):
-            get_location_details(how="zip", city_zip="12345")
-            out, _ = capfd.readouterr()
-            assert "Unable" in out
+async def test_get_location_details_empty_list(capfd, monkeypatch):
+    async def mock_get_response(*args, **kwargs):
+        return Response(200, request=Request("get", url="https://test.com"), json=[])
+
+    monkeypatch.setattr(AsyncClient, "get", mock_get_response)
+
+    with pytest.raises(SystemExit):
+        await get_location_details(how="zip", city_zip="12345")
+        out, _ = capfd.readouterr()
+        assert "Unable" in out
 
 
 @pytest.mark.usefixtures("mock_cache_dir")
-def test_get_location_details_error():
+async def test_get_location_details_error():
     with pytest.raises(UnknownSearchTypeError):
-        get_location_details(how="bad", city_zip="test")
+        await get_location_details(how="bad", city_zip="test")

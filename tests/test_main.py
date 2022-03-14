@@ -1,8 +1,8 @@
 import json
 from pathlib import Path
-from unittest.mock import patch
 
 import pytest
+from httpx import AsyncClient
 from tomlkit import parse
 
 from weather_command._config import LOCATION_BASE_URL
@@ -35,17 +35,17 @@ def test_main_default_params(
     mock_current_weather_response,
     mock_location_response,
     cache_with_file,
+    monkeypatch,
 ):
-    args = [how, city_zip, "--terminal-width", 180]
-
-    def mock_return(*args, **kwargs):
-        if LOCATION_BASE_URL in args[0]:
+    async def mock_get_response(*args, **kwargs):
+        if LOCATION_BASE_URL in args[1]:
             return mock_location_response
 
         return mock_current_weather_response
 
-    with patch("httpx.get", side_effect=mock_return):
-        result = test_runner.invoke(app, args, catch_exceptions=False)
+    monkeypatch.setattr(AsyncClient, "get", mock_get_response)
+    args = ["cli", how, city_zip, "--terminal-width", 180]
+    result = test_runner.invoke(app, args, catch_exceptions=False)
 
     out = result.stdout
 
@@ -84,8 +84,10 @@ def test_main_with_params(
     mock_one_call_weather_response,
     mock_location_response,
     cache_with_file,
+    monkeypatch,
 ):
     args = [
+        "cli",
         "zip",
         "27455",
         "--am-pm",
@@ -107,24 +109,24 @@ def test_main_with_params(
 
     if forecast_type == "current" or not forecast_type:
 
-        def mock_return(*args, **kwargs):
-            if LOCATION_BASE_URL in args[0]:
+        async def mock_return(*args, **kwargs):
+            if LOCATION_BASE_URL in args[1]:
                 return mock_location_response
 
             return mock_current_weather_response
 
-        with patch("httpx.get", side_effect=mock_return):
-            result = test_runner.invoke(app, args, catch_exceptions=False)
+        monkeypatch.setattr(AsyncClient, "get", mock_return)
+        result = test_runner.invoke(app, args, catch_exceptions=False)
     else:
 
-        def mock_return(*args, **kwargs):
-            if LOCATION_BASE_URL in args[0]:
+        async def mock_return(*args, **kwargs):
+            if LOCATION_BASE_URL in args[1]:
                 return mock_location_response
 
             return mock_one_call_weather_response
 
-        with patch("httpx.get", side_effect=mock_return):
-            result = test_runner.invoke(app, args, catch_exceptions=False)
+        monkeypatch.setattr(AsyncClient, "get", mock_return)
+        result = test_runner.invoke(app, args, catch_exceptions=False)
 
     out = result.stdout
 
@@ -145,16 +147,16 @@ def test_missing_api_key(test_runner, monkeypatch):
     monkeypatch.delenv("OPEN_WEATHER_API_KEY", raising=False)
 
     with pytest.raises(MissingApiKey):
-        test_runner.invoke(app, ["city", "Greensboro"], catch_exceptions=False)
+        test_runner.invoke(app, ["cli", "city", "Greensboro"], catch_exceptions=False)
 
 
 @pytest.mark.usefixtures("mock_cache_dir")
 def test_bad_how(test_runner):
-    result = test_runner.invoke(app, ["bad", "Greensboro"])
+    result = test_runner.invoke(app, ["cli", "bad", "Greensboro"])
     assert result.exit_code > 1
 
 
 @pytest.mark.usefixtures("mock_cache_dir")
 def test_bad_forecast_type(test_runner):
-    result = test_runner.invoke(app, ["city", "Greensboro", "-f", "bad"])
+    result = test_runner.invoke(app, ["cli", "city", "Greensboro", "-f", "bad"])
     assert result.exit_code > 1

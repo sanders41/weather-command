@@ -8,14 +8,14 @@ from rich.table import Table
 from weather_command._cache import Cache
 from weather_command._config import WEATHER_BASE_URL, apppend_api_key, console
 from weather_command._location import get_location_details
-from weather_command._weather import WeatherIcons, get_current_weather, get_one_call_current_weather
+from weather_command._weather import WeatherIcons, get_current_weather, get_one_call_weather
 from weather_command.models.location import Location
 from weather_command.models.weather import CurrentWeather, OneCallWeather
 
 HEADER_ROW_STYLE = Style(color="sky_blue2", bold=True)
 
 
-def show_current(
+async def show_current(
     how: str,
     city_zip: str,
     *,
@@ -28,7 +28,7 @@ def show_current(
 ) -> None:
     def print_weather(current_weather: CurrentWeather) -> None:
         if not temp_only:
-            console.print(_current_weather_all(current_weather, units, am_pm, location))
+            console.print(current_weather_all(current_weather, units, am_pm, location))
         else:
             console.print(_current_weather_temp(current_weather, units, location))
 
@@ -36,7 +36,7 @@ def show_current(
         console.width = terminal_width
 
     with console.status("Getting weather..."):
-        location = get_location_details(
+        location = await get_location_details(
             how=how, city_zip=city_zip, state=state_code, country=country_code
         )
 
@@ -50,17 +50,17 @@ def show_current(
                 print_weather(current_weather)
                 return None
 
-        url = _build_url(
+        url = build_url(
             forecast_type="current",
             units=units,
             lon=location.lon,
             lat=location.lat,
         )
-        current_weather = get_current_weather(url, how, city_zip)
+        current_weather = await get_current_weather(url, how, city_zip)
         print_weather(current_weather)
 
 
-def show_daily(
+async def show_daily(
     how: str,
     city_zip: str,
     *,
@@ -73,7 +73,7 @@ def show_daily(
 ) -> None:
     def print_weather(weather: OneCallWeather) -> None:
         if not temp_only:
-            console.print(_daily_all(weather, units, am_pm, location))
+            console.print(daily_all(weather, units, am_pm, location))
         else:
             console.print(_daily_temp_only(weather, units, am_pm, location))
 
@@ -81,7 +81,7 @@ def show_daily(
         console.width = terminal_width
 
     with console.status("Getting weather..."):
-        location = get_location_details(
+        location = await get_location_details(
             how=how, city_zip=city_zip, state=state_code, country=country_code
         )
 
@@ -95,12 +95,12 @@ def show_daily(
                 print_weather(weather)
                 return None
 
-        url = _build_url(forecast_type="daily", units=units, lon=location.lon, lat=location.lat)
-        weather = get_one_call_current_weather(url, how, city_zip)
+        url = build_url(forecast_type="daily", units=units, lon=location.lon, lat=location.lat)
+        weather = await get_one_call_weather(url, how, city_zip)
         print_weather(weather)
 
 
-def show_hourly(
+async def show_hourly(
     how: str,
     city_zip: str,
     *,
@@ -113,7 +113,7 @@ def show_hourly(
 ) -> None:
     def print_weather(weather: OneCallWeather) -> None:
         if not temp_only:
-            console.print(_hourly_all(weather, units, am_pm, location))
+            console.print(hourly_all(weather, units, am_pm, location))
         else:
             console.print(_hourly_temp_only(weather, units, am_pm, location))
 
@@ -121,7 +121,7 @@ def show_hourly(
         console.width = terminal_width
 
     with console.status("Getting weather..."):
-        location = get_location_details(
+        location = await get_location_details(
             how=how, city_zip=city_zip, state=state_code, country=country_code
         )
 
@@ -135,12 +135,12 @@ def show_hourly(
                 print_weather(weather)
                 return None
 
-        url = _build_url(forecast_type="hourly", units=units, lon=location.lon, lat=location.lat)
-        weather = get_one_call_current_weather(url, how, city_zip)
+        url = build_url(forecast_type="hourly", units=units, lon=location.lon, lat=location.lat)
+        weather = await get_one_call_weather(url, how, city_zip)
         print_weather(weather)
 
 
-def _build_url(
+def build_url(
     forecast_type: str,
     units: str,
     lon: float | None = None,
@@ -154,8 +154,12 @@ def _build_url(
     return apppend_api_key(url)
 
 
-def _current_weather_all(
-    current_weather: CurrentWeather, units: str, am_pm: bool, location: Location
+def current_weather_all(
+    current_weather: CurrentWeather,
+    units: str,
+    am_pm: bool,
+    location: Location,
+    show_title: bool = True,
 ) -> Table:
     precip_unit, _, speed_units, temp_units = _get_units(units)
     conditions = current_weather.weather[0].description
@@ -166,8 +170,14 @@ def _current_weather_all(
         am_pm, current_weather.sys.sunrise, current_weather.sys.sunset, current_weather.timezone
     )
 
-    table = Table(
-        title=f"Current weather for {location.display_name}", header_style=HEADER_ROW_STYLE
+    table = (
+        Table(
+            title=f"Current weather for {location.display_name}",
+            header_style=HEADER_ROW_STYLE,
+            expand=True,
+        )
+        if show_title
+        else Table(header_style=HEADER_ROW_STYLE, show_lines=True, expand=True)
     )
     table.add_column(f"Temperature ({temp_units}) :thermometer:")
     table.add_column(f"Feels Like ({temp_units}) :thermometer:")
@@ -237,12 +247,19 @@ def _current_weather_temp(current_weather: CurrentWeather, units: str, location:
     return table
 
 
-def _daily_all(weather: OneCallWeather, units: str, am_pm: bool, location: Location) -> Table:
+def daily_all(
+    weather: OneCallWeather, units: str, am_pm: bool, location: Location, show_title: bool = True
+) -> Table:
     _, pressure_units, speed_units, temp_units = _get_units(units)
-    table = Table(
-        title=f"Hourly weather for {location.display_name}",
-        header_style=HEADER_ROW_STYLE,
-        show_lines=True,
+    table = (
+        Table(
+            title=f"Hourly weather for {location.display_name}",
+            header_style=HEADER_ROW_STYLE,
+            show_lines=True,
+            expand=True,
+        )
+        if show_title
+        else Table(header_style=HEADER_ROW_STYLE, show_lines=True, expand=True)
     )
     table.add_column("Date/Day :date:")
     table.add_column(f"Low ({temp_units}) :thermometer:")
@@ -378,12 +395,18 @@ def _get_units(units: str) -> tuple[str, str, str, str]:
     return precip_units, pressure_units, speed_units, temp_units
 
 
-def _hourly_all(weather: OneCallWeather, units: str, am_pm: bool, location: Location) -> Table:
+def hourly_all(
+    weather: OneCallWeather, units: str, am_pm: bool, location: Location, show_title: bool = True
+) -> Table:
     precip_units, pressure_units, speed_units, temp_units = _get_units(units)
-    table = Table(
-        title=f"Hourly weather for {location.display_name}",
-        header_style=HEADER_ROW_STYLE,
-        show_lines=True,
+    table = (
+        Table(
+            title=f"Hourly weather for {location.display_name}",
+            header_style=HEADER_ROW_STYLE,
+            show_lines=True,
+        )
+        if show_title
+        else Table(header_style=HEADER_ROW_STYLE, show_lines=True, expand=True)
     )
     table.add_column("Date/Time :date:")
     table.add_column(f"Temperature ({temp_units}) :thermometer:")
