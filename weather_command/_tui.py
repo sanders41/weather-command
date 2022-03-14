@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from asyncio import gather
 from datetime import datetime
 
 from rich.console import RenderableType
@@ -11,6 +12,7 @@ from textual.widget import Widget
 from textual.widgets import Footer, Header, ScrollView
 
 from weather_command._builder import build_url, current_weather_all, daily_all, hourly_all
+from weather_command._cache import Cache
 from weather_command._location import get_location_details
 from weather_command._weather import get_current_weather, get_one_call_weather
 from weather_command.models.location import Location
@@ -72,11 +74,11 @@ class CurrentWeather(Widget):
         self.country = country
         self.units = units
         self.am_pm = am_pm
-        self.panel = _size_panel(7)
+        self.panel = Panel("Loading...")
 
         super().__init__()
 
-    async def on_mount(self) -> None:
+    async def build_panel(self) -> None:
         url = build_url(
             forecast_type="current",
             units=self.units,
@@ -84,6 +86,7 @@ class CurrentWeather(Widget):
             lat=self.location.lat,
         )
         current_weather = await get_current_weather(url, self.how, self.city_zip)
+
         table = current_weather_all(
             current_weather,
             self.units,
@@ -91,8 +94,11 @@ class CurrentWeather(Widget):
             self.location,
             False,
         )
-
         self.panel = Panel(table, title="Current Weather")
+
+    async def on_mount(self) -> None:
+        await self.build_panel()
+        self.refresh(layout=True)
 
     def render(self) -> Panel:
         return self.panel
@@ -116,17 +122,21 @@ class DailyWeather(Widget):
         self.country = country
         self.units = units
         self.am_pm = am_pm
-        self.panel = _size_panel(22)
+        self.panel = Panel("Loading...")
 
         super().__init__()
 
-    async def on_mount(self) -> None:
+    async def build_panel(self) -> None:
         url = build_url(
             forecast_type="daily", units=self.units, lon=self.location.lon, lat=self.location.lat
         )
         one_call_weather = await get_one_call_weather(url, self.how, self.city_zip)
-        weather = daily_all(one_call_weather, self.units, self.am_pm, self.location, False)
-        self.panel = Panel(weather, title="Daily Weather")
+        table = daily_all(one_call_weather, self.units, self.am_pm, self.location, False)
+        self.panel = Panel(table, title="Daily Weather")
+
+    async def on_mount(self) -> None:
+        await self.build_panel()
+        self.refresh(layout=True)
 
     def render(self) -> Panel:
         return self.panel
@@ -150,18 +160,21 @@ class HourlyWeather(Widget):
         self.country = country
         self.units = units
         self.am_pm = am_pm
-
-        self.panel = _size_panel(98)
+        self.panel = Panel("Loading...")
 
         super().__init__()
 
-    async def on_mount(self) -> None:
+    async def build_panel(self) -> None:
         url = build_url(
             forecast_type="daily", units=self.units, lon=self.location.lon, lat=self.location.lat
         )
         one_call_weather = await get_one_call_weather(url, self.how, self.city_zip)
-        weather = hourly_all(one_call_weather, self.units, self.am_pm, self.location, False)
-        self.panel = Panel(weather, title="Hourly Weather")
+        table = hourly_all(one_call_weather, self.units, self.am_pm, self.location, False)
+        self.panel = Panel(table, title="Hourly Weather")
+
+    async def on_mount(self) -> None:
+        await self.build_panel()
+        self.refresh(layout=True)
 
     def render(self) -> Panel:
         return self.panel
@@ -197,6 +210,15 @@ class WeatherApp(App):
         self.title = _generate_title(self.location, self.am_pm)
 
     async def action_reload(self) -> None:
+        await self.weather_view.update(self.loading)  # type: ignore
+        Cache().clear()
+        await gather(
+            self.current.build_panel(), self.daily.build_panel(), self.hourly.build_panel()
+        )
+        self.current.refresh(layout=True)
+        self.daily.refresh(layout=True)
+        self.hourly.refresh(layout=True)
+
         if self.active_view == "current":
             await self.weather_view.update(self.current)  # type: ignore
         elif self.active_view == "daily":
@@ -211,6 +233,7 @@ class WeatherApp(App):
             how=self.how, city_zip=self.city_zip, country=self.country
         )
 
+        self.loading = Panel("Loading...")
         self.current = CurrentWeather(
             self.location, self.how, self.city_zip, self.units, self.am_pm, self.state, self.country
         )
@@ -237,9 +260,3 @@ def _generate_title(location: Location, am_pm: bool) -> str:
         return f"{location.display_name} | Last Update: {datetime.now().strftime('%Y-%b-%d %I:%M:%S %p')}"
 
     return f"{location.display_name} | Last Update: {datetime.now().strftime('%Y-%b-%d %H:%M:%S')}"
-
-
-def _size_panel(new_lines: int) -> Panel:
-    """Very hacky way to size the panel. Find a better way to do this."""
-    spacer = "\n" * new_lines
-    return Panel(f"Loading...{spacer}")
