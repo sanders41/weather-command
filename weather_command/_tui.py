@@ -151,7 +151,7 @@ class HourlyWeather(Widget):
         self.units = units
         self.am_pm = am_pm
 
-        self.panel = _size_panel(52)
+        self.panel = _size_panel(98)
 
         super().__init__()
 
