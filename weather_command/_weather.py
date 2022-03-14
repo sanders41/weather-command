@@ -4,6 +4,7 @@ import sys
 from enum import Enum
 
 import httpx
+from httpx import AsyncClient
 from pydantic.error_wrappers import ValidationError
 from tenacity import retry
 from tenacity.stop import stop_after_attempt
@@ -16,9 +17,11 @@ from weather_command.models.weather import CurrentWeather, OneCallWeather
 
 
 @retry(stop=stop_after_attempt(5), wait=wait_fixed(0.5), reraise=True)
-def get_current_weather(url: str, how: str, city_zip: str) -> CurrentWeather:
+async def get_current_weather(url: str, how: str, city_zip: str) -> CurrentWeather:
     try:
-        response = httpx.get(url)
+        async with AsyncClient() as client:
+            response = await client.get(url)
+
         response.raise_for_status()
         weather = CurrentWeather(**response.json())
         if how == "zip":
@@ -35,8 +38,9 @@ def get_current_weather(url: str, how: str, city_zip: str) -> CurrentWeather:
 
 
 @retry(stop=stop_after_attempt(5), wait=wait_fixed(0.5), reraise=True)
-def get_one_call_current_weather(url: str, how: str, city_zip: str) -> OneCallWeather:
-    response = httpx.get(url)
+async def get_one_call_weather(url: str, how: str, city_zip: str) -> OneCallWeather:
+    async with AsyncClient() as client:
+        response = await client.get(url)
     try:
         response.raise_for_status()
         weather = OneCallWeather(**response.json())

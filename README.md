@@ -46,32 +46,32 @@ Once installed you can also add aliases to your shell to make it quick to get a 
 if your shell is zsh you can add something like the following to your `~/.zshrc` file:
 
 ```sh
-alias we="weather-command zip 98109 -i --am-pm"
-alias wed="weather-command zip 98109 -i --am-pm -f daily"
-alias weh="weather-command zip 98109 -i --am-pm -f hourly"
+alias we="weather-command cli zip 98109 -i --am-pm"
+alias wed="weather-command cli zip 98109 -i --am-pm -f daily"
+alias weh="weather-command cli zip 98109 -i --am-pm -f hourly"
+alias wet="weather-command tui zip 98109 -i --am-pm"
 ```
 
 After adding this to the `~/.zshrc` you will need to restart your terminal. After that typing `we`
 will get the current forecast, `wed` will get the daily forecast and `weh` will get the hourly forecast.
 
-### Arguments
+### Modes
 
-* [HOW]: How to get the weather. Accepted values are city and zip. [default: city]
-* [CITY_ZIP]: The name of the city or zip code for which the weather should be retrieved. If the
-first argument is 'city' this should be the name of the city, or if 'zip' it should be the zip
-code. [required]
+Weather Command can be run in either CLI (command line interface) mode or TUI (text user interface)
+mode. CLI mode will print the weather to your terminal, while TUI mode will open the weather in an
+interactive terminal app.
 
-### Options
+To run in CLI mode use the `cli` command
 
-* -s, --state-code: The name of the state where the city is located.
-* -c, --country-code: The country code where the city is located.
-* -i, --imperial: If this flag is used the units will be imperial, otherwise units will be metric.
-* --am-pm: If this flag is set the times will be displayed in 12 hour format, otherwise times
-will be 24 hour format.
-* -f, --forecast-type: The type of forecast to display. Accepted values are 'current' 'daily', and 'hourly'. [default: current]
-* -t, --temp-only: If this flag is set only tempatures will be displayed.
-* --terminal_width INTEGER: Allows for overriding the default terminal width.
-* --help: Show this message and exit.
+```py
+weather-command cli zip 98109 -i --am-pm
+```
+
+To run in TUI mode use the `tui` command
+
+```py
+weather-command tui zip 98109 -i --am-pm
+```
 
 ## Contributing
 
