@@ -9,7 +9,7 @@ from weather_command._builder import show_current, show_daily, show_hourly
 from weather_command._cache import Cache
 from weather_command._tui import WeatherApp
 
-__version__ = "3.0.0"
+__version__ = "3.1.0"
 
 install()
 app = Typer()
