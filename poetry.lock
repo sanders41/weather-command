@@ -451,11 +451,11 @@ diagrams = ["jinja2", "railroad-diagrams"]
 
 [[package]]
 name = "pytest"
-version = "7.0.1"
+version = "7.1.0"
 description = "pytest: simple powerful testing with Python"
 category = "dev"
 optional = false
-python-versions = ">=3.6"
+python-versions = ">=3.7"
 
 [package.dependencies]
 atomicwrites = {version = ">=1.0", markers = "sys_platform == \"win32\""}
@@ -695,7 +695,7 @@ uvloop = []
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7"
-content-hash = "b9826106258267aebe30fe63a70a71166e3e955b669526fec5aa4955725c2cd4"
+content-hash = "92adbac57470f19c026a7baf4f6946ea29d50a569be555a126888310f00e64b3"
 
 [metadata.files]
 anyio = [
@@ -965,8 +965,8 @@ pyparsing = [
     {file = "pyparsing-3.0.7.tar.gz", hash = "sha256:18ee9022775d270c55187733956460083db60b37d0d0fb357445f3094eed3eea"},
 ]
 pytest = [
-    {file = "pytest-7.0.1-py3-none-any.whl", hash = "sha256:9ce3ff477af913ecf6321fe337b93a2c0dcf2a0a1439c43f5452112c1e4280db"},
-    {file = "pytest-7.0.1.tar.gz", hash = "sha256:e30905a0c131d3d94b89624a1cc5afec3e0ba2fbdb151867d8e0ebd49850f171"},
+    {file = "pytest-7.1.0-py3-none-any.whl", hash = "sha256:b555252a95bbb2a37a97b5ac2eb050c436f7989993565f5e0c9128fcaacadd0e"},
+    {file = "pytest-7.1.0.tar.gz", hash = "sha256:f1089d218cfcc63a212c42896f1b7fbf096874d045e1988186861a1a87d27b47"},
 ]
 pytest-asyncio = [
     {file = "pytest-asyncio-0.18.2.tar.gz", hash = "sha256:fc8e4190f33fee7797cc7f1829f46a82c213f088af5d1bb5d4e454fe87e6cdc2"},
