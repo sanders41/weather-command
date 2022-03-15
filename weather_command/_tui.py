@@ -210,7 +210,7 @@ class WeatherApp(App):
         self.title = _generate_title(self.location, self.am_pm)
 
     async def action_reload(self) -> None:
-        await self.weather_view.update(self.loading)  # type: ignore
+        self.title = "Loading..."
         Cache().clear()
         await gather(
             self.current.build_panel(), self.daily.build_panel(), self.hourly.build_panel()
@@ -227,13 +227,21 @@ class WeatherApp(App):
             await self.weather_view.update(self.hourly)  # type: ignore
 
         self.title = _generate_title(self.location, self.am_pm)
+        self.last_reload = datetime.now()
+
+    async def timer_reload(self) -> None:
+        diff = round((datetime.now() - self.last_reload).total_seconds())
+        if diff >= 3595:  # Give a 5 second buffer on the hour
+            self.title = f"{self.last_reload} | {datetime.now()} | {diff}"
+            await self.action_reload()
+        else:
+            self.last_reload = datetime.now()
 
     async def on_mount(self) -> None:
         self.location = await get_location_details(
             how=self.how, city_zip=self.city_zip, country=self.country
         )
 
-        self.loading = Panel("Loading...")
         self.current = CurrentWeather(
             self.location, self.how, self.city_zip, self.units, self.am_pm, self.state, self.country
         )
@@ -253,6 +261,9 @@ class WeatherApp(App):
         await self.view.dock(self.header, edge="top")
         await self.view.dock(self.footer, edge="bottom")
         await self.view.dock(self.weather_view, edge="top")
+
+        self.last_reload = datetime.now()
+        self.set_interval(3600.0, self.timer_reload)  # 1 hour
 
 
 def _generate_title(location: Location, am_pm: bool) -> str:
