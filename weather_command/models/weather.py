@@ -86,7 +86,7 @@ class Hourly(CamelBase):
     wind_deg: int
     rain: Optional[PrecipAmount] = None
     snow: Optional[PrecipAmount] = None
-    pop: int
+    pop: float
 
 
 class OneCallCurrent(CamelBase):
@@ -133,7 +133,7 @@ class Daily(CamelBase):
     wind_gust: float = 0.0
     weather: List[Weather]
     clouds: int
-    pop: int
+    pop: float
     rain: float = 0.0
     uvi: float
 

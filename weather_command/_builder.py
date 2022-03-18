@@ -300,7 +300,7 @@ def daily_all(
             conditions,
             str(daily.uvi),
             f"{daily.clouds}%",
-            f"{daily.pop * 100}%",
+            f"{round(daily.pop * 100)}%",
             wind,
             gusts,
             sunrise,
@@ -449,7 +449,7 @@ def hourly_all(
             f"{hourly.clouds}%",
             wind,
             gusts,
-            f"{hourly.pop * 100}%",
+            f"{round(hourly.pop * 100)}%",
             rain,
             snow,
         )
