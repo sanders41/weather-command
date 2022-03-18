@@ -43,7 +43,6 @@ async def get_one_call_weather(url: str, how: str, city_zip: str) -> OneCallWeat
         response = await client.get(url)
     try:
         response.raise_for_status()
-        console.print(response.json())
         weather = OneCallWeather(**response.json())
         if how == "zip":
             cache = Cache()
