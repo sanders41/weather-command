@@ -270,6 +270,7 @@ def daily_all(
     table.add_column("Conditions")
     table.add_column("UVI")
     table.add_column("Clouds")
+    table.add_column("Precipitation Chance")
     table.add_column(f"Wind ({speed_units})")
     table.add_column(f"Wind Gusts {speed_units}")
     table.add_column("Sunrise :sunrise:")
@@ -299,6 +300,7 @@ def daily_all(
             conditions,
             str(daily.uvi),
             f"{daily.clouds}%",
+            f"{round(daily.pop * 100)}%",
             wind,
             gusts,
             sunrise,
@@ -419,6 +421,7 @@ def hourly_all(
     table.add_column("Clouds")
     table.add_column(f"Wind ({speed_units})")
     table.add_column(f"Wind Gusts {speed_units}")
+    table.add_column("Precipitation Chance")
     table.add_column(f"Rain ({precip_units}) :cloud_with_rain:")
     table.add_column(f"Snow ({precip_units}) :snowflake:")
 
@@ -446,6 +449,7 @@ def hourly_all(
             f"{hourly.clouds}%",
             wind,
             gusts,
+            f"{round(hourly.pop * 100)}%",
             rain,
             snow,
         )
