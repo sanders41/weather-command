@@ -117,7 +117,7 @@ def test_hourly_all(
         mock_one_call_weather.hourly[0].snow = snow
 
     mock_one_call_weather.hourly[0].wind_speed = wind
-    mock_one_call_weather.hourly[0].wind_gust = wind
+    mock_one_call_weather.hourly[0].wind_gust = gust
     mock_one_call_weather.hourly[0].pressure = pressure
 
     table = _builder.hourly_all(
