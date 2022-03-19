@@ -337,13 +337,13 @@ def _format_date_time(
     am_pm: bool, dt: datetime, timezone: int, forecast_type: str | None = None
 ) -> str:
     if forecast_type == "daily":
-        return f"[date]{datetime.strftime(dt + timedelta(seconds=timezone), '%Y-%m-%d %A')}[/]"
+        return f"[date]{datetime.strftime(dt + timedelta(seconds=timezone), '%d-%b-%Y %A')}[/]"
 
     if not am_pm:
-        return f"[date]{datetime.strftime(dt + timedelta(seconds=timezone), '%Y-%m-%d %H:%M')}[/]"
+        return f"[date]{datetime.strftime(dt + timedelta(seconds=timezone), '%d-%b-%Y %H:%M')}[/]"
     else:
         return (
-            f"[date]{datetime.strftime(dt + timedelta(seconds=timezone), '%Y-%m-%d %I:%M %p')}[/]"
+            f"[date]{datetime.strftime(dt + timedelta(seconds=timezone), '%d-%b-%Y %I:%M %p')}[/]"
         )
 
 
