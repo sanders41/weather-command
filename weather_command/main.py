@@ -1,5 +1,6 @@
 import asyncio
 from enum import Enum
+from sys import platform
 from typing import Optional
 
 from rich.traceback import install
@@ -8,6 +9,17 @@ from typer import Argument, Exit, Option, Typer, echo
 from weather_command._builder import show_current, show_daily, show_hourly
 from weather_command._cache import Cache
 from weather_command._tui import WeatherApp
+
+
+def _is_uvloop_platform() -> bool:
+    if platform in ("linux", "darwin"):
+        return True  # pragma: no cover
+
+    return False  # pragma: no cover
+
+
+if _is_uvloop_platform():
+    import uvloop
 
 __version__ = "3.2.0"
 
@@ -24,12 +36,6 @@ class ForecastType(str, Enum):
 class How(str, Enum):
     CITY = "city"
     ZIP = "zip"
-
-
-def version_callback(value: bool) -> None:
-    if value:
-        echo(__version__)
-        raise Exit()
 
 
 @app.command()
@@ -77,6 +83,9 @@ def cli(
     ),
 ) -> None:
     """Run in CLI mode."""
+
+    if _is_uvloop_platform():
+        uvloop.install()
 
     if clear_cache:
         cache = Cache()
