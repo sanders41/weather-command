@@ -301,6 +301,6 @@ class WeatherApp(App):
 
 def _generate_title(location: Location, am_pm: bool) -> str:
     if am_pm:
-        return f"{location.display_name} | Last Update: {datetime.now().strftime('%Y-%b-%d %I:%M:%S %p')}"
+        return f"{location.display_name} | Last Update: {datetime.now().strftime('%d-%b-%Y %I:%M:%S %p')}"
 
-    return f"{location.display_name} | Last Update: {datetime.now().strftime('%Y-%b-%d %H:%M:%S')}"
+    return f"{location.display_name} | Last Update: {datetime.now().strftime('%d-%b-%Y %H:%M:%S')}"
