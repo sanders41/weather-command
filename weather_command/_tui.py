@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from asyncio import gather
 from datetime import datetime
+from typing import NamedTuple
 
 from rich.console import RenderableType
 from rich.panel import Panel
@@ -16,6 +17,47 @@ from weather_command._cache import Cache
 from weather_command._location import get_location_details
 from weather_command._weather import get_current_weather, get_one_call_weather
 from weather_command.models.location import Location
+
+
+class PanelCache(NamedTuple):
+    panel: Panel
+
+
+class _BaseWeatherPanel(Widget):
+    def __init__(
+        self,
+        location: Location,
+        how: str,
+        city_zip: str,
+        units: str,
+        am_pm: bool,
+        state: str | None = None,
+        country: str | None = None,
+    ) -> None:
+        self.location = location
+        self.how = how
+        self.city_zip = city_zip
+        self.state = state
+        self.country = country
+        self.units = units
+        self.am_pm = am_pm
+        self.panel_cache: PanelCache | None = None
+        self.panel = Panel("Loading...")
+
+        super().__init__()
+
+    async def build_panel(self) -> None:
+        ...  # pragma: no cover
+
+    def clear_cache(self) -> None:
+        self.panel_cache = None
+
+    async def on_mount(self) -> None:
+        await self.build_panel()
+        self.refresh(layout=True)
+
+    def render(self) -> Panel:
+        return self.panel
 
 
 class WeatherHeader(Header):
@@ -56,7 +98,7 @@ class WeatherFooter(Footer):
         return text
 
 
-class CurrentWeather(Widget):
+class CurrentWeather(_BaseWeatherPanel):
     def __init__(
         self,
         location: Location,
@@ -67,18 +109,21 @@ class CurrentWeather(Widget):
         state: str | None = None,
         country: str | None = None,
     ) -> None:
-        self.location = location
-        self.how = how
-        self.city_zip = city_zip
-        self.state = state
-        self.country = country
-        self.units = units
-        self.am_pm = am_pm
-        self.panel = Panel("Loading...")
-
-        super().__init__()
+        super().__init__(
+            location=location,
+            how=how,
+            city_zip=city_zip,
+            units=units,
+            am_pm=am_pm,
+            state=state,
+            country=country,
+        )
 
     async def build_panel(self) -> None:
+        if self.panel_cache:
+            self.panel = self.panel_cache.panel
+            return None
+
         url = build_url(
             forecast_type="current",
             units=self.units,
@@ -95,16 +140,10 @@ class CurrentWeather(Widget):
             False,
         )
         self.panel = Panel(table, title="Current Weather")
-
-    async def on_mount(self) -> None:
-        await self.build_panel()
-        self.refresh(layout=True)
-
-    def render(self) -> Panel:
-        return self.panel
+        self.panel_cache = PanelCache(panel=self.panel)
 
 
-class DailyWeather(Widget):
+class DailyWeather(_BaseWeatherPanel):
     def __init__(
         self,
         location: Location,
@@ -115,34 +154,31 @@ class DailyWeather(Widget):
         state: str | None = None,
         country: str | None = None,
     ) -> None:
-        self.location = location
-        self.how = how
-        self.city_zip = city_zip
-        self.state = state
-        self.country = country
-        self.units = units
-        self.am_pm = am_pm
-        self.panel = Panel("Loading...")
-
-        super().__init__()
+        super().__init__(
+            location=location,
+            how=how,
+            city_zip=city_zip,
+            units=units,
+            am_pm=am_pm,
+            state=state,
+            country=country,
+        )
 
     async def build_panel(self) -> None:
+        if self.panel_cache:
+            self.panel = self.panel_cache.panel
+            return None
+
         url = build_url(
             forecast_type="daily", units=self.units, lon=self.location.lon, lat=self.location.lat
         )
         one_call_weather = await get_one_call_weather(url, self.how, self.city_zip)
         table = daily_all(one_call_weather, self.units, self.am_pm, self.location, False)
         self.panel = Panel(table, title="Daily Weather")
-
-    async def on_mount(self) -> None:
-        await self.build_panel()
-        self.refresh(layout=True)
-
-    def render(self) -> Panel:
-        return self.panel
+        self.panel_cache = PanelCache(panel=self.panel)
 
 
-class HourlyWeather(Widget):
+class HourlyWeather(_BaseWeatherPanel):
     def __init__(
         self,
         location: Location,
@@ -153,31 +189,28 @@ class HourlyWeather(Widget):
         state: str | None = None,
         country: str | None = None,
     ) -> None:
-        self.location = location
-        self.how = how
-        self.city_zip = city_zip
-        self.state = state
-        self.country = country
-        self.units = units
-        self.am_pm = am_pm
-        self.panel = Panel("Loading...")
-
-        super().__init__()
+        super().__init__(
+            location=location,
+            how=how,
+            city_zip=city_zip,
+            units=units,
+            am_pm=am_pm,
+            state=state,
+            country=country,
+        )
 
     async def build_panel(self) -> None:
+        if self.panel_cache:
+            self.panel = self.panel_cache.panel
+            return None
+
         url = build_url(
             forecast_type="daily", units=self.units, lon=self.location.lon, lat=self.location.lat
         )
         one_call_weather = await get_one_call_weather(url, self.how, self.city_zip)
         table = hourly_all(one_call_weather, self.units, self.am_pm, self.location, False)
         self.panel = Panel(table, title="Hourly Weather")
-
-    async def on_mount(self) -> None:
-        await self.build_panel()
-        self.refresh(layout=True)
-
-    def render(self) -> Panel:
-        return self.panel
+        self.panel_cache = PanelCache(panel=self.panel)
 
 
 class WeatherApp(App):
@@ -207,11 +240,12 @@ class WeatherApp(App):
             await self.weather_view.update(self.hourly)  # type: ignore
             self.active_view = "hourly"
 
-        self.title = _generate_title(self.location, self.am_pm)
-
     async def action_reload(self) -> None:
         self.title = "Loading..."
         Cache().clear()
+        self.current.clear_cache()
+        self.daily.clear_cache()
+        self.hourly.clear_cache()
         await gather(
             self.current.build_panel(), self.daily.build_panel(), self.hourly.build_panel()
         )
@@ -232,7 +266,6 @@ class WeatherApp(App):
     async def timer_reload(self) -> None:
         diff = round((datetime.now() - self.last_reload).total_seconds())
         if diff >= 3595:  # Give a 5 second buffer on the hour
-            self.title = f"{self.last_reload} | {datetime.now()} | {diff}"
             await self.action_reload()
         else:
             self.last_reload = datetime.now()
