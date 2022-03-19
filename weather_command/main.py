@@ -12,7 +12,7 @@ from weather_command._tui import WeatherApp
 
 
 def _is_uvloop_platform() -> bool:
-    if platform in ("linux", "darwin"):
+    if platform != "win32":
         return True  # pragma: no cover
 
     return False  # pragma: no cover

@@ -19,7 +19,7 @@ camel-converter = {version = "1.0.3", extras = ["pydantic"]}
 typer = "0.4.0"
 tenacity = "8.0.1"
 textual = "0.1.17"
-uvloop = [{version = "^0.16.0", platform = "linux"}, {version = "^0.16.0", platform = "linux"}]
+uvloop = {version = "^0.16.0", markers = "sys_platform != 'win32'"}
 
 [tool.poetry.dev-dependencies]
 black = "^22.1"
