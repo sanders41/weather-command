@@ -19,7 +19,10 @@ def _is_uvloop_platform() -> bool:
 
 
 if _is_uvloop_platform():
-    import uvloop
+    try:
+        import uvloop
+    except ImportError:
+        pass
 
 __version__ = "3.2.1"
 
@@ -85,7 +88,10 @@ def cli(
     """Run in CLI mode."""
 
     if _is_uvloop_platform():
-        uvloop.install()
+        try:
+            uvloop.install()
+        except NameError:
+            pass
 
     if clear_cache:
         cache = Cache()
