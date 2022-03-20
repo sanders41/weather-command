@@ -12,6 +12,14 @@ A command line weather app
 
 Installation with [pipx](https://github.com/pypa/pipx) is recommended.
 
+If you are running on a non-Windows OS you can install with uvloop for more speed.
+
+```sh
+pipx install "weather-command[uvloop]"
+```
+
+uvloop is currently not supported on Windows on this platform install without uvloop.
+
 ```sh
 pipx install weather-command
 ```
@@ -19,6 +27,10 @@ pipx install weather-command
 Alternatively Weather Command can be installed with pip.
 
 ```sh
+# Non Windows
+pip install weather-command[uvloop]
+
+# Windows
 pip install weather-command
 ```
 
