@@ -21,7 +21,7 @@ def _is_uvloop_platform() -> bool:
 if _is_uvloop_platform():
     import uvloop
 
-__version__ = "3.2.0"
+__version__ = "3.2.1"
 
 install()
 app = Typer()
