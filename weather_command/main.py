@@ -24,7 +24,7 @@ if _is_uvloop_platform():
     except ImportError:
         pass
 
-__version__ = "3.2.1"
+__version__ = "3.2.2"
 
 install()
 app = Typer()
