@@ -349,7 +349,7 @@ def _format_date_time(
 
 def _format_precip(precip_amount: float | None, units: str) -> str:
     if not precip_amount:
-        return "0"
+        return "0.00"
 
     return str(_mm_to_in(precip_amount)) if units == "imperial" else str(precip_amount)
 
@@ -427,8 +427,8 @@ def hourly_all(
 
     for hourly in weather.hourly:
         dt = _format_date_time(am_pm, hourly.dt, weather.timezone_offset)
-        rain = _format_precip(hourly.rain.one_hour, units) if hourly.rain else "0"
-        snow = _format_precip(hourly.snow.one_hour, units) if hourly.snow else "0"
+        rain = _format_precip(hourly.rain.one_hour, units) if hourly.rain else "0.00"
+        snow = _format_precip(hourly.snow.one_hour, units) if hourly.snow else "0.00"
         wind = _format_wind(hourly.wind_speed, units)
         gusts = _format_wind(hourly.wind_gust, units)
         pressure = _format_pressure(hourly.pressure, units)
