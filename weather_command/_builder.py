@@ -348,7 +348,7 @@ def _format_date_time(
 
 
 def _format_precip(precip_amount: float | None, units: str) -> str:
-    if not precip_amount:
+    if not precip_amount or _mm_to_in(precip_amount) < 0.01:
         return "0"
 
     return str(_mm_to_in(precip_amount)) if units == "imperial" else str(precip_amount)
