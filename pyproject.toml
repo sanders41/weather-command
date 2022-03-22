@@ -79,7 +79,7 @@ disallow_untyped_defs = false
 
 [tool.pytest.ini_options]
 minversion = "6.0"
-addopts = "--cov=weather_command"
+addopts = "--cov=weather_command --cov-report term-missing"
 asyncio_mode = "auto"
 
 [tool.coverage.report]
