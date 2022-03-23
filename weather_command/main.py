@@ -21,7 +21,7 @@ def _is_uvloop_platform() -> bool:
 if _is_uvloop_platform():
     try:
         import uvloop
-    except ImportError:
+    except ImportError:  # pragma: no cover
         pass
 
 __version__ = "3.2.3"
@@ -90,7 +90,7 @@ def cli(
     if _is_uvloop_platform():
         try:
             uvloop.install()
-        except NameError:
+        except NameError:  # pragma: no cover
             pass
 
     if clear_cache:
