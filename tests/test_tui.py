@@ -3,15 +3,20 @@ import io
 import pytest
 from httpx import AsyncClient
 from rich.console import Console
-from rich.panel import Panel
 
 from weather_command._config import LOCATION_BASE_URL
-from weather_command._tui import CurrentWeather, DailyWeather, HourlyWeather, _generate_title
+from weather_command._tui import (
+    CurrentWeather,
+    DailyWeather,
+    HourlyWeather,
+    WeatherHeader,
+    _generate_title,
+)
 
 
-def render(panel: Panel) -> str:
+def render(renderable) -> str:
     console = Console(file=io.StringIO(), width=100)
-    console.print(panel)
+    console.print(renderable)
     return console.file.getvalue()  # type: ignore
 
 
@@ -237,3 +242,9 @@ async def test_hourly_weather_cache(
     # Clear cache
     weather.clear_cache()
     assert weather.panel_cache is None
+
+
+def test_weather_header_icon():
+    header = WeatherHeader()
+    rendered = render(header.render())
+    assert "🌞" in rendered
