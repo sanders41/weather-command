@@ -196,15 +196,15 @@ def current_weather_all(
         rain_one_hour = _format_precip(current_weather.rain.one_hour, units)
         rain_three_hour = _format_precip(current_weather.rain.three_hour, units)
     else:
-        rain_one_hour = "0"
-        rain_three_hour = "0"
+        rain_one_hour = "0.00"
+        rain_three_hour = "0.00"
 
     if current_weather.snow:
         snow_one_hour = _format_precip(current_weather.snow.one_hour, units)
         snow_three_hour = _format_precip(current_weather.snow.three_hour, units)
     else:
-        snow_one_hour = "0"
-        snow_three_hour = "0"
+        snow_one_hour = "0.00"
+        snow_three_hour = "0.00"
 
     if current_weather.wind:
         wind = _format_wind(current_weather.wind.speed, units)
