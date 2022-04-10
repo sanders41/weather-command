@@ -284,6 +284,11 @@ class WeatherApp(App):
         self.hourly = HourlyWeather(
             self.location, self.how, self.city_zip, self.units, self.am_pm, self.state, self.country
         )
+
+        await gather(
+            self.current.build_panel(), self.daily.build_panel(), self.hourly.build_panel()
+        )
+
         self.active_view = "current"
         self.weather_view = ScrollView(self.current, style="black on sky_blue2")
 
