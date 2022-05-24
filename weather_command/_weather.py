@@ -78,6 +78,7 @@ class WeatherIcons(Enum):
     HEAVY_INTENSITY_SNOW = ":snowflake:"
     SUN = ":sun:"
     THUNDERSTORM = ":cloud_with_lightning:"
+    VERY_HEAVY_RAIN = ":cloud_with_rain:"
 
     @classmethod
     def get_icon(cls, weather_type: str) -> str | None:
