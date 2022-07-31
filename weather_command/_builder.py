@@ -6,7 +6,7 @@ from rich.style import Style
 from rich.table import Table
 
 from weather_command._cache import Cache
-from weather_command._config import WEATHER_BASE_URL, apppend_api_key, console
+from weather_command._config import WEATHER_BASE_URL, append_api_key, console
 from weather_command._location import get_location_details
 from weather_command._weather import WeatherIcons, get_current_weather, get_one_call_weather
 from weather_command.models.location import Location
@@ -151,7 +151,7 @@ def build_url(
     else:
         url = f"{WEATHER_BASE_URL}/onecall?lat={lat}&lon={lon}&units={units}"
 
-    return apppend_api_key(url)
+    return append_api_key(url)
 
 
 def current_weather_all(

@@ -11,7 +11,7 @@ WEATHER_BASE_URL = "https://api.openweathermap.org/data/2.5"
 LOCATION_BASE_URL = "https://nominatim.openstreetmap.org/search?format=json&limit=1"
 
 
-def apppend_api_key(url: str) -> str:
+def append_api_key(url: str) -> str:
     api_key = getenv("OPEN_WEATHER_API_KEY")
     if not api_key:
         raise MissingApiKey(
