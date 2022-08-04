@@ -23,7 +23,7 @@ uvloop = {version = "^0.16.0", markers = "sys_platform != 'win32'"}
 
 [tool.poetry.dev-dependencies]
 black = "^22.6"
-flake8 = "^5.0.3"
+flake8 = "^5.0.4"
 isort = "^5.10.1"
 mypy = "^0.971"
 pre-commit = "^2.20.0"
