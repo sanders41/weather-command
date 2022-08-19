@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from functools import lru_cache
 from os import getenv
 
 from rich.console import Console
@@ -11,6 +12,7 @@ WEATHER_BASE_URL = "https://api.openweathermap.org/data/2.5"
 LOCATION_BASE_URL = "https://nominatim.openstreetmap.org/search?format=json&limit=1"
 
 
+@lru_cache(maxsize=16)
 def append_api_key(url: str) -> str:
     api_key = getenv("OPEN_WEATHER_API_KEY")
     if not api_key:
