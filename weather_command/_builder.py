@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from datetime import datetime, timedelta
+from functools import lru_cache
 
 from rich.style import Style
 from rich.table import Table
@@ -333,6 +334,7 @@ def _daily_temp_only(weather: OneCallWeather, units: str, am_pm: bool, location:
     return table
 
 
+@lru_cache(maxsize=16)
 def _format_date_time(
     am_pm: bool, dt: datetime, timezone: int, forecast_type: str | None = None
 ) -> str:
@@ -347,6 +349,7 @@ def _format_date_time(
         )
 
 
+@lru_cache(maxsize=16)
 def _format_precip(precip_amount: float | None, units: str) -> str:
     if not precip_amount:
         return "0.00"
@@ -354,6 +357,7 @@ def _format_precip(precip_amount: float | None, units: str) -> str:
     return str(_mm_to_in(precip_amount)) if units == "imperial" else str(precip_amount)
 
 
+@lru_cache(maxsize=16)
 def _format_pressure(pressure: int | None, units: str) -> str:
     if not pressure:
         return "0"
@@ -361,6 +365,7 @@ def _format_pressure(pressure: int | None, units: str) -> str:
     return str(_hpa_to_in(pressure)) if units == "imperial" else str(pressure)
 
 
+@lru_cache(maxsize=16)
 def _format_wind(speed: float | None, units: str) -> str:
     if not speed:
         return "0"
@@ -368,6 +373,7 @@ def _format_wind(speed: float | None, units: str) -> str:
     return str(round(_kph_to_mph(speed))) if units == "imperial" else str(round(speed))
 
 
+@lru_cache(maxsize=16)
 def _format_sunrise_sunset(
     am_pm: bool, sunrise: datetime, sunset: datetime, timezone: int
 ) -> tuple[str, str]:
@@ -381,6 +387,7 @@ def _format_sunrise_sunset(
     return sunrise_format, sunset_format
 
 
+@lru_cache(maxsize=2)
 def _get_units(units: str) -> tuple[str, str, str, str]:
     _validate_units(units)
     if units == "metric":
@@ -482,14 +489,17 @@ def _hourly_temp_only(
     return table
 
 
+@lru_cache(maxsize=16)
 def _hpa_to_in(value: float) -> float:
     return round(value / 33.863886666667, 2)
 
 
+@lru_cache(maxsize=16)
 def _kph_to_mph(value: float) -> float:
     return value / 1.609
 
 
+@lru_cache(maxsize=16)
 def _mm_to_in(value: float) -> float:
     return round(value / 25.4, 2)
 
