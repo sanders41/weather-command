@@ -24,7 +24,7 @@ if _is_uvloop_platform():
     except ImportError:  # pragma: no cover
         pass
 
-__version__ = "3.2.5"
+__version__ = "3.2.6"
 
 install()
 app = Typer()
