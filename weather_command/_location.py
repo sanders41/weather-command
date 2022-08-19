@@ -57,23 +57,21 @@ async def get_location_details(
     except httpx.HTTPStatusError as e:
         check_status_error(e, console)
 
-    response_json = response.json()
-
     if not response.json():
         _print_location_not_found_error()
         sys.exit(1)
 
+    response_json = response.json()
+
     try:
         if isinstance(response_json, list):
             location = Location(**response_json[0])
-            if how == "zip":
-                cache.add(city_zip=city_zip, location=location)
-            return location
         else:
             location = Location(**response_json)
-            if how == "zip":
-                cache.add(city_zip=city_zip, location=location)
-            return location
+
+        if how == "zip":
+            cache.add(city_zip=city_zip, location=location)
+        return location
     except ValidationError:
         _print_location_not_found_error()
         sys.exit(1)
