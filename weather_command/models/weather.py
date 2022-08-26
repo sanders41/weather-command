@@ -81,8 +81,8 @@ class Hourly(CamelBase):
     weather: List[Weather]
     clouds: int
     visibility: int
-    wind_speed: float
-    wind_gust: float
+    wind_speed: float = 0.0
+    wind_gust: float = 0.0
     wind_deg: int
     rain: Optional[PrecipAmount] = None
     snow: Optional[PrecipAmount] = None
