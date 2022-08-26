@@ -11,7 +11,7 @@ class Coordinates(CamelBase):
 
 
 class Clouds(CamelBase):
-    all: int
+    all: int = 0
 
 
 class PrecipAmount(CamelBase):
@@ -27,18 +27,18 @@ class Weather(CamelBase):
 
 
 class Wind(CamelBase):
-    speed: float
-    deg: int
+    speed: float = 0.0
+    deg: int = 0
     gust: Optional[float] = None
 
 
 class Main(CamelBase):
-    temp: float
-    feels_like: float
-    temp_min: float
-    temp_max: float
-    pressure: int
-    humidity: int
+    temp: float = 0.0
+    feels_like: float = 0.0
+    temp_min: float = 0.0
+    temp_max: float = 0.0
+    pressure: int = 0
+    humidity: int = 0
 
 
 class Sys(CamelBase):
@@ -52,7 +52,7 @@ class CurrentWeather(CamelBase):
     weather: List[Weather]
     base: str
     main: Main
-    visibility: int
+    visibility: int = 0
     wind: Optional[Wind] = None
     clouds: Optional[Clouds] = None
     rain: Optional[PrecipAmount] = None
@@ -67,40 +67,40 @@ class CurrentWeather(CamelBase):
 
 class Minutely(CamelBase):
     dt: datetime
-    precipitation: float
+    precipitation: float = 0.0
 
 
 class Hourly(CamelBase):
     dt: datetime
-    temp: float
-    feels_like: float
-    pressure: int
-    humidity: int
-    dew_point: float
-    uvi: float
+    temp: float = 0.0
+    feels_like: float = 0.0
+    pressure: int = 0
+    humidity: int = 0
+    dew_point: float = 0.0
+    uvi: float = 0.0
     weather: List[Weather]
-    clouds: int
-    visibility: int
+    clouds: int = 0
+    visibility: int = 0
     wind_speed: float = 0.0
     wind_gust: float = 0.0
-    wind_deg: int
+    wind_deg: int = 0
     rain: Optional[PrecipAmount] = None
     snow: Optional[PrecipAmount] = None
-    pop: float
+    pop: float = 0.0
 
 
 class OneCallCurrent(CamelBase):
     dt: int
     sunrise: datetime
     sunset: datetime
-    temp: float
-    feels_like: float
-    pressure: int
-    humidity: int
-    dew_point: float
-    uvi: float
-    clouds: int
-    visibility: int
+    temp: float = 0.0
+    feels_like: float = 0.0
+    pressure: int = 0
+    humidity: int = 0
+    dew_point: float = 0
+    uvi: float = 0.0
+    clouds: int = 0
+    visibility: int = 0
     wind_speed: float = 0.0
     wind_deg: int = 0
     wind_gust: float = 0.0
@@ -125,17 +125,17 @@ class Daily(CamelBase):
     moon_phase: float
     temp: Temp
     feels_like: Temp
-    pressure: int
-    humidity: int
-    dew_point: float
+    pressure: int = 0
+    humidity: int = 0
+    dew_point: float = 0.0
     wind_speed: float = 0.0
     wind_deg: int = 0
     wind_gust: float = 0.0
     weather: List[Weather]
-    clouds: int
-    pop: float
+    clouds: int = 0
+    pop: float = 0.0
     rain: float = 0.0
-    uvi: float
+    uvi: float = 0.0
 
 
 class Alert(CamelBase):
