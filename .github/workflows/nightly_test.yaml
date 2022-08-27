@@ -3,12 +3,13 @@ name: Nightly Testing
 on:
   schedule:
     # Set with UTC time
-    - cron: '45 11 * * *'
+    - cron: '58 11 * * *'
 jobs:
   weather-check:
     runs-on: ubuntu-latest
     env:
       OPEN_WEATHER_API_KEY: ${{ secrets.OPEN_WEATHER_API_KEY }}
+      XDG_CACHE_HOME: /tmp/.cache
     steps:
     - uses: actions/checkout@v3
     - name: Set up Python
