@@ -1,0 +1,46 @@
+name: Nightly Testing
+
+on:
+  schedule:
+    # Runs every night at midnight
+    - cron: '0 0 * * *'
+jobs:
+  weather-check:
+    runs-on: ubuntu-latest
+    env:
+      OPEN_WEATHER_API_KEY: ${{ secrets.OPEN_WEATHER_API_KEY }}
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.10
+    - name: Get full Python version
+      id: full-python-version
+      run: echo ::set-output name=version::$(python -c "import sys; print('-'.join(str(v) for v in sys.version_info))")
+    - name: Install Poetry and add to path
+      run: |
+        curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
+        echo "${HOME}/.poetry/bin" >> $GITHUB_PATH
+    - name: Configure poetry
+      run: |
+        poetry config virtualenvs.create true
+        poetry config virtualenvs.in-project true
+    - name: Cache poetry venv
+      uses: actions/cache@v3
+      id: poetry-cache
+      with:
+        path: .venv
+        key: venv-${{ runner.os }}-${{ steps.full-python-version.outputs.version }}-${{ hashFiles('**/poetry.lock') }}
+    - name: Ensure cache is healthy
+      if: steps.poetry-cache.outputs.cache-hit == 'true'
+      shell: bash
+      run: timeout 10s poetry run pip --version || rm -rf .venv
+    - name: Install Dependencies
+      run: poetry install --no-dev
+    - name: current
+      run: |
+        poetry run weather-command cli zip 98109
+    - name: one_call
+      run: |
+        poetry run weather-command cli zip 98109 -f daily
