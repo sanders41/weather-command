@@ -3,7 +3,7 @@ name: Nightly Testing
 on:
   schedule:
     # Set with UTC time
-    - cron: '20 1 * * *'
+    - cron: '15 2 * * *'
 jobs:
   weather-check:
     runs-on: ubuntu-latest
