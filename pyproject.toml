@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "weather-command"
-version = "3.2.7"
+version = "3.2.8"
 description = "Command line weather app"
 authors = ["Paul Sanders <psanders1@gmail.com>"]
 license = "MIT"
