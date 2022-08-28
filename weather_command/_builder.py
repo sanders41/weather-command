@@ -215,8 +215,8 @@ def current_weather_all(
         gusts = "0"
 
     table.add_row(
-        str(round(current_weather.main.temp)),
-        str(round(current_weather.main.feels_like)),
+        str(_round_to_int(current_weather.main.temp)),
+        str(_round_to_int(current_weather.main.feels_like)),
         f"{current_weather.main.humidity}%" if current_weather.main.humidity else "0%",
         conditions,
         wind,
@@ -241,8 +241,8 @@ def _current_weather_temp(current_weather: CurrentWeather, units: str, location:
     table.add_column(f"Temperature ({temp_units}) :thermometer:")
     table.add_column(f"Feels Like ({temp_units}) :thermometer:")
     table.add_row(
-        str(round(current_weather.main.temp)),
-        str(round(current_weather.main.feels_like)),
+        str(_round_to_int(current_weather.main.temp)),
+        str(_round_to_int(current_weather.main.feels_like)),
     )
 
     return table
@@ -293,15 +293,15 @@ def daily_all(
 
         table.add_row(
             dt,
-            str(round(daily.temp.min)),
-            str(round(daily.temp.max)),
+            str(_round_to_int(daily.temp.min)),
+            str(_round_to_int(daily.temp.max)),
             f"{daily.humidity}%",
-            str(round(daily.dew_point)),
+            str(_round_to_int(daily.dew_point)),
             pressure,
             conditions,
             str(daily.uvi),
             f"{daily.clouds}%",
-            f"{round(daily.pop * 100)}%",
+            f"{_round_to_int(daily.pop * 100)}%",
             wind,
             gusts,
             sunrise,
@@ -327,8 +327,8 @@ def _daily_temp_only(weather: OneCallWeather, units: str, am_pm: bool, location:
 
         table.add_row(
             dt,
-            str(round(daily.temp.min)),
-            str(round(daily.temp.max)),
+            str(_round_to_int(daily.temp.min)),
+            str(_round_to_int(daily.temp.max)),
         )
 
     return table
@@ -370,7 +370,9 @@ def _format_wind(speed: float | None, units: str) -> str:
     if not speed:
         return "0"
 
-    return str(round(_kph_to_mph(speed))) if units == "imperial" else str(round(speed))
+    return (
+        str(_round_to_int(_kph_to_mph(speed))) if units == "imperial" else str(_round_to_int(speed))
+    )
 
 
 @lru_cache(maxsize=256)
@@ -482,8 +484,8 @@ def _hourly_temp_only(
 
         table.add_row(
             dt,
-            str(round(hourly.temp)),
-            str(round(hourly.feels_like)),
+            str(_round_to_int(hourly.temp)),
+            str(_round_to_int(hourly.feels_like)),
         )
 
     return table
