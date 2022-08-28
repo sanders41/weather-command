@@ -1,11 +1,11 @@
 from __future__ import annotations
 
 import sys
+from functools import lru_cache
 
 import httpx
 from httpx import AsyncClient
 from pydantic.error_wrappers import ValidationError
-from rich.console import Console
 from tenacity import retry
 from tenacity.retry import retry_if_exception_type, retry_unless_exception_type
 from tenacity.stop import stop_after_attempt
@@ -40,15 +40,7 @@ async def get_location_details(
         if cache_hit and cache_hit.location:
             return cache_hit.location
 
-        base_url = f"{LOCATION_BASE_URL}&postalcode={city_zip}"
-    else:
-        base_url = f"{LOCATION_BASE_URL}&city={city_zip}"
-
-    if state:
-        base_url = f"{base_url}&state={state}"
-
-    if country:
-        base_url = f"{base_url}&country={country}"
+    base_url = _build_url(how, city_zip, state, country)
 
     async with AsyncClient() as client:
         response = await client.get(base_url, headers={"user-agent": "weather-command"})
@@ -71,12 +63,29 @@ async def get_location_details(
 
         if how == "zip":
             cache.add(city_zip=city_zip, location=location)
-        return location
     except ValidationError:
         _print_location_not_found_error()
         sys.exit(1)
 
+    return location
+
+
+@lru_cache(maxsize=1)
+def _build_url(how: str, city_zip: str, state: str | None, country: str | None) -> str:
+    """Cache so if retries are needed the url only needs to be built once."""
+    if how == "zip":
+        base_url = f"{LOCATION_BASE_URL}&postalcode={city_zip}"
+    else:
+        base_url = f"{LOCATION_BASE_URL}&city={city_zip}"
+
+    if state:
+        base_url = f"{base_url}&state={state}"
+
+    if country:
+        base_url = f"{base_url}&country={country}"
+
+    return base_url
+
 
 def _print_location_not_found_error() -> None:
-    console = Console()
     console.print("[red]Unable to get information for the specified location.[/red]")
