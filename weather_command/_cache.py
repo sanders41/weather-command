@@ -54,7 +54,7 @@ class Cache:
         self.cache_dir = cache_dir or Cache.get_default_directory()
         self._cache_file = self.cache_dir / "cache.json"
         if not self.cache_dir.exists():
-            self.cache_dir.mkdir()
+            self.cache_dir.mkdir(parents=True)
 
         self._cache: dict[str, CacheItem] | None = self._load()
 
@@ -147,11 +147,7 @@ class Cache:
         if not self._cache_file.exists():
             return None
 
-        cache = {}
         with open(self._cache_file, "r") as f:
             json_cache = json.load(f)
 
-            for key in json_cache:
-                cache[key] = CacheItem(**json_cache[key])
-
-            return cache
+        return {k: CacheItem(**v) for k, v in json_cache.items()}
