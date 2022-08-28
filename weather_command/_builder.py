@@ -166,7 +166,7 @@ def current_weather_all(
     conditions = current_weather.weather[0].description
     weather_icon = WeatherIcons.get_icon(conditions)
     if weather_icon:
-        conditions += f" {weather_icon}"
+        conditions = f"{conditions} {weather_icon}"
     sunrise, sunset = _format_sunrise_sunset(
         am_pm, current_weather.sys.sunrise, current_weather.sys.sunset, current_weather.timezone
     )
@@ -285,7 +285,7 @@ def daily_all(
         conditions = daily.weather[0].description
         weather_icon = WeatherIcons.get_icon(conditions)
         if weather_icon:
-            conditions += f" {weather_icon}"
+            conditions = f"{conditions} {weather_icon}"
 
         wind = _format_wind(daily.wind_speed, units)
         gusts = _format_wind(daily.wind_gust, units)
@@ -334,7 +334,7 @@ def _daily_temp_only(weather: OneCallWeather, units: str, am_pm: bool, location:
     return table
 
 
-@lru_cache(maxsize=16)
+@lru_cache(maxsize=256)
 def _format_date_time(
     am_pm: bool, dt: datetime, timezone: int, forecast_type: str | None = None
 ) -> str:
@@ -349,7 +349,7 @@ def _format_date_time(
         )
 
 
-@lru_cache(maxsize=16)
+@lru_cache(maxsize=256)
 def _format_precip(precip_amount: float | None, units: str) -> str:
     if not precip_amount:
         return "0.00"
@@ -357,7 +357,7 @@ def _format_precip(precip_amount: float | None, units: str) -> str:
     return str(_mm_to_in(precip_amount)) if units == "imperial" else str(precip_amount)
 
 
-@lru_cache(maxsize=16)
+@lru_cache(maxsize=256)
 def _format_pressure(pressure: int | None, units: str) -> str:
     if not pressure:
         return "0"
@@ -365,7 +365,7 @@ def _format_pressure(pressure: int | None, units: str) -> str:
     return str(_hpa_to_in(pressure)) if units == "imperial" else str(pressure)
 
 
-@lru_cache(maxsize=16)
+@lru_cache(maxsize=256)
 def _format_wind(speed: float | None, units: str) -> str:
     if not speed:
         return "0"
@@ -373,7 +373,7 @@ def _format_wind(speed: float | None, units: str) -> str:
     return str(round(_kph_to_mph(speed))) if units == "imperial" else str(round(speed))
 
 
-@lru_cache(maxsize=16)
+@lru_cache(maxsize=256)
 def _format_sunrise_sunset(
     am_pm: bool, sunrise: datetime, sunset: datetime, timezone: int
 ) -> tuple[str, str]:
@@ -442,21 +442,21 @@ def hourly_all(
         conditions = hourly.weather[0].description
         weather_icon = WeatherIcons.get_icon(conditions)
         if weather_icon:
-            conditions += f" {weather_icon}"
+            conditions = f"{conditions} {weather_icon}"
 
         table.add_row(
             dt,
-            str(round(hourly.temp)),
-            str(round(hourly.feels_like)),
+            str(_round_to_int(hourly.temp)),
+            str(_round_to_int(hourly.feels_like)),
             f"{hourly.humidity}%",
-            str(round(hourly.dew_point)),
+            str(_round_to_int(hourly.dew_point)),
             pressure,
             conditions,
             str(hourly.uvi),
             f"{hourly.clouds}%",
             wind,
             gusts,
-            f"{round(hourly.pop * 100)}%",
+            f"{_round_to_int(hourly.pop * 100)}%",
             rain,
             snow,
         )
@@ -489,19 +489,24 @@ def _hourly_temp_only(
     return table
 
 
-@lru_cache(maxsize=16)
+@lru_cache(maxsize=256)
 def _hpa_to_in(value: float) -> float:
     return round(value / 33.863886666667, 2)
 
 
-@lru_cache(maxsize=16)
+@lru_cache(maxsize=256)
 def _kph_to_mph(value: float) -> float:
     return value / 1.609
 
 
-@lru_cache(maxsize=16)
+@lru_cache(maxsize=256)
 def _mm_to_in(value: float) -> float:
     return round(value / 25.4, 2)
+
+
+@lru_cache(maxsize=256)
+def _round_to_int(num: float) -> int:
+    return round(num)
 
 
 def _validate_units(units: str) -> None:
