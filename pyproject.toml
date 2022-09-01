@@ -12,13 +12,13 @@ keywords = ["weather", "cli"]
 
 [tool.poetry.dependencies]
 python = "^3.7"
-rich = "12.1.0"
+rich = "12.5.1"
 httpx = "0.23.0"
 pydantic = "1.9.2"
 camel-converter = {version = "1.0.6", extras = ["pydantic"]}
 typer = "0.6.1"
 tenacity = "8.0.1"
-textual = "0.1.17"
+textual = "0.1.18"
 uvloop = {version = "^0.16.0", markers = "sys_platform != 'win32'"}
 
 [tool.poetry.dev-dependencies]
