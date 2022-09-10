@@ -43,7 +43,7 @@ jobs:
       run: poetry install --no-dev
     - name: current
       run: |
-        poetry run weather-command cli zip 98109
+        poetry run weather-command zip 98109
     - name: one_call
       run: |
-        poetry run weather-command cli zip 98109 -f daily
+        poetry run weather-command zip 98109 -f daily
