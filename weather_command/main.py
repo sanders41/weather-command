@@ -195,6 +195,12 @@ def tui(
 ) -> None:
     """Run in TUI mode."""
 
+    if _is_uvloop_platform():
+        try:
+            uvloop.install()
+        except NameError:  # pragma: no cover
+            pass
+
     if clear_cache:
         cache = Cache()
         cache.clear()
