@@ -27,7 +27,7 @@ async def show_current(
     temp_only: bool = False,
     terminal_width: int | None = None,
 ) -> None:
-    def print_weather(current_weather: CurrentWeather) -> None:
+    def print_weather(current_weather: CurrentWeather, location: Location) -> None:
         if not temp_only:
             console.print(current_weather_all(current_weather, units, am_pm, location))
         else:
@@ -37,19 +37,19 @@ async def show_current(
         console.width = terminal_width
 
     with console.status("Getting weather..."):
-        location = await get_location_details(
-            how=how, city_zip=city_zip, state=state_code, country=country_code
-        )
-
         current_weather: CurrentWeather
 
         if how == "zip":
             cache = Cache()
             cache_hit = cache.get(city_zip)
-            if cache_hit and cache_hit.current_weather:
+            if cache_hit and cache_hit.current_weather and cache_hit.location:
                 current_weather = cache_hit.current_weather.current_weather
-                print_weather(current_weather)
+                print_weather(cache_hit.current_weather.current_weather, cache_hit.location)
                 return None
+
+        location = await get_location_details(
+            how=how, city_zip=city_zip, state=state_code, country=country_code
+        )
 
         url = build_url(
             forecast_type="current",
@@ -58,7 +58,7 @@ async def show_current(
             lat=location.lat,
         )
         current_weather = await get_current_weather(url, how, city_zip)
-        print_weather(current_weather)
+        print_weather(current_weather, location)
 
 
 async def show_daily(
@@ -72,7 +72,7 @@ async def show_daily(
     temp_only: bool = False,
     terminal_width: int | None = None,
 ) -> None:
-    def print_weather(weather: OneCallWeather) -> None:
+    def print_weather(weather: OneCallWeather, location: Location) -> None:
         if not temp_only:
             console.print(daily_all(weather, units, am_pm, location))
         else:
@@ -82,23 +82,22 @@ async def show_daily(
         console.width = terminal_width
 
     with console.status("Getting weather..."):
-        location = await get_location_details(
-            how=how, city_zip=city_zip, state=state_code, country=country_code
-        )
-
         weather: OneCallWeather
 
         if how == "zip":
             cache = Cache()
             cache_hit = cache.get(city_zip)
-            if cache_hit and cache_hit.one_call_weather:
-                weather = cache_hit.one_call_weather.one_call_weather
-                print_weather(weather)
+            if cache_hit and cache_hit.one_call_weather and cache_hit.location:
+                print_weather(cache_hit.one_call_weather.one_call_weather, cache_hit.location)
                 return None
+
+        location = await get_location_details(
+            how=how, city_zip=city_zip, state=state_code, country=country_code
+        )
 
         url = build_url(forecast_type="daily", units=units, lon=location.lon, lat=location.lat)
         weather = await get_one_call_weather(url, how, city_zip)
-        print_weather(weather)
+        print_weather(weather, location)
 
 
 async def show_hourly(
@@ -112,7 +111,7 @@ async def show_hourly(
     temp_only: bool = False,
     terminal_width: int | None = None,
 ) -> None:
-    def print_weather(weather: OneCallWeather) -> None:
+    def print_weather(weather: OneCallWeather, location: Location) -> None:
         if not temp_only:
             console.print(hourly_all(weather, units, am_pm, location))
         else:
@@ -122,23 +121,22 @@ async def show_hourly(
         console.width = terminal_width
 
     with console.status("Getting weather..."):
-        location = await get_location_details(
-            how=how, city_zip=city_zip, state=state_code, country=country_code
-        )
-
         weather: OneCallWeather
 
         if how == "zip":
             cache = Cache()
             cache_hit = cache.get(city_zip)
-            if cache_hit and cache_hit.one_call_weather:
-                weather = cache_hit.one_call_weather.one_call_weather
-                print_weather(weather)
+            if cache_hit and cache_hit.one_call_weather and cache_hit.location:
+                print_weather(cache_hit.one_call_weather.one_call_weather, cache_hit.location)
                 return None
+
+        location = await get_location_details(
+            how=how, city_zip=city_zip, state=state_code, country=country_code
+        )
 
         url = build_url(forecast_type="hourly", units=units, lon=location.lon, lat=location.lat)
         weather = await get_one_call_weather(url, how, city_zip)
-        print_weather(weather)
+        print_weather(weather, location)
 
 
 def build_url(
