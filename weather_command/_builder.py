@@ -42,10 +42,27 @@ async def show_current(
         if how == "zip":
             cache = Cache()
             cache_hit = cache.get(city_zip)
-            if cache_hit and cache_hit.current_weather and cache_hit.location:
-                current_weather = cache_hit.current_weather.current_weather
-                print_weather(cache_hit.current_weather.current_weather, cache_hit.location)
-                return None
+            if cache_hit:
+                if cache_hit.location:
+                    location = cache_hit.location
+                else:
+                    location = await get_location_details(
+                        how=how, city_zip=city_zip, state=state_code, country=country_code
+                    )
+                if cache_hit.current_weather:
+                    current_weather = cache_hit.current_weather.current_weather
+                    print_weather(cache_hit.current_weather.current_weather, location)
+                    return None
+                else:
+                    url = build_url(
+                        forecast_type="current",
+                        units=units,
+                        lon=location.lon,
+                        lat=location.lat,
+                    )
+                    current_weather = await get_current_weather(url, how, city_zip)
+                    print_weather(current_weather, location)
+                    return None
 
         location = await get_location_details(
             how=how, city_zip=city_zip, state=state_code, country=country_code
@@ -87,9 +104,23 @@ async def show_daily(
         if how == "zip":
             cache = Cache()
             cache_hit = cache.get(city_zip)
-            if cache_hit and cache_hit.one_call_weather and cache_hit.location:
-                print_weather(cache_hit.one_call_weather.one_call_weather, cache_hit.location)
-                return None
+            if cache_hit:
+                if cache_hit.location:
+                    location = cache_hit.location
+                else:
+                    location = await get_location_details(
+                        how=how, city_zip=city_zip, state=state_code, country=country_code
+                    )
+                if cache_hit.one_call_weather:
+                    print_weather(cache_hit.one_call_weather.one_call_weather, location)
+                    return None
+                else:
+                    url = build_url(
+                        forecast_type="daily", units=units, lon=location.lon, lat=location.lat
+                    )
+                    weather = await get_one_call_weather(url, how, city_zip)
+                    print_weather(weather, location)
+                    return None
 
         location = await get_location_details(
             how=how, city_zip=city_zip, state=state_code, country=country_code
@@ -126,9 +157,23 @@ async def show_hourly(
         if how == "zip":
             cache = Cache()
             cache_hit = cache.get(city_zip)
-            if cache_hit and cache_hit.one_call_weather and cache_hit.location:
-                print_weather(cache_hit.one_call_weather.one_call_weather, cache_hit.location)
-                return None
+            if cache_hit:
+                if cache_hit.location:
+                    location = cache_hit.location
+                else:
+                    location = await get_location_details(
+                        how=how, city_zip=city_zip, state=state_code, country=country_code
+                    )
+                if cache_hit.one_call_weather:
+                    print_weather(cache_hit.one_call_weather.one_call_weather, location)
+                    return None
+                else:
+                    url = build_url(
+                        forecast_type="hourly", units=units, lon=location.lon, lat=location.lat
+                    )
+                    weather = await get_one_call_weather(url, how, city_zip)
+                    print_weather(weather, location)
+                    return None
 
         location = await get_location_details(
             how=how, city_zip=city_zip, state=state_code, country=country_code
