@@ -18,12 +18,6 @@ def _is_uvloop_platform() -> bool:
     return False  # pragma: no cover
 
 
-if _is_uvloop_platform():
-    try:
-        import uvloop
-    except ImportError:  # pragma: no cover
-        pass
-
 __version__ = "4.0.0"
 
 install()
@@ -54,17 +48,21 @@ def _runner(
     tui: bool,
     terminal_width: Union[int, None],
 ) -> None:
-    if _is_uvloop_platform():
-        try:
-            uvloop.install()
-        except NameError:  # pragma: no cover
-            pass
-
     if clear_cache:
         cache = Cache()
         cache.clear()
 
     units = "imperial" if imperial else "metric"
+
+    if _is_uvloop_platform():
+        try:
+            import uvloop
+
+            uvloop.install()
+        except ImportError:  # pragma: no cover
+            pass
+        except NameError:  # pragma: no cover
+            pass
 
     if tui:
         WeatherApp.how = how
