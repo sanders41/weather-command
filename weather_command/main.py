@@ -1,7 +1,7 @@
 import asyncio
 from enum import Enum
 from sys import platform
-from typing import Optional
+from typing import Union
 
 from rich.traceback import install
 from typer import Argument, Exit, Option, Typer, echo
@@ -18,13 +18,7 @@ def _is_uvloop_platform() -> bool:
     return False  # pragma: no cover
 
 
-if _is_uvloop_platform():
-    try:
-        import uvloop
-    except ImportError:  # pragma: no cover
-        pass
-
-__version__ = "3.2.5"
+__version__ = "4.0.0"
 
 install()
 app = Typer()
@@ -41,65 +35,45 @@ class How(str, Enum):
     ZIP = "zip"
 
 
-@app.command()
-def cli(
-    how: How = Argument(
-        "city",
-        help="How to get the weather.",
-    ),
-    city_zip: str = Argument(
-        ...,
-        help="The name of the city or zip code for which the weather should be retrieved. If the first argument is 'city' this should be the name of the city, or if 'zip' it should be the zip code.",
-    ),
-    state_code: Optional[str] = Option(
-        None, "--state-code", "-s", help="The name of the state where the city is located."
-    ),
-    country_code: Optional[str] = Option(
-        None,
-        "--country-code",
-        "-c",
-        help="The country code where the city is located.",
-    ),
-    imperial: bool = Option(
-        False,
-        "--imperial",
-        "-i",
-        help="If this flag is used the units will be imperial, otherwise units will be metric.",
-    ),
-    am_pm: bool = Option(
-        False,
-        "--am-pm",
-        help="If this flag is set the times will be displayed in 12 hour format, otherwise times will be 24 hour format.",
-    ),
-    forecast_type: ForecastType = Option(
-        ForecastType.CURRENT,
-        "--forecast-type",
-        "-f",
-        help="The type of forecast to display.",
-    ),
-    temp_only: bool = Option(
-        False, "--temp-only", "-t", help="If this flag is set only tempatures will be displayed."
-    ),
-    clear_cache: bool = Option(False, help="Clear the cache data before running."),
-    terminal_width: Optional[int] = Option(
-        None, help="Allows for overriding the default terminal width."
-    ),
+def _runner(
+    how: str,
+    city_zip: str,
+    state_code: Union[str, None],
+    country_code: Union[str, None],
+    imperial: bool,
+    am_pm: bool,
+    forecast_type: ForecastType,
+    temp_only: bool,
+    clear_cache: bool,
+    tui: bool,
+    terminal_width: Union[int, None],
 ) -> None:
-    """Run in CLI mode."""
-
-    if _is_uvloop_platform():
-        try:
-            uvloop.install()
-        except NameError:  # pragma: no cover
-            pass
-
     if clear_cache:
         cache = Cache()
         cache.clear()
 
     units = "imperial" if imperial else "metric"
 
-    if forecast_type == "current":
+    if _is_uvloop_platform():
+        try:
+            import uvloop
+
+            uvloop.install()
+        except ImportError:  # pragma: no cover
+            pass
+        except NameError:  # pragma: no cover
+            pass
+
+    if tui:
+        WeatherApp.how = how
+        WeatherApp.city_zip = city_zip
+        WeatherApp.state = state_code
+        WeatherApp.country = country_code
+        WeatherApp.forecast_type = forecast_type
+        WeatherApp.units = units
+        WeatherApp.am_pm = am_pm
+        WeatherApp.run()
+    elif forecast_type == "current":
         asyncio.run(
             show_current(
                 how=how,
@@ -140,35 +114,16 @@ def cli(
         )
 
 
-@app.callback(invoke_without_command=True)
-def main(
-    version: Optional[bool] = Option(
-        None,
-        "--version",
-        "-v",
-        is_eager=True,
-        help="Show the installed version",
-    ),
-) -> None:
-    if version:
-        echo(__version__)
-        raise Exit()
-
-
 @app.command()
-def tui(
-    how: How = Argument(
-        "city",
-        help="How to get the weather.",
-    ),
-    city_zip: str = Argument(
+def city(
+    city: str = Argument(
         ...,
-        help="The name of the city or zip code for which the weather should be retrieved. If the first argument is 'city' this should be the name of the city, or if 'zip' it should be the zip code.",
+        help="The city for which the weather should be retrieved.",
     ),
-    state_code: Optional[str] = Option(
+    state_code: Union[str, None] = Option(
         None, "--state-code", "-s", help="The name of the state where the city is located."
     ),
-    country_code: Optional[str] = Option(
+    country_code: Union[str, None] = Option(
         None,
         "--country-code",
         "-c",
@@ -191,22 +146,101 @@ def tui(
         "-f",
         help="The type of forecast to display.",
     ),
+    temp_only: bool = Option(
+        False, "--temp-only", "-t", help="If this flag is set only tempatures will be displayed."
+    ),
     clear_cache: bool = Option(False, help="Clear the cache data before running."),
+    tui: bool = Option(False, help="Run in TUI mode."),
+    terminal_width: Union[int, None] = Option(
+        None, help="Allows for overriding the default terminal width."
+    ),
 ) -> None:
-    """Run in TUI mode."""
+    """Get the weather by city."""
+    _runner(
+        how="city",
+        city_zip=city,
+        state_code=state_code,
+        country_code=country_code,
+        imperial=imperial,
+        am_pm=am_pm,
+        forecast_type=forecast_type,
+        temp_only=temp_only,
+        clear_cache=clear_cache,
+        tui=tui,
+        terminal_width=terminal_width,
+    )
 
-    if clear_cache:
-        cache = Cache()
-        cache.clear()
 
-    WeatherApp.how = how
-    WeatherApp.city_zip = city_zip
-    WeatherApp.state = state_code
-    WeatherApp.country = country_code
-    WeatherApp.forecast_type = forecast_type
-    WeatherApp.units = "imperial" if imperial else "metric"
-    WeatherApp.am_pm = am_pm
-    WeatherApp.run()
+@app.command()
+def zip(
+    zip_code: str = Argument(
+        ...,
+        help="The zip code for which the weather should be retrieved.",
+    ),
+    state_code: Union[str, None] = Option(
+        None, "--state-code", "-s", help="The name of the state where the city is located."
+    ),
+    country_code: Union[str, None] = Option(
+        None,
+        "--country-code",
+        "-c",
+        help="The country code where the city is located.",
+    ),
+    imperial: bool = Option(
+        False,
+        "--imperial",
+        "-i",
+        help="If this flag is used the units will be imperial, otherwise units will be metric.",
+    ),
+    am_pm: bool = Option(
+        False,
+        "--am-pm",
+        help="If this flag is set the times will be displayed in 12 hour format, otherwise times will be 24 hour format.",
+    ),
+    forecast_type: ForecastType = Option(
+        ForecastType.CURRENT,
+        "--forecast-type",
+        "-f",
+        help="The type of forecast to display.",
+    ),
+    temp_only: bool = Option(
+        False, "--temp-only", "-t", help="If this flag is set only tempatures will be displayed."
+    ),
+    clear_cache: bool = Option(False, help="Clear the cache data before running."),
+    tui: bool = Option(False, help="Run in TUI mode."),
+    terminal_width: Union[int, None] = Option(
+        None, help="Allows for overriding the default terminal width."
+    ),
+) -> None:
+    """Get the weather by zip code."""
+    _runner(
+        how="zip",
+        city_zip=zip_code,
+        state_code=state_code,
+        country_code=country_code,
+        imperial=imperial,
+        am_pm=am_pm,
+        forecast_type=forecast_type,
+        temp_only=temp_only,
+        clear_cache=clear_cache,
+        tui=tui,
+        terminal_width=terminal_width,
+    )
+
+
+@app.callback(invoke_without_command=True)
+def main(
+    version: Union[bool, None] = Option(
+        None,
+        "--version",
+        "-v",
+        is_eager=True,
+        help="Show the installed version",
+    ),
+) -> None:
+    if version:
+        echo(__version__)
+        raise Exit()
 
 
 if __name__ == "__main__":

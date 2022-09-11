@@ -44,7 +44,7 @@ def test_main_default_params(
         return mock_current_weather_response
 
     monkeypatch.setattr(AsyncClient, "get", mock_get_response)
-    args = ["cli", how, city_zip, "--terminal-width", 180]
+    args = [how, city_zip, "--terminal-width", 180]
     result = test_runner.invoke(app, args, catch_exceptions=False)
 
     out = result.stdout
@@ -87,7 +87,6 @@ def test_main_with_params(
     monkeypatch,
 ):
     args = [
-        "cli",
         "zip",
         "27455",
         "--am-pm",
@@ -147,16 +146,16 @@ def test_missing_api_key(test_runner, monkeypatch):
     monkeypatch.delenv("OPEN_WEATHER_API_KEY", raising=False)
 
     with pytest.raises(MissingApiKey):
-        test_runner.invoke(app, ["cli", "city", "Greensboro"], catch_exceptions=False)
+        test_runner.invoke(app, ["city", "Greensboro"], catch_exceptions=False)
 
 
 @pytest.mark.usefixtures("mock_cache_dir")
 def test_bad_how(test_runner):
-    result = test_runner.invoke(app, ["cli", "bad", "Greensboro"])
+    result = test_runner.invoke(app, ["bad", "Greensboro"])
     assert result.exit_code > 1
 
 
 @pytest.mark.usefixtures("mock_cache_dir")
 def test_bad_forecast_type(test_runner):
-    result = test_runner.invoke(app, ["cli", "city", "Greensboro", "-f", "bad"])
+    result = test_runner.invoke(app, ["city", "Greensboro", "-f", "bad"])
     assert result.exit_code > 1

@@ -23,18 +23,18 @@ async def get_current_weather(url: str, how: str, city_zip: str) -> CurrentWeath
             response = await client.get(url)
 
         response.raise_for_status()
-        weather = CurrentWeather(**response.json())
-        if how == "zip":
-            cache = Cache()
-            cache.add(city_zip=city_zip, current_weather=weather)
-        return weather
     except httpx.HTTPStatusError as e:
         check_status_error(e, console)
+
+    try:
+        weather = CurrentWeather(**response.json())
     except ValidationError:
         _print_validation_error()
 
-    # Make mypy happy
-    raise  # pragma: no cover
+    if how == "zip":
+        cache = Cache()
+        cache.add(city_zip=city_zip, current_weather=weather)
+    return weather
 
 
 @retry(stop=stop_after_attempt(5), wait=wait_fixed(0.5), reraise=True)
@@ -43,18 +43,19 @@ async def get_one_call_weather(url: str, how: str, city_zip: str) -> OneCallWeat
         response = await client.get(url)
     try:
         response.raise_for_status()
-        weather = OneCallWeather(**response.json())
-        if how == "zip":
-            cache = Cache()
-            cache.add(city_zip=city_zip, one_call_weather=weather)
-        return weather
     except httpx.HTTPStatusError as e:
         check_status_error(e, console)
+
+    try:
+        weather = OneCallWeather(**response.json())
     except ValidationError:
         _print_validation_error()
 
-    # Make mypy happy
-    raise  # pragma: no cover
+    if how == "zip":
+        cache = Cache()
+        cache.add(city_zip=city_zip, one_call_weather=weather)
+
+    return weather
 
 
 class WeatherIcons(Enum):
