@@ -2,7 +2,12 @@ import pytest
 from httpx import AsyncClient, HTTPStatusError, Request, Response
 from rich._emoji_codes import EMOJI
 
-from weather_command._weather import WeatherIcons, get_current_weather, get_one_call_weather
+from weather_command._weather import (
+    WeatherIcons,
+    get_current_weather,
+    get_icon,
+    get_one_call_weather,
+)
 
 
 @pytest.mark.parametrize(
@@ -10,7 +15,7 @@ from weather_command._weather import WeatherIcons, get_current_weather, get_one_
     [("Sun", ":sun:"), ("broken clouds", ":sun_behind_cloud:"), ("none", None)],
 )
 def test_get_icon(condition, expected):
-    icon = WeatherIcons.get_icon(condition)
+    icon = get_icon(condition)
     assert icon == expected
 
 
