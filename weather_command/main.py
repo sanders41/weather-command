@@ -18,7 +18,7 @@ def _is_uvloop_platform() -> bool:
     return False  # pragma: no cover
 
 
-__version__ = "4.0.0"
+__version__ = "4.0.1"
 
 install()
 app = Typer()
