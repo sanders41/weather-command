@@ -9,7 +9,7 @@ from rich.table import Table
 from weather_command._cache import Cache
 from weather_command._config import WEATHER_BASE_URL, append_api_key, console
 from weather_command._location import get_location_details
-from weather_command._weather import WeatherIcons, get_current_weather, get_one_call_weather
+from weather_command._weather import get_current_weather, get_icon, get_one_call_weather
 from weather_command.models.location import Location
 from weather_command.models.weather import CurrentWeather, OneCallWeather
 
@@ -207,7 +207,7 @@ def current_weather_all(
 ) -> Table:
     precip_unit, _, speed_units, temp_units = _get_units(units)
     conditions = current_weather.weather[0].description
-    weather_icon = WeatherIcons.get_icon(conditions)
+    weather_icon = get_icon(conditions)
     if weather_icon:
         conditions = f"{conditions} {weather_icon}"
     sunrise, sunset = _format_sunrise_sunset(
@@ -326,7 +326,7 @@ def daily_all(
             am_pm, daily.sunrise, daily.sunset, weather.timezone_offset
         )
         conditions = daily.weather[0].description
-        weather_icon = WeatherIcons.get_icon(conditions)
+        weather_icon = get_icon(conditions)
         if weather_icon:
             conditions = f"{conditions} {weather_icon}"
 
@@ -485,7 +485,7 @@ def hourly_all(
         gusts = _format_wind(hourly.wind_gust, units)
         pressure = _format_pressure(hourly.pressure, units)
         conditions = hourly.weather[0].description
-        weather_icon = WeatherIcons.get_icon(conditions)
+        weather_icon = get_icon(conditions)
         if weather_icon:
             conditions = f"{conditions} {weather_icon}"
 

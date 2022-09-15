@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "weather-command"
-version = "4.0.0"
+version = "4.0.1"
 description = "Command line weather app"
 authors = ["Paul Sanders <psanders1@gmail.com>"]
 license = "MIT"
@@ -19,7 +19,7 @@ camel-converter = {version = "1.0.6", extras = ["pydantic"]}
 typer = "0.6.1"
 tenacity = "8.0.1"
 textual = "0.1.18"
-uvloop = {version = "^0.16.0", markers = "sys_platform != 'win32'"}
+uvloop = {version = "0.17.0", markers = "sys_platform != 'win32'"}
 
 [tool.poetry.dev-dependencies]
 black = "^22.6"

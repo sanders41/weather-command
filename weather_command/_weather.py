@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import sys
 from enum import Enum
+from functools import lru_cache
 
 import httpx
 from httpx import AsyncClient
@@ -81,13 +82,14 @@ class WeatherIcons(Enum):
     THUNDERSTORM = ":cloud_with_lightning:"
     VERY_HEAVY_RAIN = ":cloud_with_rain:"
 
-    @classmethod
-    def get_icon(cls, weather_type: str) -> str | None:
-        upper_weather_type = weather_type.upper().replace(" ", "_")
-        try:
-            return cls[upper_weather_type].value
-        except KeyError:
-            return None
+
+@lru_cache(maxsize=32)
+def get_icon(weather_type: str) -> str | None:
+    upper_weather_type = weather_type.upper().replace(" ", "_")
+    try:
+        return WeatherIcons[upper_weather_type].value
+    except KeyError:
+        return None
 
 
 def _print_validation_error() -> None:
