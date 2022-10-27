@@ -27,55 +27,21 @@ async def show_current(
     temp_only: bool = False,
     terminal_width: int | None = None,
 ) -> None:
-    def print_weather(current_weather: CurrentWeather, location: Location) -> None:
-        if not temp_only:
-            console.print(current_weather_all(current_weather, units, am_pm, location))
-        else:
-            console.print(_current_weather_temp(current_weather, units, location))
-
     if terminal_width:
         console.width = terminal_width
 
     with console.status("Getting weather..."):
-        current_weather: CurrentWeather
-
-        if how == "zip":
-            cache = Cache()
-            cache_hit = cache.get(city_zip)
-            if cache_hit:
-                if cache_hit.location:
-                    location = cache_hit.location
-                else:
-                    location = await get_location_details(
-                        how=how, city_zip=city_zip, state=state_code, country=country_code
-                    )
-                if cache_hit.current_weather:
-                    current_weather = cache_hit.current_weather.current_weather
-                    print_weather(cache_hit.current_weather.current_weather, location)
-                    return None
-                else:
-                    url = build_url(
-                        forecast_type="current",
-                        units=units,
-                        lon=location.lon,
-                        lat=location.lat,
-                    )
-                    current_weather = await get_current_weather(url, how, city_zip)
-                    print_weather(current_weather, location)
-                    return None
-
-        location = await get_location_details(
-            how=how, city_zip=city_zip, state=state_code, country=country_code
-        )
-
-        url = build_url(
-            forecast_type="current",
+        weather, location = await _gather_current_weather(
+            how=how,
+            city_zip=city_zip,
+            state_code=state_code,
+            country_code=country_code,
             units=units,
-            lon=location.lon,
-            lat=location.lat,
         )
-        current_weather = await get_current_weather(url, how, city_zip)
-        print_weather(current_weather, location)
+        if not temp_only:
+            console.print(current_weather_all(weather, units, am_pm, location))
+        else:
+            console.print(_current_weather_temp(weather, units, location))
 
 
 async def show_daily(
@@ -89,46 +55,21 @@ async def show_daily(
     temp_only: bool = False,
     terminal_width: int | None = None,
 ) -> None:
-    def print_weather(weather: OneCallWeather, location: Location) -> None:
-        if not temp_only:
-            console.print(daily_all(weather, units, am_pm, location))
-        else:
-            console.print(_daily_temp_only(weather, units, am_pm, location))
-
     if terminal_width:
         console.width = terminal_width
 
     with console.status("Getting weather..."):
-        weather: OneCallWeather
-
-        if how == "zip":
-            cache = Cache()
-            cache_hit = cache.get(city_zip)
-            if cache_hit:
-                if cache_hit.location:
-                    location = cache_hit.location
-                else:
-                    location = await get_location_details(
-                        how=how, city_zip=city_zip, state=state_code, country=country_code
-                    )
-                if cache_hit.one_call_weather:
-                    print_weather(cache_hit.one_call_weather.one_call_weather, location)
-                    return None
-                else:
-                    url = build_url(
-                        forecast_type="daily", units=units, lon=location.lon, lat=location.lat
-                    )
-                    weather = await get_one_call_weather(url, how, city_zip)
-                    print_weather(weather, location)
-                    return None
-
-        location = await get_location_details(
-            how=how, city_zip=city_zip, state=state_code, country=country_code
+        weather, location = await _gather_one_call_weather(
+            how=how,
+            city_zip=city_zip,
+            state_code=state_code,
+            country_code=country_code,
+            units=units,
         )
-
-        url = build_url(forecast_type="daily", units=units, lon=location.lon, lat=location.lat)
-        weather = await get_one_call_weather(url, how, city_zip)
-        print_weather(weather, location)
+        if not temp_only:
+            console.print(daily_all(weather, units, am_pm, location))
+        else:
+            console.print(_daily_temp_only(weather, units, am_pm, location))
 
 
 async def show_hourly(
@@ -142,46 +83,21 @@ async def show_hourly(
     temp_only: bool = False,
     terminal_width: int | None = None,
 ) -> None:
-    def print_weather(weather: OneCallWeather, location: Location) -> None:
-        if not temp_only:
-            console.print(hourly_all(weather, units, am_pm, location))
-        else:
-            console.print(_hourly_temp_only(weather, units, am_pm, location))
-
     if terminal_width:
         console.width = terminal_width
 
     with console.status("Getting weather..."):
-        weather: OneCallWeather
-
-        if how == "zip":
-            cache = Cache()
-            cache_hit = cache.get(city_zip)
-            if cache_hit:
-                if cache_hit.location:
-                    location = cache_hit.location
-                else:
-                    location = await get_location_details(
-                        how=how, city_zip=city_zip, state=state_code, country=country_code
-                    )
-                if cache_hit.one_call_weather:
-                    print_weather(cache_hit.one_call_weather.one_call_weather, location)
-                    return None
-                else:
-                    url = build_url(
-                        forecast_type="hourly", units=units, lon=location.lon, lat=location.lat
-                    )
-                    weather = await get_one_call_weather(url, how, city_zip)
-                    print_weather(weather, location)
-                    return None
-
-        location = await get_location_details(
-            how=how, city_zip=city_zip, state=state_code, country=country_code
+        weather, location = await _gather_one_call_weather(
+            how=how,
+            city_zip=city_zip,
+            state_code=state_code,
+            country_code=country_code,
+            units=units,
         )
-
-        url = build_url(forecast_type="hourly", units=units, lon=location.lon, lat=location.lat)
-        weather = await get_one_call_weather(url, how, city_zip)
-        print_weather(weather, location)
+        if not temp_only:
+            console.print(hourly_all(weather, units, am_pm, location))
+        else:
+            console.print(_hourly_temp_only(weather, units, am_pm, location))
 
 
 def build_url(
@@ -507,6 +423,87 @@ def hourly_all(
         )
 
     return table
+
+
+async def _gather_current_weather(
+    how: str,
+    city_zip: str,
+    *,
+    state_code: str | None,
+    country_code: str | None,
+    units: str,
+) -> tuple[CurrentWeather, Location]:
+    if how == "zip":
+        cache = Cache()
+        cache_hit = cache.get(city_zip)
+        if cache_hit:
+            if cache_hit.location:
+                location = cache_hit.location
+            else:
+                location = await get_location_details(
+                    how=how, city_zip=city_zip, state=state_code, country=country_code
+                )
+            if cache_hit.current_weather:
+                current_weather = cache_hit.current_weather.current_weather
+                return cache_hit.current_weather.current_weather, location
+            else:
+                url = build_url(
+                    forecast_type="current",
+                    units=units,
+                    lon=location.lon,
+                    lat=location.lat,
+                )
+                current_weather = await get_current_weather(url, how, city_zip)
+                return current_weather, location
+
+    location = await get_location_details(
+        how=how, city_zip=city_zip, state=state_code, country=country_code
+    )
+
+    url = build_url(
+        forecast_type="current",
+        units=units,
+        lon=location.lon,
+        lat=location.lat,
+    )
+    current_weather = await get_current_weather(url, how, city_zip)
+    return current_weather, location
+
+
+async def _gather_one_call_weather(
+    how: str,
+    city_zip: str,
+    *,
+    state_code: str | None,
+    country_code: str | None,
+    units: str,
+) -> tuple[OneCallWeather, Location]:
+    if how == "zip":
+        cache = Cache()
+        cache_hit = cache.get(city_zip)
+        if cache_hit:
+            if cache_hit.location:
+                location = cache_hit.location
+            else:
+                location = await get_location_details(
+                    how=how, city_zip=city_zip, state=state_code, country=country_code
+                )
+            if cache_hit.one_call_weather:
+                return cache_hit.one_call_weather.one_call_weather, location
+            else:
+                url = build_url(
+                    forecast_type="daily", units=units, lon=location.lon, lat=location.lat
+                )
+                weather = await get_one_call_weather(url, how, city_zip)
+                return weather, location
+
+    location = await get_location_details(
+        how=how, city_zip=city_zip, state=state_code, country=country_code
+    )
+
+    url = build_url(forecast_type="daily", units=units, lon=location.lon, lat=location.lat)
+    weather = await get_one_call_weather(url, how, city_zip)
+    return weather, location
 
 
 def _hourly_temp_only(
