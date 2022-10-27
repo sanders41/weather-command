@@ -15,7 +15,7 @@ python = "^3.7"
 rich = "12.6.0"
 httpx = "0.23.0"
 pydantic = "1.10.2"
-camel-converter = {version = "1.0.6", extras = ["pydantic"]}
+camel-converter = {version = "1.0.7", extras = ["pydantic"]}
 typer = "0.6.1"
 tenacity = "8.1.0"
 textual = "0.1.18"
