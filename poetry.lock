@@ -55,7 +55,7 @@ uvloop = ["uvloop (>=0.15.2)"]
 
 [[package]]
 name = "camel-converter"
-version = "1.0.7"
+version = "2.0.1"
 description = "Converts a string from snake case to camel case or camel case to snake case"
 category = "main"
 optional = false
@@ -716,7 +716,7 @@ uvloop = ["uvloop"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7"
-content-hash = "871583b00bcecc192682997f984b9c92f4f72246d1db89fe7980c3e882873e2f"
+content-hash = "5389bd690688eb83a205ba0ec3cd15df24948bd790466481023337414035f550"
 
 [metadata.files]
 anyio = [
@@ -751,8 +751,8 @@ black = [
     {file = "black-22.10.0.tar.gz", hash = "sha256:f513588da599943e0cde4e32cc9879e825d58720d6557062d1098c5ad80080e1"},
 ]
 camel-converter = [
-    {file = "camel_converter-1.0.7-py3-none-any.whl", hash = "sha256:625b8b0da1e6262b991eb92c7f193198ba0f664a64d7ac4884ea604febdd0bd3"},
-    {file = "camel_converter-1.0.7.tar.gz", hash = "sha256:f3ff89d114af3ac278c553a41ebc346850e437b9cb4b140308c5419d1f1ed482"},
+    {file = "camel_converter-2.0.1-py3-none-any.whl", hash = "sha256:b0d0dd538156bcb8fd3b3d3a986204be20c21e5d66073deccf07d57dc201d5fd"},
+    {file = "camel_converter-2.0.1.tar.gz", hash = "sha256:d2810549874126c9c46f866567040e0449caf4887ac8dc309a970ad872cd6d84"},
 ]
 certifi = [
     {file = "certifi-2022.6.15.1-py3-none-any.whl", hash = "sha256:43dadad18a7f168740e66944e4fa82c6611848ff9056ad910f8f7a3e46ab89e0"},
