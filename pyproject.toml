@@ -18,7 +18,7 @@ pydantic = "1.10.2"
 camel-converter = {version = "3.0.0", extras = ["pydantic"]}
 typer = "0.7.0"
 tenacity = "8.1.0"
-textual = "0.1.18"
+textual = "0.6.0"
 uvloop = {version = "0.17.0", markers = "sys_platform != 'win32'"}
 
 [tool.poetry.group.dev.dependencies]
