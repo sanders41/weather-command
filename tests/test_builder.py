@@ -51,9 +51,9 @@ def test_current_weather_temp(
 @pytest.mark.parametrize("temp_only", [True, False])
 @pytest.mark.usefixtures("mock_cache_dir_with_file")
 @patch("weather_command._cache.datetime")
-async def test_current_weather_cache_hit(mock_dt, temp_only, pager, capfd):
+def test_current_weather_cache_hit(mock_dt, temp_only, pager, capfd):
     mock_dt.utcnow = Mock(return_value=datetime(2021, 12, 22, 1, 36, 38))
-    await _builder.show_current("zip", "27455", temp_only=temp_only, pager=pager)
+    _builder.show_current("zip", "27455", temp_only=temp_only, pager=pager)
     out, _ = capfd.readouterr()
     assert "Greensboro" in out
 
@@ -88,9 +88,9 @@ def test_daily_temp_only(mock_one_call_weather, mock_location, units, am_pm):
 @pytest.mark.parametrize("temp_only", [True, False])
 @pytest.mark.usefixtures("mock_cache_dir_with_file")
 @patch("weather_command._cache.datetime")
-async def test_show_daily_cache_hit(mock_dt, temp_only, pager, capfd):
+def test_show_daily_cache_hit(mock_dt, temp_only, pager, capfd):
     mock_dt.utcnow = Mock(return_value=datetime(2021, 12, 22, 1, 36, 38))
-    await _builder.show_daily("zip", "27455", temp_only=temp_only, pager=pager)
+    _builder.show_daily("zip", "27455", temp_only=temp_only, pager=pager)
     out, _ = capfd.readouterr()
     assert "Greensboro" in out
 
@@ -145,9 +145,9 @@ def test_hourly_temp_only(mock_one_call_weather, mock_location, units, am_pm):
 @pytest.mark.parametrize("temp_only", [True, False])
 @pytest.mark.usefixtures("mock_cache_dir_with_file")
 @patch("weather_command._cache.datetime")
-async def test_show_hourly_cache_hit(mock_dt, temp_only, pager, capfd):
+def test_show_hourly_cache_hit(mock_dt, temp_only, pager, capfd):
     mock_dt.utcnow = Mock(return_value=datetime(2021, 12, 22, 1, 36, 38))
-    await _builder.show_hourly("zip", "27455", temp_only=temp_only, pager=pager)
+    _builder.show_hourly("zip", "27455", temp_only=temp_only, pager=pager)
     out, _ = capfd.readouterr()
     assert "Greensboro" in out
 

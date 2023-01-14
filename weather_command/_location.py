@@ -4,7 +4,6 @@ import sys
 from functools import lru_cache
 
 import httpx
-from httpx import AsyncClient
 from pydantic.error_wrappers import ValidationError
 from tenacity import retry
 from tenacity.retry import retry_if_exception_type, retry_unless_exception_type
@@ -23,7 +22,7 @@ from weather_command.models.location import Location
     wait=wait_fixed(0.5),
     reraise=True,
 )
-async def get_location_details(
+def get_location_details(
     *,
     how: str,
     city_zip: str,
@@ -42,8 +41,7 @@ async def get_location_details(
 
     base_url = _build_url(how, city_zip, state, country)
 
-    async with AsyncClient() as client:
-        response = await client.get(base_url, headers={"user-agent": "weather-command"})
+    response = httpx.get(base_url, headers={"user-agent": "weather-command"})
     try:
         response.raise_for_status()
     except httpx.HTTPStatusError as e:

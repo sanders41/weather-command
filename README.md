@@ -12,14 +12,6 @@ A command line weather app
 
 Installation with [pipx](https://github.com/pypa/pipx) is recommended.
 
-If you are running on a non-Windows OS you can install with uvloop for more speed.
-
-```sh
-pipx install "weather-command[uvloop]"
-```
-
-uvloop is currently not supported on Windows on this platform install without uvloop.
-
 ```sh
 pipx install weather-command
 ```
@@ -27,10 +19,6 @@ pipx install weather-command
 Alternatively Weather Command can be installed with pip.
 
 ```sh
-# Non Windows
-pip install weather-command[uvloop]
-
-# Windows
 pip install weather-command
 ```
 
@@ -61,23 +49,10 @@ if your shell is zsh you can add something like the following to your `~/.zshrc`
 alias we="weather-command zip 98109 -i --am-pm"
 alias wed="weather-command zip 98109 -i --am-pm -f daily"
 alias weh="weather-command zip 98109 -i --am-pm -f hourly"
-alias wet="weather-command zip 98109 -i --am-pm --tui"
 ```
 
 After adding this to the `~/.zshrc` you will need to restart your terminal. After that typing `we`
 will get the current forecast, `wed` will get the daily forecast and `weh` will get the hourly forecast.
-
-### Modes
-
-Weather Command can be run in either CLI (command line interface) mode or TUI (text user interface)
-mode. CLI mode will print the weather to your terminal, while TUI mode will open the weather in an
-interactive terminal app. The default mode is CLI
-
-To run in TUI mode use the `tui` flag
-
-```py
-weather-command zip 98109 -i --am-pm --tui
-```
 
 ## Contributing
 
