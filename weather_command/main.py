@@ -44,6 +44,7 @@ def _runner(
     am_pm: bool,
     forecast_type: ForecastType,
     temp_only: bool,
+    pager: bool,
     clear_cache: bool,
     tui: bool,
     terminal_width: Union[int, None],
@@ -83,6 +84,7 @@ def _runner(
                 country_code=country_code,
                 am_pm=am_pm,
                 temp_only=temp_only,
+                pager=pager,
                 terminal_width=terminal_width,
             )
         )
@@ -96,6 +98,7 @@ def _runner(
                 country_code=country_code,
                 am_pm=am_pm,
                 temp_only=temp_only,
+                pager=pager,
                 terminal_width=terminal_width,
             )
         )
@@ -109,6 +112,7 @@ def _runner(
                 country_code=country_code,
                 am_pm=am_pm,
                 temp_only=temp_only,
+                pager=pager,
                 terminal_width=terminal_width,
             )
         )
@@ -149,6 +153,7 @@ def city(
     temp_only: bool = Option(
         False, "--temp-only", "-t", help="If this flag is set only tempatures will be displayed."
     ),
+    pager: bool = Option(False, "--pager", "-p", help="Display the results in a pager."),
     clear_cache: bool = Option(False, help="Clear the cache data before running."),
     tui: bool = Option(False, help="Run in TUI mode."),
     terminal_width: Union[int, None] = Option(
@@ -165,6 +170,7 @@ def city(
         am_pm=am_pm,
         forecast_type=forecast_type,
         temp_only=temp_only,
+        pager=pager,
         clear_cache=clear_cache,
         tui=tui,
         terminal_width=terminal_width,
@@ -206,6 +212,7 @@ def zip(
     temp_only: bool = Option(
         False, "--temp-only", "-t", help="If this flag is set only tempatures will be displayed."
     ),
+    pager: bool = Option(False, "--pager", "-p", help="Display the results in a pager."),
     clear_cache: bool = Option(False, help="Clear the cache data before running."),
     tui: bool = Option(False, help="Run in TUI mode."),
     terminal_width: Union[int, None] = Option(
@@ -222,6 +229,7 @@ def zip(
         am_pm=am_pm,
         forecast_type=forecast_type,
         temp_only=temp_only,
+        pager=pager,
         clear_cache=clear_cache,
         tui=tui,
         terminal_width=terminal_width,

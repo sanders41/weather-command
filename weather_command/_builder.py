@@ -25,21 +25,29 @@ async def show_current(
     units: str = "metric",
     am_pm: bool = False,
     temp_only: bool = False,
+    pager: bool = False,
     terminal_width: int | None = None,
 ) -> None:
     if terminal_width:
         console.width = terminal_width
 
-    with console.status("Getting weather..."):
-        weather, location = await _gather_current_weather(
-            how=how,
-            city_zip=city_zip,
-            state_code=state_code,
-            country_code=country_code,
-            units=units,
-        )
-        if not temp_only:
+    weather, location = await _gather_current_weather(
+        how=how,
+        city_zip=city_zip,
+        state_code=state_code,
+        country_code=country_code,
+        units=units,
+    )
+    if not temp_only:
+        if pager:
+            with console.pager(styles=True):
+                console.print(current_weather_all(weather, units, am_pm, location))
+        else:
             console.print(current_weather_all(weather, units, am_pm, location))
+    else:
+        if pager:
+            with console.pager(styles=True):
+                console.print(_current_weather_temp(weather, units, location))
         else:
             console.print(_current_weather_temp(weather, units, location))
 
@@ -53,21 +61,29 @@ async def show_daily(
     units: str = "metric",
     am_pm: bool = False,
     temp_only: bool = False,
+    pager: bool = False,
     terminal_width: int | None = None,
 ) -> None:
     if terminal_width:
         console.width = terminal_width
 
-    with console.status("Getting weather..."):
-        weather, location = await _gather_one_call_weather(
-            how=how,
-            city_zip=city_zip,
-            state_code=state_code,
-            country_code=country_code,
-            units=units,
-        )
-        if not temp_only:
+    weather, location = await _gather_one_call_weather(
+        how=how,
+        city_zip=city_zip,
+        state_code=state_code,
+        country_code=country_code,
+        units=units,
+    )
+    if not temp_only:
+        if pager:
+            with console.pager(styles=True):
+                console.print(daily_all(weather, units, am_pm, location))
+        else:
             console.print(daily_all(weather, units, am_pm, location))
+    else:
+        if pager:
+            with console.pager(styles=True):
+                console.print(_daily_temp_only(weather, units, am_pm, location))
         else:
             console.print(_daily_temp_only(weather, units, am_pm, location))
 
@@ -81,21 +97,29 @@ async def show_hourly(
     units: str = "metric",
     am_pm: bool = False,
     temp_only: bool = False,
+    pager: bool = False,
     terminal_width: int | None = None,
 ) -> None:
     if terminal_width:
         console.width = terminal_width
 
-    with console.status("Getting weather..."):
-        weather, location = await _gather_one_call_weather(
-            how=how,
-            city_zip=city_zip,
-            state_code=state_code,
-            country_code=country_code,
-            units=units,
-        )
-        if not temp_only:
+    weather, location = await _gather_one_call_weather(
+        how=how,
+        city_zip=city_zip,
+        state_code=state_code,
+        country_code=country_code,
+        units=units,
+    )
+    if not temp_only:
+        if pager:
+            with console.pager(styles=True):
+                console.print(hourly_all(weather, units, am_pm, location))
+        else:
             console.print(hourly_all(weather, units, am_pm, location))
+    else:
+        if pager:
+            with console.pager(styles=True):
+                console.print(_hourly_temp_only(weather, units, am_pm, location))
         else:
             console.print(_hourly_temp_only(weather, units, am_pm, location))
 
