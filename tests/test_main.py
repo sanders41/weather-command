@@ -9,9 +9,9 @@ from weather_command.errors import MissingApiKey
 from weather_command.main import __version__, app
 
 try:
-    import tomli as tomllib
+    import tomli as tomllib  # type: ignore
 except ModuleNotFoundError:
-    import tomllib  # type: ignore [no-redef]
+    import tomllib  # type: ignore
 
 
 def test_versions_match():
