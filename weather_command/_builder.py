@@ -16,7 +16,7 @@ from weather_command.models.weather import CurrentWeather, OneCallWeather
 HEADER_ROW_STYLE = Style(color="sky_blue2", bold=True)
 
 
-async def show_current(
+def show_current(
     how: str,
     city_zip: str,
     *,
@@ -31,7 +31,7 @@ async def show_current(
     if terminal_width:
         console.width = terminal_width
 
-    weather, location = await _gather_current_weather(
+    weather, location = _gather_current_weather(
         how=how,
         city_zip=city_zip,
         state_code=state_code,
@@ -52,7 +52,7 @@ async def show_current(
             console.print(_current_weather_temp(weather, units, location))
 
 
-async def show_daily(
+def show_daily(
     how: str,
     city_zip: str,
     *,
@@ -67,7 +67,7 @@ async def show_daily(
     if terminal_width:
         console.width = terminal_width
 
-    weather, location = await _gather_one_call_weather(
+    weather, location = _gather_one_call_weather(
         how=how,
         city_zip=city_zip,
         state_code=state_code,
@@ -88,7 +88,7 @@ async def show_daily(
             console.print(_daily_temp_only(weather, units, am_pm, location))
 
 
-async def show_hourly(
+def show_hourly(
     how: str,
     city_zip: str,
     *,
@@ -103,7 +103,7 @@ async def show_hourly(
     if terminal_width:
         console.width = terminal_width
 
-    weather, location = await _gather_one_call_weather(
+    weather, location = _gather_one_call_weather(
         how=how,
         city_zip=city_zip,
         state_code=state_code,
@@ -449,7 +449,7 @@ def hourly_all(
     return table
 
 
-async def _gather_current_weather(
+def _gather_current_weather(
     how: str,
     city_zip: str,
     *,
@@ -464,7 +464,7 @@ async def _gather_current_weather(
             if cache_hit.location:
                 location = cache_hit.location
             else:
-                location = await get_location_details(
+                location = get_location_details(
                     how=how, city_zip=city_zip, state=state_code, country=country_code
                 )
             if cache_hit.current_weather:
@@ -477,10 +477,10 @@ async def _gather_current_weather(
                     lon=location.lon,
                     lat=location.lat,
                 )
-                current_weather = await get_current_weather(url, how, city_zip)
+                current_weather = get_current_weather(url, how, city_zip)
                 return current_weather, location
 
-    location = await get_location_details(
+    location = get_location_details(
         how=how, city_zip=city_zip, state=state_code, country=country_code
     )
 
@@ -490,11 +490,11 @@ async def _gather_current_weather(
         lon=location.lon,
         lat=location.lat,
     )
-    current_weather = await get_current_weather(url, how, city_zip)
+    current_weather = get_current_weather(url, how, city_zip)
     return current_weather, location
 
 
-async def _gather_one_call_weather(
+def _gather_one_call_weather(
     how: str,
     city_zip: str,
     *,
@@ -509,7 +509,7 @@ async def _gather_one_call_weather(
             if cache_hit.location:
                 location = cache_hit.location
             else:
-                location = await get_location_details(
+                location = get_location_details(
                     how=how, city_zip=city_zip, state=state_code, country=country_code
                 )
             if cache_hit.one_call_weather:
@@ -518,15 +518,15 @@ async def _gather_one_call_weather(
                 url = build_url(
                     forecast_type="daily", units=units, lon=location.lon, lat=location.lat
                 )
-                weather = await get_one_call_weather(url, how, city_zip)
+                weather = get_one_call_weather(url, how, city_zip)
                 return weather, location
 
-    location = await get_location_details(
+    location = get_location_details(
         how=how, city_zip=city_zip, state=state_code, country=country_code
     )
 
     url = build_url(forecast_type="daily", units=units, lon=location.lon, lat=location.lat)
-    weather = await get_one_call_weather(url, how, city_zip)
+    weather = get_one_call_weather(url, how, city_zip)
     return weather, location
 
 

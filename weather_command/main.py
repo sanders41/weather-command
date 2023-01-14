@@ -1,6 +1,4 @@
-import asyncio
 from enum import Enum
-from sys import platform
 from typing import Union
 
 from rich.traceback import install
@@ -8,15 +6,6 @@ from typer import Argument, Exit, Option, Typer, echo
 
 from weather_command._builder import show_current, show_daily, show_hourly
 from weather_command._cache import Cache
-from weather_command._tui import WeatherApp
-
-
-def _is_uvloop_platform() -> bool:
-    if platform != "win32":
-        return True  # pragma: no cover
-
-    return False  # pragma: no cover
-
 
 __version__ = "4.0.2"
 
@@ -46,7 +35,6 @@ def _runner(
     temp_only: bool,
     pager: bool,
     clear_cache: bool,
-    tui: bool,
     terminal_width: Union[int, None],
 ) -> None:
     if clear_cache:
@@ -55,66 +43,41 @@ def _runner(
 
     units = "imperial" if imperial else "metric"
 
-    if _is_uvloop_platform():
-        try:
-            import uvloop
-
-            uvloop.install()
-        except ImportError:  # pragma: no cover
-            pass
-        except NameError:  # pragma: no cover
-            pass
-
-    if tui:
-        WeatherApp.how = how
-        WeatherApp.city_zip = city_zip
-        WeatherApp.state = state_code
-        WeatherApp.country = country_code
-        WeatherApp.forecast_type = forecast_type
-        WeatherApp.units = units
-        WeatherApp.am_pm = am_pm
-        WeatherApp.run()
-    elif forecast_type == "current":
-        asyncio.run(
-            show_current(
-                how=how,
-                city_zip=city_zip,
-                units=units,
-                state_code=state_code,
-                country_code=country_code,
-                am_pm=am_pm,
-                temp_only=temp_only,
-                pager=pager,
-                terminal_width=terminal_width,
-            )
+    if forecast_type == "current":
+        show_current(
+            how=how,
+            city_zip=city_zip,
+            units=units,
+            state_code=state_code,
+            country_code=country_code,
+            am_pm=am_pm,
+            temp_only=temp_only,
+            pager=pager,
+            terminal_width=terminal_width,
         )
     elif forecast_type == "daily":
-        asyncio.run(
-            show_daily(
-                how=how,
-                city_zip=city_zip,
-                units=units,
-                state_code=state_code,
-                country_code=country_code,
-                am_pm=am_pm,
-                temp_only=temp_only,
-                pager=pager,
-                terminal_width=terminal_width,
-            )
+        show_daily(
+            how=how,
+            city_zip=city_zip,
+            units=units,
+            state_code=state_code,
+            country_code=country_code,
+            am_pm=am_pm,
+            temp_only=temp_only,
+            pager=pager,
+            terminal_width=terminal_width,
         )
     elif forecast_type == "hourly":
-        asyncio.run(
-            show_hourly(
-                how=how,
-                city_zip=city_zip,
-                units=units,
-                state_code=state_code,
-                country_code=country_code,
-                am_pm=am_pm,
-                temp_only=temp_only,
-                pager=pager,
-                terminal_width=terminal_width,
-            )
+        show_hourly(
+            how=how,
+            city_zip=city_zip,
+            units=units,
+            state_code=state_code,
+            country_code=country_code,
+            am_pm=am_pm,
+            temp_only=temp_only,
+            pager=pager,
+            terminal_width=terminal_width,
         )
 
 
@@ -155,7 +118,6 @@ def city(
     ),
     pager: bool = Option(False, "--pager", "-p", help="Display the results in a pager."),
     clear_cache: bool = Option(False, help="Clear the cache data before running."),
-    tui: bool = Option(False, help="Run in TUI mode."),
     terminal_width: Union[int, None] = Option(
         None, help="Allows for overriding the default terminal width."
     ),
@@ -172,7 +134,6 @@ def city(
         temp_only=temp_only,
         pager=pager,
         clear_cache=clear_cache,
-        tui=tui,
         terminal_width=terminal_width,
     )
 
@@ -214,7 +175,6 @@ def zip(
     ),
     pager: bool = Option(False, "--pager", "-p", help="Display the results in a pager."),
     clear_cache: bool = Option(False, help="Clear the cache data before running."),
-    tui: bool = Option(False, help="Run in TUI mode."),
     terminal_width: Union[int, None] = Option(
         None, help="Allows for overriding the default terminal width."
     ),
@@ -231,7 +191,6 @@ def zip(
         temp_only=temp_only,
         pager=pager,
         clear_cache=clear_cache,
-        tui=tui,
         terminal_width=terminal_width,
     )
 
