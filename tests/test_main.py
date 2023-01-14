@@ -3,19 +3,22 @@ from pathlib import Path
 
 import httpx
 import pytest
-from tomlkit import parse
 
 from weather_command._config import LOCATION_BASE_URL
 from weather_command.errors import MissingApiKey
 from weather_command.main import __version__, app
 
+try:
+    import tomli as tomllib  # type: ignore
+except ModuleNotFoundError:
+    import tomllib  # type: ignore
+
 
 def test_versions_match():
     pyproject_file = Path().absolute() / "pyproject.toml"
-    with open(pyproject_file, "r") as f:
-        content = f.read()
-        data = parse(content)
-        pyproject_version = data["tool"]["poetry"]["version"]  # type: ignore
+    with open(pyproject_file, "rb") as f:
+        data = tomllib.load(f)
+        pyproject_version = data["tool"]["poetry"]["version"]
     assert __version__ == pyproject_version
 
 
