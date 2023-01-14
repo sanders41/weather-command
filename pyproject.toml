@@ -71,6 +71,10 @@ disallow_untyped_defs = true
 module = ["tests.*"]
 disallow_untyped_defs = false
 
+[[tool.mypy.overrides]]
+module = ["tomli.*"]
+ignore_missing_imports = true
+
 [tool.pytest.ini_options]
 minversion = "6.0"
 addopts = "--cov=weather_command --cov-report term-missing"
