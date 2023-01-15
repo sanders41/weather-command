@@ -31,13 +31,14 @@ def show_current(
     if terminal_width:
         console.width = terminal_width
 
-    weather, location = _gather_current_weather(
-        how=how,
-        city_zip=city_zip,
-        state_code=state_code,
-        country_code=country_code,
-        units=units,
-    )
+    with console.status("Getting weather..."):
+        weather, location = _gather_current_weather(
+            how=how,
+            city_zip=city_zip,
+            state_code=state_code,
+            country_code=country_code,
+            units=units,
+        )
     if not temp_only:
         if pager:
             with console.pager(styles=True):
@@ -67,13 +68,14 @@ def show_daily(
     if terminal_width:
         console.width = terminal_width
 
-    weather, location = _gather_one_call_weather(
-        how=how,
-        city_zip=city_zip,
-        state_code=state_code,
-        country_code=country_code,
-        units=units,
-    )
+    with console.status("Getting weather..."):
+        weather, location = _gather_one_call_weather(
+            how=how,
+            city_zip=city_zip,
+            state_code=state_code,
+            country_code=country_code,
+            units=units,
+        )
     if not temp_only:
         if pager:
             with console.pager(styles=True):
@@ -103,13 +105,14 @@ def show_hourly(
     if terminal_width:
         console.width = terminal_width
 
-    weather, location = _gather_one_call_weather(
-        how=how,
-        city_zip=city_zip,
-        state_code=state_code,
-        country_code=country_code,
-        units=units,
-    )
+    with console.status("Getting weather..."):
+        weather, location = _gather_one_call_weather(
+            how=how,
+            city_zip=city_zip,
+            state_code=state_code,
+            country_code=country_code,
+            units=units,
+        )
     if not temp_only:
         if pager:
             with console.pager(styles=True):
