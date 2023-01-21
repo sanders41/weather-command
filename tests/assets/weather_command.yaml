@@ -1,0 +1,5 @@
+settings:
+  api_key: file_api_key
+  units: imperial
+  time_settings: am/pm
+  temp_only: true

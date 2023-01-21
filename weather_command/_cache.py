@@ -41,10 +41,13 @@ class DateTimeEncoder(JSONEncoder):
 
 
 def _get_default_directory() -> Path:
-    cache_path = os.path.join(
-        os.environ.get("XDG_CACHE_HOME") or os.path.expanduser("~/.cache"), "weather-command"
+    xdg_cache = os.getenv("XDG_CACHE_HOME")
+    settings_path = (
+        Path(xdg_cache) / "weather-command"
+        if xdg_cache
+        else Path.home() / ".cache" / "weather-command"
     )
-    return Path(os.path.realpath(cache_path))
+    return settings_path.resolve()
 
 
 class Cache:

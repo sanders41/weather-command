@@ -3,6 +3,7 @@ from pathlib import Path
 
 import httpx
 import pytest
+import yaml
 
 from weather_command._config import LOCATION_BASE_URL
 from weather_command.errors import MissingApiKey
@@ -86,7 +87,6 @@ def test_main_with_params(
     mock_current_weather_response,
     mock_one_call_weather_response,
     mock_location_response,
-    cache_with_file,
     monkeypatch,
 ):
     args = [
@@ -142,6 +142,66 @@ def test_main_with_params(
         assert "in" in out
 
     assert " AM" or " PM" in out
+
+
+@pytest.mark.parametrize("how, city_zip", [("city", "Greensboro"), ("zip", "27405")])
+@pytest.mark.usefixtures("mock_cache_dir")
+def test_main_from_settings_params(
+    how,
+    city_zip,
+    test_runner,
+    mock_current_weather_response,
+    mock_location_response,
+    monkeypatch,
+    mock_config_dir,
+):
+    def mock_get_response(*args, **kwargs):
+        if LOCATION_BASE_URL in args[0]:
+            return mock_location_response
+
+        return mock_current_weather_response
+
+    settings = {"settings": {"api_key": "file", "units": "imperial", "time_format": "am/pm"}}
+
+    with open(mock_config_dir / "weather_command.yaml", "w") as f:
+        yaml.safe_dump(settings, f)
+
+    monkeypatch.setattr(httpx, "get", mock_get_response)
+    args = [how, city_zip, "--terminal-width", 180]
+    result = test_runner.invoke(app, args, catch_exceptions=False)
+
+    out = result.stdout
+
+    assert "Greensboro" in out
+    assert "F" in out
+    assert "mph" in out
+    assert " AM" or " PM" in out
+
+
+@pytest.mark.parametrize("how, city_zip", [("city", "Greensboro"), ("zip", "27405")])
+@pytest.mark.usefixtures("mock_cache_dir", "mock_config_dir_with_file")
+def test_main_from_settings_params_temp_only(
+    how,
+    city_zip,
+    test_runner,
+    mock_current_weather_response,
+    mock_location_response,
+    monkeypatch,
+):
+    def mock_get_response(*args, **kwargs):
+        if LOCATION_BASE_URL in args[0]:
+            return mock_location_response
+
+        return mock_current_weather_response
+
+    monkeypatch.setattr(httpx, "get", mock_get_response)
+    args = [how, city_zip, "--terminal-width", 180]
+    result = test_runner.invoke(app, args, catch_exceptions=False)
+
+    out = result.stdout
+
+    assert "Greensboro" in out
+    assert "F" in out
 
 
 @pytest.mark.usefixtures("mock_cache_dir")
