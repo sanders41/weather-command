@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 from shutil import copy
 from unittest.mock import patch
@@ -6,7 +7,22 @@ import httpx
 import pytest
 from typer.testing import CliRunner
 
+from weather_command._builder import (
+    _format_date_time,
+    _format_precip,
+    _format_pressure,
+    _format_sunrise_sunset,
+    _format_wind,
+    _get_units,
+    _hpa_to_in,
+    _mm_to_in,
+    _round_to_int,
+    append_api_key,
+)
 from weather_command._cache import Cache
+from weather_command._config import Settings, load_settings
+from weather_command._location import _build_url
+from weather_command._weather import get_icon
 from weather_command.models.location import Location
 from weather_command.models.weather import CurrentWeather, OneCallWeather
 
@@ -14,10 +30,28 @@ ROOT_PATH = Path().absolute()
 ASSETS_PATH = ROOT_PATH / "tests" / "assets"
 
 
+@pytest.fixture(autouse=True)
+def clear_lru_cache():
+    yield
+    append_api_key.cache_clear()
+    _build_url.cache_clear()
+    load_settings.cache_clear()
+    get_icon.cache_clear()
+    _format_date_time.cache_clear()
+    _format_precip.cache_clear()
+    _format_pressure.cache_clear()
+    _format_sunrise_sunset.cache_clear()
+    _format_wind.cache_clear()
+    _get_units.cache_clear()
+    _hpa_to_in.cache_clear()
+    _mm_to_in.cache_clear()
+    _round_to_int.cache_clear()
+
+
 @pytest.fixture(autouse=True, scope="session")
-def dont_write_to_home_directory():
-    """Makes sure a default directory is specified so that the home directory is not written to in
-    testing.
+def dont_write_to_home_cache_directory():
+    """Makes sure a default directory is specified for cache so that the home directory is not
+    written to in testing.
     """
 
     class ExplicitlyChooseCacheDirectory(AssertionError):
@@ -33,16 +67,16 @@ def dont_write_to_home_directory():
 
 @pytest.fixture
 def mock_cache_dir(tmp_path):
-    cache_path = tmp_path / "weather-command"
+    cache_path = tmp_path / "cache" / "weather-command"
     with patch.object(Cache, "get_default_directory", return_value=cache_path):
         yield cache_path
 
 
 @pytest.fixture
 def mock_cache_dir_with_file(tmp_path):
-    cache_path = tmp_path / "weather-command"
+    cache_path = tmp_path / "cache" / "weather-command"
     if not cache_path.exists():
-        cache_path.mkdir()
+        cache_path.mkdir(parents=True)
 
     copy(str(ASSETS_PATH / "cache.json"), str(cache_path / "cache.json"))
 
@@ -52,17 +86,79 @@ def mock_cache_dir_with_file(tmp_path):
 
 @pytest.fixture
 def cache(tmp_path):
-    yield Cache(tmp_path / "weather-command")
+    yield Cache(tmp_path / "cache" / "weather-command")
 
 
 @pytest.fixture
 def cache_with_file(tmp_path):
-    cache_path = tmp_path / "weather-command"
+    cache_path = tmp_path / "cache" / "weather-command"
     if not cache_path.exists():
-        cache_path.mkdir()
+        cache_path.mkdir(parents=True)
 
     copy(str(ASSETS_PATH / "cache.json"), str(cache_path / "cache.json"))
     yield Cache(cache_path)
+
+
+@pytest.fixture(autouse=True, scope="session")
+def dont_write_to_home_config_directory():
+    """Makes sure a default directory is specified for config so that the home directory is not
+    written to in testing.
+    """
+
+    class ExplicitlyChooseConfigDirectory(AssertionError):
+        pass
+
+    with patch.object(
+        Settings,
+        "get_default_directory",
+        side_effect=ExplicitlyChooseConfigDirectory,
+    ):
+        yield
+
+
+@pytest.fixture(autouse=True)
+def mock_config_dir(tmp_path):
+    config_path = tmp_path / "config" / "weather-command"
+    if not config_path.exists():
+        config_path.mkdir(parents=True)
+
+    with patch.object(Settings, "get_default_directory", return_value=config_path):
+        yield config_path
+
+
+@pytest.fixture
+def mock_config_dir_with_file(tmp_path):
+    config_path = tmp_path / "config" / "weather-command"
+    if not config_path.exists():
+        config_path.mkdir(parents=True)
+
+    copy(str(ASSETS_PATH / "weather_command.yaml"), str(config_path / "weather_command.yaml"))
+
+    with patch.object(Cache, "get_default_directory", return_value=config_path):
+        yield config_path
+
+
+@pytest.fixture
+def settings(tmp_path):
+    config_path = tmp_path / "config" / "weather-command"
+    if not config_path.exists():
+        config_path.mkdir(parents=True)
+
+    copy(str(ASSETS_PATH / "weather_command.yaml"), str(config_path / "weather_command.yaml"))
+    yield load_settings(config_path)
+
+
+@pytest.fixture
+def settings_no_env_api_key(tmp_path, monkeypatch):
+    current = os.getenv("OPEN_WEATHER_API_KEY")
+    monkeypatch.delenv("OPEN_WEATHER_API_KEY", raising=False)
+    config_path = tmp_path / "config" / "weather-command"
+    if not config_path.exists():
+        config_path.mkdir(parents=True)
+
+    copy(str(ASSETS_PATH / "weather_command.yaml"), str(config_path / "weather_command.yaml"))
+    yield load_settings(config_path)
+    monkeypatch.setenv("OPEN_WEATHER_API_KEY", current)
 
 
 @pytest.fixture(autouse=True)

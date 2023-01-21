@@ -152,11 +152,8 @@ def test_show_hourly_cache_hit(mock_dt, temp_only, pager, capfd):
     assert "Greensboro" in out
 
 
-@pytest.mark.parametrize("how, city_zip", [("city", "Greensboro"), ("zip", "27405")])
 @pytest.mark.parametrize("units", ["metric", "imperial"])
-@pytest.mark.parametrize("state_code", ["NC", None])
-@pytest.mark.parametrize("country_code", ["US", None])
-def test_build_url_current(how, city_zip, units, state_code, country_code):
+def test_build_url_current(units):
     lon = 0.123
     lat = 789.1
     got = _builder.build_url(
@@ -187,6 +184,44 @@ def test_build_url_one_one_call(units, forecast_type):
     assert f"lon={lon}" in got
     assert f"lat={lat}" in got
     assert f"&appid={getenv('OPEN_WEATHER_API_KEY')}" in got
+
+
+@pytest.mark.usefixtures("settings")
+def test_build_url_current_api_key_env_and_settings():
+    lon = 0.123
+    lat = 789.1
+    got = _builder.build_url(
+        forecast_type="current",
+        units="metric",
+        lon=lon,
+        lat=lat,
+    )
+
+    assert got.startswith(WEATHER_BASE_URL)
+    assert "/weather?" in got
+    assert f"&units=metric" in got
+    assert f"lon={lon}" in got
+    assert f"lat={lat}" in got
+    assert f"&appid={getenv('OPEN_WEATHER_API_KEY')}" in got
+
+
+def test_build_url_current_api_key_settings(settings_no_env_api_key, monkeypatch):
+    monkeypatch.delenv("OPEN_WEATHER_API_KEY", raising=False)
+    lon = 0.123
+    lat = 789.1
+    got = _builder.build_url(
+        forecast_type="current",
+        units="metric",
+        lon=lon,
+        lat=lat,
+    )
+
+    assert got.startswith(WEATHER_BASE_URL)
+    assert "/weather?" in got
+    assert f"&units=metric" in got
+    assert f"lon={lon}" in got
+    assert f"lat={lat}" in got
+    assert f"&appid={settings_no_env_api_key.api_key_file}" in got
 
 
 def test_hpa_to_in():

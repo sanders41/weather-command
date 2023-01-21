@@ -1,16 +1,17 @@
 from enum import Enum
 from typing import Union
 
-from rich.traceback import install
 from typer import Argument, Exit, Option, Typer, echo
 
+from weather_command import settings_commands
 from weather_command._builder import show_current, show_daily, show_hourly
 from weather_command._cache import Cache
+from weather_command._config import load_settings
 
 __version__ = "5.0.1"
 
-install()
 app = Typer()
+app.add_typer(settings_commands.app, name="settings", help="Manage saved settings.")
 
 
 class ForecastType(str, Enum):
@@ -41,7 +42,22 @@ def _runner(
         cache = Cache()
         cache.clear()
 
-    units = "imperial" if imperial else "metric"
+    settings = load_settings()
+
+    if not imperial and settings.imperial is not None:
+        units = "imperial" if settings.imperial else "metric"
+    else:
+        units = "imperial" if imperial else "metric"
+
+    if not temp_only and settings.temp_only is not None:
+        temp_only_choice = settings.temp_only
+    else:
+        temp_only_choice = temp_only
+
+    if not am_pm and settings.am_pm is not None:
+        am_pm_choice = settings.am_pm
+    else:
+        am_pm_choice = am_pm
 
     if forecast_type == "current":
         show_current(
@@ -50,8 +66,8 @@ def _runner(
             units=units,
             state_code=state_code,
             country_code=country_code,
-            am_pm=am_pm,
-            temp_only=temp_only,
+            am_pm=am_pm_choice,
+            temp_only=temp_only_choice,
             pager=pager,
             terminal_width=terminal_width,
         )
@@ -62,8 +78,8 @@ def _runner(
             units=units,
             state_code=state_code,
             country_code=country_code,
-            am_pm=am_pm,
-            temp_only=temp_only,
+            am_pm=am_pm_choice,
+            temp_only=temp_only_choice,
             pager=pager,
             terminal_width=terminal_width,
         )
@@ -74,8 +90,8 @@ def _runner(
             units=units,
             state_code=state_code,
             country_code=country_code,
-            am_pm=am_pm,
-            temp_only=temp_only,
+            am_pm=am_pm_choice,
+            temp_only=temp_only_choice,
             pager=pager,
             terminal_width=terminal_width,
         )
