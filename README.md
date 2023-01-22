@@ -54,6 +54,32 @@ alias weh="weather-command zip 98109 -i --am-pm -f hourly"
 After adding this to the `~/.zshrc` you will need to restart your terminal. After that typing `we`
 will get the current forecast, `wed` will get the daily forecast and `weh` will get the hourly forecast.
 
+## Examples
+
+- Current Weather
+
+![Current weather](./assets/current.png)
+
+- Current Weather Temp Only
+
+![Current weather temp only](./assets/current_temp_only.png)
+
+- Daily Weather
+
+![Daily weather](./assets/daily.png)
+
+- Daily Weather Temp Only
+
+![Daily weather temp only](./assets/daily_temp_only.png)
+
+- Hourly Weather
+
+![Hourly weather](./assets/hourly.png)
+
+- Hourly Weather Temp Only
+
+![Hourl weather temp only](./assets/hourly_temp_only.png)
+
 ## Contributing
 
 Contributions to this project are welcome. If you are interesting in contributing please see our [contributing guide](CONTRIBUTING.md)
