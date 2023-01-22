@@ -5,6 +5,7 @@ from unittest.mock import Mock, patch
 import pytest
 
 from weather_command import _builder
+from weather_command._cache import CacheItem
 from weather_command._config import WEATHER_BASE_URL
 from weather_command.models.weather import PrecipAmount, Wind
 
@@ -47,6 +48,26 @@ def test_current_weather_temp(
     assert table.row_count == 1
 
 
+@patch("weather_command._builder.get_location_details")
+@patch("weather_command._builder.get_current_weather")
+@patch("weather_command._cache.Cache.get")
+@pytest.mark.usefixtures("mock_cache_dir")
+def test_current_weather_no_cache_hit(
+    mock_cache_get_call,
+    mock_current_weather_call,
+    mock_location_details_call,
+    mock_current_weather,
+    mock_location,
+):
+    mock_cache_get_call.return_value = CacheItem()
+    mock_current_weather_call.return_value = mock_current_weather
+    mock_location_details_call.return_value = mock_location
+    _builder.show_current("zip", "27455")
+    assert mock_cache_get_call.called_once()
+    assert mock_location_details_call.called_once()
+    assert mock_current_weather_call.called_once()
+
+
 @pytest.mark.parametrize("pager", [True, False])
 @pytest.mark.parametrize("temp_only", [True, False])
 @pytest.mark.usefixtures("mock_cache_dir_with_file")
@@ -82,6 +103,26 @@ def test_daily_temp_only(mock_one_call_weather, mock_location, units, am_pm):
     )
     assert len(table.columns) == 3
     assert table.row_count == len(mock_one_call_weather.daily)
+
+
+@patch("weather_command._builder.get_location_details")
+@patch("weather_command._builder.get_one_call_weather")
+@patch("weather_command._cache.Cache.get")
+@pytest.mark.usefixtures("mock_cache_dir")
+def test_show_daily_no_cache_hit(
+    mock_cache_get_call,
+    mock_get_one_call_weather_call,
+    mock_location_details_call,
+    mock_one_call_weather,
+    mock_location,
+):
+    mock_cache_get_call.return_value = CacheItem()
+    mock_get_one_call_weather_call.return_value = mock_one_call_weather
+    mock_location_details_call.return_value = mock_location
+    _builder.show_daily("zip", "27455")
+    assert mock_cache_get_call.called_once()
+    assert mock_location_details_call.called_once()
+    assert mock_get_one_call_weather_call.called_once()
 
 
 @pytest.mark.parametrize("pager", [True, False])
@@ -139,6 +180,26 @@ def test_hourly_temp_only(mock_one_call_weather, mock_location, units, am_pm):
     )
     assert len(table.columns) == 3
     assert table.row_count == len(mock_one_call_weather.hourly)
+
+
+@patch("weather_command._builder.get_location_details")
+@patch("weather_command._builder.get_one_call_weather")
+@patch("weather_command._cache.Cache.get")
+@pytest.mark.usefixtures("mock_cache_dir")
+def test_show_hourly_no_cache_hit(
+    mock_cache_get_call,
+    mock_get_one_call_weather_call,
+    mock_location_details_call,
+    mock_one_call_weather,
+    mock_location,
+):
+    mock_cache_get_call.return_value = CacheItem()
+    mock_get_one_call_weather_call.return_value = mock_one_call_weather
+    mock_location_details_call.return_value = mock_location
+    _builder.show_hourly("zip", "27455")
+    assert mock_cache_get_call.called_once()
+    assert mock_location_details_call.called_once()
+    assert mock_get_one_call_weather_call.called_once()
 
 
 @pytest.mark.parametrize("pager", [True, False])
