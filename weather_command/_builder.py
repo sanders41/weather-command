@@ -240,7 +240,7 @@ def daily_all(
     _, pressure_units, speed_units, temp_units = _get_units(units)
     table = (
         Table(
-            title=f"Hourly weather for {location.display_name}",
+            title=f"Daily weather for {location.display_name}",
             header_style=HEADER_ROW_STYLE,
             show_lines=True,
             expand=True,
@@ -300,7 +300,7 @@ def daily_all(
 def _daily_temp_only(weather: OneCallWeather, units: str, am_pm: bool, location: Location) -> Table:
     _, _, _, temp_units = _get_units(units)
     table = Table(
-        title=f"Hourly weather for {location.display_name}",
+        title=f"Daily weather for {location.display_name}",
         header_style=HEADER_ROW_STYLE,
         show_lines=True,
     )
