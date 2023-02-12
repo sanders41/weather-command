@@ -260,7 +260,7 @@ def test_build_url_current_api_key_env_and_settings():
 
     assert got.startswith(WEATHER_BASE_URL)
     assert "/weather?" in got
-    assert f"&units=metric" in got
+    assert "&units=metric" in got
     assert f"lon={lon}" in got
     assert f"lat={lat}" in got
     assert f"&appid={getenv('OPEN_WEATHER_API_KEY')}" in got
@@ -279,7 +279,7 @@ def test_build_url_current_api_key_settings(settings_no_env_api_key, monkeypatch
 
     assert got.startswith(WEATHER_BASE_URL)
     assert "/weather?" in got
-    assert f"&units=metric" in got
+    assert "&units=metric" in got
     assert f"lon={lon}" in got
     assert f"lat={lat}" in got
     assert f"&appid={settings_no_env_api_key.api_key_file}" in got

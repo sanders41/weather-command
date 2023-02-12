@@ -81,7 +81,7 @@ class Settings:
     def display_values(self) -> str:
         values = ""
         if self.api_key_file:
-            values = f"api_key = [green]MASKED FOR PRIVACY[/green]\n"
+            values = "api_key = [green]MASKED FOR PRIVACY[/green]\n"
         if self.imperial is not None:
             if self.imperial:
                 values = f"{values}units = [green]imperial[/green]\n"
