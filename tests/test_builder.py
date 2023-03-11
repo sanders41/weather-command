@@ -14,8 +14,8 @@ UNITS = ("metric", "imperial")
 
 @pytest.mark.parametrize("units", UNITS)
 @pytest.mark.parametrize("am_pm", [False, True])
-@pytest.mark.parametrize("rain", [None, PrecipAmount(one_hour=0.1, three_hour=0.3)])
-@pytest.mark.parametrize("snow", [None, PrecipAmount(one_hour=0.1, three_hour=0.3)])
+@pytest.mark.parametrize("rain", [None, PrecipAmount(one_hour=0.1, three_hour=0.3)])  # type: ignore
+@pytest.mark.parametrize("snow", [None, PrecipAmount(one_hour=0.1, three_hour=0.3)])  # type: ignore
 @pytest.mark.parametrize("wind", [None, Wind(speed=1.2, deg=23, gust=2.1)])
 def test_current_weather_all(mock_current_weather, units, am_pm, rain, snow, wind, mock_location):
     if mock_current_weather.rain and not rain:
@@ -138,8 +138,8 @@ def test_show_daily_cache_hit(mock_dt, temp_only, pager, capfd):
 
 @pytest.mark.parametrize("units", UNITS)
 @pytest.mark.parametrize("am_pm", [False, True])
-@pytest.mark.parametrize("rain", [None, PrecipAmount(one_hour=0.1, three_hour=0.0)])
-@pytest.mark.parametrize("snow", [None, PrecipAmount(one_hour=0.1, three_hour=0.0)])
+@pytest.mark.parametrize("rain", [None, PrecipAmount(one_hour=0.1, three_hour=0.0)])  # type: ignore
+@pytest.mark.parametrize("snow", [None, PrecipAmount(one_hour=0.1, three_hour=0.0)])  # type: ignore
 @pytest.mark.parametrize("wind", [None, 1.2])
 @pytest.mark.parametrize("gust", [None, 2.1])
 @pytest.mark.parametrize("pressure", [None, 1000])
