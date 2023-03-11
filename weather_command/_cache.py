@@ -27,9 +27,9 @@ class OneCallWeatherCache(CacheDuration):
 
 
 class CacheItem(CamelBase):
-    location: Optional[Location]
-    current_weather: Optional[CurrentWeatherCache]
-    one_call_weather: Optional[OneCallWeatherCache]
+    location: Optional[Location] = None
+    current_weather: Optional[CurrentWeatherCache] = None
+    one_call_weather: Optional[OneCallWeatherCache] = None
 
 
 class DateTimeEncoder(JSONEncoder):
