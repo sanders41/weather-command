@@ -8,7 +8,7 @@ from weather_command._builder import show_current, show_daily, show_hourly
 from weather_command._cache import Cache
 from weather_command._config import load_settings
 
-__version__ = "5.1.1"
+__version__ = "5.2.1"
 
 app = Typer()
 app.add_typer(settings_commands.app, name="settings", help="Manage saved settings.")
