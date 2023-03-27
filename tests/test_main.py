@@ -5,7 +5,6 @@ import httpx
 import pytest
 import yaml
 
-from weather_command._config import LOCATION_BASE_URL
 from weather_command.errors import MissingApiKey
 from weather_command.main import __version__, app
 
@@ -37,17 +36,22 @@ def test_main_default_params(
     city_zip,
     test_runner,
     mock_current_weather_response,
+    mock_one_call_weather_response,
     mock_location_response,
     cache_with_file,
     monkeypatch,
 ):
-    def mock_get_response(*args, **kwargs):
-        if LOCATION_BASE_URL in args[0]:
-            return mock_location_response
+    def mock_get_location_response(*args, **kwargs):
+        return mock_location_response
+
+    async def mock_get_weather_response(*args, **kwargs):
+        if "onecall" in args[1]:
+            return mock_one_call_weather_response
 
         return mock_current_weather_response
 
-    monkeypatch.setattr(httpx, "get", mock_get_response)
+    monkeypatch.setattr(httpx, "get", mock_get_location_response)
+    monkeypatch.setattr(httpx.AsyncClient, "get", mock_get_weather_response)
     args = [how, city_zip, "--terminal-width", 180]
     result = test_runner.invoke(app, args, catch_exceptions=False)
 
@@ -89,6 +93,18 @@ def test_main_with_params(
     mock_location_response,
     monkeypatch,
 ):
+    def mock_get_location_response(*args, **kwargs):
+        return mock_location_response
+
+    async def mock_get_weather_response(*args, **kwargs):
+        if "onecall" in args[1]:
+            return mock_one_call_weather_response
+
+        return mock_current_weather_response
+
+    monkeypatch.setattr(httpx, "get", mock_get_location_response)
+    monkeypatch.setattr(httpx.AsyncClient, "get", mock_get_weather_response)
+
     args = [
         "zip",
         "27455",
@@ -110,24 +126,8 @@ def test_main_with_params(
         args.append("--clear-cache")
 
     if forecast_type == "current" or not forecast_type:
-
-        def mock_return(*args, **kwargs):
-            if LOCATION_BASE_URL in args[0]:
-                return mock_location_response
-
-            return mock_current_weather_response
-
-        monkeypatch.setattr(httpx, "get", mock_return)
         result = test_runner.invoke(app, args, catch_exceptions=False)
     else:
-
-        def mock_return(*args, **kwargs):
-            if LOCATION_BASE_URL in args[0]:
-                return mock_location_response
-
-            return mock_one_call_weather_response
-
-        monkeypatch.setattr(httpx, "get", mock_return)
         result = test_runner.invoke(app, args, catch_exceptions=False)
 
     out = result.stdout
@@ -151,22 +151,27 @@ def test_main_from_settings_params(
     city_zip,
     test_runner,
     mock_current_weather_response,
+    mock_one_call_weather_response,
     mock_location_response,
     monkeypatch,
     mock_config_dir,
 ):
-    def mock_get_response(*args, **kwargs):
-        if LOCATION_BASE_URL in args[0]:
-            return mock_location_response
+    def mock_get_location_response(*args, **kwargs):
+        return mock_location_response
+
+    async def mock_get_weather_response(*args, **kwargs):
+        if "onecall" in args[1]:
+            return mock_one_call_weather_response
 
         return mock_current_weather_response
 
+    monkeypatch.setattr(httpx, "get", mock_get_location_response)
+    monkeypatch.setattr(httpx.AsyncClient, "get", mock_get_weather_response)
     settings = {"settings": {"api_key": "file", "units": "imperial", "time_format": "am/pm"}}
 
     with open(mock_config_dir / "weather_command.yaml", "w") as f:
         yaml.safe_dump(settings, f)
 
-    monkeypatch.setattr(httpx, "get", mock_get_response)
     args = [how, city_zip, "--terminal-width", 180]
     result = test_runner.invoke(app, args, catch_exceptions=False)
 
@@ -185,16 +190,21 @@ def test_main_from_settings_params_temp_only(
     city_zip,
     test_runner,
     mock_current_weather_response,
+    mock_one_call_weather_response,
     mock_location_response,
     monkeypatch,
 ):
-    def mock_get_response(*args, **kwargs):
-        if LOCATION_BASE_URL in args[0]:
-            return mock_location_response
+    def mock_get_location_response(*args, **kwargs):
+        return mock_location_response
+
+    async def mock_get_weather_response(*args, **kwargs):
+        if "onecall" in args[1]:
+            return mock_one_call_weather_response
 
         return mock_current_weather_response
 
-    monkeypatch.setattr(httpx, "get", mock_get_response)
+    monkeypatch.setattr(httpx, "get", mock_get_location_response)
+    monkeypatch.setattr(httpx.AsyncClient, "get", mock_get_weather_response)
     args = [how, city_zip, "--terminal-width", 180]
     result = test_runner.invoke(app, args, catch_exceptions=False)
 

@@ -7,8 +7,9 @@ from rich.style import Style
 from rich.table import Table
 
 from weather_command._cache import Cache
-from weather_command._config import WEATHER_BASE_URL, append_api_key, console
+from weather_command._config import console
 from weather_command._location import get_location_details
+from weather_command._utils import build_weather_url
 from weather_command._weather import get_current_weather, get_icon, get_one_call_weather
 from weather_command.models.location import Location
 from weather_command.models.weather import CurrentWeather, OneCallWeather
@@ -16,7 +17,7 @@ from weather_command.models.weather import CurrentWeather, OneCallWeather
 HEADER_ROW_STYLE = Style(color="sky_blue2", bold=True)
 
 
-def show_current(
+async def show_current(
     how: str,
     city_zip: str,
     *,
@@ -32,7 +33,7 @@ def show_current(
         console.width = terminal_width
 
     with console.status("Getting weather..."):
-        weather, location = _gather_current_weather(
+        weather, location = await _gather_current_weather(
             how=how,
             city_zip=city_zip,
             state_code=state_code,
@@ -53,7 +54,7 @@ def show_current(
             console.print(_current_weather_temp(weather, units, location))
 
 
-def show_daily(
+async def show_daily(
     how: str,
     city_zip: str,
     *,
@@ -69,13 +70,14 @@ def show_daily(
         console.width = terminal_width
 
     with console.status("Getting weather..."):
-        weather, location = _gather_one_call_weather(
+        weather, location = await _gather_one_call_weather(
             how=how,
             city_zip=city_zip,
             state_code=state_code,
             country_code=country_code,
             units=units,
         )
+
     if not temp_only:
         if pager:
             with console.pager(styles=True):
@@ -90,7 +92,7 @@ def show_daily(
             console.print(_daily_temp_only(weather, units, am_pm, location))
 
 
-def show_hourly(
+async def show_hourly(
     how: str,
     city_zip: str,
     *,
@@ -106,7 +108,7 @@ def show_hourly(
         console.width = terminal_width
 
     with console.status("Getting weather..."):
-        weather, location = _gather_one_call_weather(
+        weather, location = await _gather_one_call_weather(
             how=how,
             city_zip=city_zip,
             state_code=state_code,
@@ -125,20 +127,6 @@ def show_hourly(
                 console.print(_hourly_temp_only(weather, units, am_pm, location))
         else:
             console.print(_hourly_temp_only(weather, units, am_pm, location))
-
-
-def build_url(
-    forecast_type: str,
-    units: str,
-    lon: float | None = None,
-    lat: float | None = None,
-) -> str:
-    if forecast_type == "current":
-        url = f"{WEATHER_BASE_URL}/weather?lat={lat}&lon={lon}&units={units}"
-    else:
-        url = f"{WEATHER_BASE_URL}/onecall?lat={lat}&lon={lon}&units={units}"
-
-    return append_api_key(url)
 
 
 def current_weather_all(
@@ -452,7 +440,7 @@ def hourly_all(
     return table
 
 
-def _gather_current_weather(
+async def _gather_current_weather(
     how: str,
     city_zip: str,
     *,
@@ -474,30 +462,30 @@ def _gather_current_weather(
                 current_weather = cache_hit.current_weather.current_weather
                 return cache_hit.current_weather.current_weather, location
             else:
-                url = build_url(
+                url = build_weather_url(
                     forecast_type="current",
                     units=units,
                     lon=location.lon,
                     lat=location.lat,
                 )
-                current_weather = get_current_weather(url, how, city_zip)
+                current_weather = await get_current_weather(url, how, city_zip)
                 return current_weather, location
 
     location = get_location_details(
         how=how, city_zip=city_zip, state=state_code, country=country_code
     )
 
-    url = build_url(
+    url = build_weather_url(
         forecast_type="current",
         units=units,
         lon=location.lon,
         lat=location.lat,
     )
-    current_weather = get_current_weather(url, how, city_zip)
+    current_weather = await get_current_weather(url, how, city_zip)
     return current_weather, location
 
 
-def _gather_one_call_weather(
+async def _gather_one_call_weather(
     how: str,
     city_zip: str,
     *,
@@ -518,18 +506,18 @@ def _gather_one_call_weather(
             if cache_hit.one_call_weather:
                 return cache_hit.one_call_weather.one_call_weather, location
             else:
-                url = build_url(
+                url = build_weather_url(
                     forecast_type="daily", units=units, lon=location.lon, lat=location.lat
                 )
-                weather = get_one_call_weather(url, how, city_zip)
+                weather = await get_one_call_weather(url, how, city_zip)
                 return weather, location
 
     location = get_location_details(
         how=how, city_zip=city_zip, state=state_code, country=country_code
     )
 
-    url = build_url(forecast_type="daily", units=units, lon=location.lon, lat=location.lat)
-    weather = get_one_call_weather(url, how, city_zip)
+    url = build_weather_url(forecast_type="daily", units=units, lon=location.lon, lat=location.lat)
+    weather = await get_one_call_weather(url, how, city_zip)
     return weather, location
 
 

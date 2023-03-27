@@ -2,11 +2,13 @@ from datetime import datetime
 from os import getenv
 from unittest.mock import Mock, patch
 
+import httpx
 import pytest
 
 from weather_command import _builder
 from weather_command._cache import CacheItem
 from weather_command._config import WEATHER_BASE_URL
+from weather_command._utils import build_weather_url
 from weather_command.models.weather import PrecipAmount, Wind
 
 UNITS = ("metric", "imperial")
@@ -49,32 +51,33 @@ def test_current_weather_temp(
 
 
 @patch("weather_command._builder.get_location_details")
-@patch("weather_command._builder.get_current_weather")
 @patch("weather_command._cache.Cache.get")
 @pytest.mark.usefixtures("mock_cache_dir")
-def test_current_weather_no_cache_hit(
+async def test_current_weather_no_cache_hit(
     mock_cache_get_call,
-    mock_current_weather_call,
     mock_location_details_call,
-    mock_current_weather,
+    mock_current_weather_response,
     mock_location,
+    monkeypatch,
 ):
+    async def mock_get_weather_response(*args, **kwargs):
+        return mock_current_weather_response
+
+    monkeypatch.setattr(httpx.AsyncClient, "get", mock_get_weather_response)
     mock_cache_get_call.return_value = CacheItem()
-    mock_current_weather_call.return_value = mock_current_weather
     mock_location_details_call.return_value = mock_location
-    _builder.show_current("zip", "27455")
+    await _builder.show_current("zip", "27455")
     assert mock_cache_get_call.called_once()
     assert mock_location_details_call.called_once()
-    assert mock_current_weather_call.called_once()
 
 
 @pytest.mark.parametrize("pager", [True, False])
 @pytest.mark.parametrize("temp_only", [True, False])
 @pytest.mark.usefixtures("mock_cache_dir_with_file")
 @patch("weather_command._cache.datetime")
-def test_current_weather_cache_hit(mock_dt, temp_only, pager, capfd):
+async def test_current_weather_cache_hit(mock_dt, temp_only, pager, capfd):
     mock_dt.utcnow = Mock(return_value=datetime(2021, 12, 22, 1, 36, 38))
-    _builder.show_current("zip", "27455", temp_only=temp_only, pager=pager)
+    await _builder.show_current("zip", "27455", temp_only=temp_only, pager=pager)
     out, _ = capfd.readouterr()
     assert "Greensboro" in out
 
@@ -106,32 +109,34 @@ def test_daily_temp_only(mock_one_call_weather, mock_location, units, am_pm):
 
 
 @patch("weather_command._builder.get_location_details")
-@patch("weather_command._builder.get_one_call_weather")
 @patch("weather_command._cache.Cache.get")
 @pytest.mark.usefixtures("mock_cache_dir")
-def test_show_daily_no_cache_hit(
+async def test_show_daily_no_cache_hit(
     mock_cache_get_call,
-    mock_get_one_call_weather_call,
     mock_location_details_call,
-    mock_one_call_weather,
+    mock_one_call_weather_response,
     mock_location,
+    monkeypatch,
 ):
+    async def mock_get_weather_response(*args, **kwargs):
+        return mock_one_call_weather_response
+
+    monkeypatch.setattr(httpx.AsyncClient, "get", mock_get_weather_response)
+
     mock_cache_get_call.return_value = CacheItem()
-    mock_get_one_call_weather_call.return_value = mock_one_call_weather
     mock_location_details_call.return_value = mock_location
-    _builder.show_daily("zip", "27455")
+    await _builder.show_daily("zip", "27455")
     assert mock_cache_get_call.called_once()
     assert mock_location_details_call.called_once()
-    assert mock_get_one_call_weather_call.called_once()
 
 
 @pytest.mark.parametrize("pager", [True, False])
 @pytest.mark.parametrize("temp_only", [True, False])
 @pytest.mark.usefixtures("mock_cache_dir_with_file")
 @patch("weather_command._cache.datetime")
-def test_show_daily_cache_hit(mock_dt, temp_only, pager, capfd):
+async def test_show_daily_cache_hit(mock_dt, temp_only, pager, capfd):
     mock_dt.utcnow = Mock(return_value=datetime(2021, 12, 22, 1, 36, 38))
-    _builder.show_daily("zip", "27455", temp_only=temp_only, pager=pager)
+    await _builder.show_daily("zip", "27455", temp_only=temp_only, pager=pager)
     out, _ = capfd.readouterr()
     assert "Greensboro" in out
 
@@ -183,32 +188,34 @@ def test_hourly_temp_only(mock_one_call_weather, mock_location, units, am_pm):
 
 
 @patch("weather_command._builder.get_location_details")
-@patch("weather_command._builder.get_one_call_weather")
 @patch("weather_command._cache.Cache.get")
 @pytest.mark.usefixtures("mock_cache_dir")
-def test_show_hourly_no_cache_hit(
+async def test_show_hourly_no_cache_hit(
     mock_cache_get_call,
-    mock_get_one_call_weather_call,
     mock_location_details_call,
-    mock_one_call_weather,
+    mock_one_call_weather_response,
     mock_location,
+    monkeypatch,
 ):
+    async def mock_get_weather_response(*args, **kwargs):
+        return mock_one_call_weather_response
+
+    monkeypatch.setattr(httpx.AsyncClient, "get", mock_get_weather_response)
+
     mock_cache_get_call.return_value = CacheItem()
-    mock_get_one_call_weather_call.return_value = mock_one_call_weather
     mock_location_details_call.return_value = mock_location
-    _builder.show_hourly("zip", "27455")
+    await _builder.show_hourly("zip", "27455")
     assert mock_cache_get_call.called_once()
     assert mock_location_details_call.called_once()
-    assert mock_get_one_call_weather_call.called_once()
 
 
 @pytest.mark.parametrize("pager", [True, False])
 @pytest.mark.parametrize("temp_only", [True, False])
 @pytest.mark.usefixtures("mock_cache_dir_with_file")
 @patch("weather_command._cache.datetime")
-def test_show_hourly_cache_hit(mock_dt, temp_only, pager, capfd):
+async def test_show_hourly_cache_hit(mock_dt, temp_only, pager, capfd):
     mock_dt.utcnow = Mock(return_value=datetime(2021, 12, 22, 1, 36, 38))
-    _builder.show_hourly("zip", "27455", temp_only=temp_only, pager=pager)
+    await _builder.show_hourly("zip", "27455", temp_only=temp_only, pager=pager)
     out, _ = capfd.readouterr()
     assert "Greensboro" in out
 
@@ -217,7 +224,7 @@ def test_show_hourly_cache_hit(mock_dt, temp_only, pager, capfd):
 def test_build_url_current(units):
     lon = 0.123
     lat = 789.1
-    got = _builder.build_url(
+    got = build_weather_url(
         forecast_type="current",
         units=units,
         lon=lon,
@@ -237,7 +244,7 @@ def test_build_url_current(units):
 def test_build_url_one_one_call(units, forecast_type):
     lon = 0.123
     lat = 789.1
-    got = _builder.build_url(forecast_type=forecast_type, units=units, lon=lon, lat=lat)
+    got = build_weather_url(forecast_type=forecast_type, units=units, lon=lon, lat=lat)
 
     assert got.startswith(WEATHER_BASE_URL)
     assert "/onecall?" in got
@@ -251,7 +258,7 @@ def test_build_url_one_one_call(units, forecast_type):
 def test_build_url_current_api_key_env_and_settings():
     lon = 0.123
     lat = 789.1
-    got = _builder.build_url(
+    got = build_weather_url(
         forecast_type="current",
         units="metric",
         lon=lon,
@@ -270,7 +277,7 @@ def test_build_url_current_api_key_settings(settings_no_env_api_key, monkeypatch
     monkeypatch.delenv("OPEN_WEATHER_API_KEY", raising=False)
     lon = 0.123
     lat = 789.1
-    got = _builder.build_url(
+    got = build_weather_url(
         forecast_type="current",
         units="metric",
         lon=lon,
