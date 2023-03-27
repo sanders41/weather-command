@@ -17,10 +17,9 @@ from weather_command._builder import (
     _hpa_to_in,
     _mm_to_in,
     _round_to_int,
-    append_api_key,
 )
 from weather_command._cache import Cache
-from weather_command._config import Settings, load_settings
+from weather_command._config import Settings, append_api_key, load_settings
 from weather_command._location import _build_url
 from weather_command._weather import get_icon
 from weather_command.models.location import Location

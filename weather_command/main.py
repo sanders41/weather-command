@@ -1,12 +1,16 @@
+import asyncio
 from enum import Enum
-from typing import Union
+from typing import Coroutine, List, Union
 
 from typer import Argument, Exit, Option, Typer, echo
 
 from weather_command import settings_commands
 from weather_command._builder import show_current, show_daily, show_hourly
 from weather_command._cache import Cache
-from weather_command._config import load_settings
+from weather_command._config import console, load_settings
+from weather_command._location import get_location_details
+from weather_command._utils import build_weather_url
+from weather_command._weather import get_current_weather, get_one_call_weather
 
 __version__ = "5.1.1"
 
@@ -25,7 +29,60 @@ class How(str, Enum):
     ZIP = "zip"
 
 
-def _runner(
+async def _preload_cache(
+    how: str,
+    city_zip: str,
+    state_code: Union[str, None],
+    country_code: Union[str, None],
+    units: str,
+) -> None:
+    with console.status("Getting weather..."):
+        retrieve: List[Coroutine] = []
+        cache = Cache()
+        cache_hit = cache.get(city_zip)
+        if cache_hit:
+            if cache_hit.location:
+                location = cache_hit.location
+            else:  # pragma: no cover
+                # This is a fail safe. It should only be possible to get here if someone manually
+                # modified the cache file.
+                location = get_location_details(
+                    how="zip", city_zip=city_zip, state=state_code, country=country_code
+                )
+
+            if not cache_hit.current_weather:
+                url = build_weather_url(
+                    forecast_type="current",
+                    units=units,
+                    lon=location.lon,
+                    lat=location.lat,
+                )
+                retrieve.append(get_current_weather(url, how, city_zip))
+            if not cache_hit.one_call_weather:
+                url = build_weather_url(
+                    forecast_type="daily", units=units, lon=location.lon, lat=location.lat
+                )
+                retrieve.append(get_one_call_weather(url, how, city_zip))
+        else:
+            location = get_location_details(
+                how="zip", city_zip=city_zip, state=state_code, country=country_code
+            )
+
+            url = build_weather_url(
+                forecast_type="current", units=units, lon=location.lon, lat=location.lat
+            )
+            retrieve.append(get_current_weather(url, how, city_zip))
+
+            url = build_weather_url(
+                forecast_type="daily", units=units, lon=location.lon, lat=location.lat
+            )
+            retrieve.append(get_one_call_weather(url, how, city_zip))
+
+        if retrieve:
+            await asyncio.gather(*retrieve)
+
+
+async def _runner(
     how: str,
     city_zip: str,
     state_code: Union[str, None],
@@ -38,10 +95,6 @@ def _runner(
     clear_cache: bool,
     terminal_width: Union[int, None],
 ) -> None:
-    if clear_cache:
-        cache = Cache()
-        cache.clear()
-
     settings = load_settings()
 
     if not imperial and settings.imperial is not None:
@@ -59,8 +112,15 @@ def _runner(
     else:
         am_pm_choice = am_pm
 
+    if clear_cache:
+        cache = Cache()
+        cache.clear()
+
+    if not clear_cache and how == "zip":
+        await _preload_cache(how, city_zip, state_code, country_code, units)
+
     if forecast_type == "current":
-        show_current(
+        await show_current(
             how=how,
             city_zip=city_zip,
             units=units,
@@ -72,7 +132,7 @@ def _runner(
             terminal_width=terminal_width,
         )
     elif forecast_type == "daily":
-        show_daily(
+        await show_daily(
             how=how,
             city_zip=city_zip,
             units=units,
@@ -84,7 +144,7 @@ def _runner(
             terminal_width=terminal_width,
         )
     elif forecast_type == "hourly":
-        show_hourly(
+        await show_hourly(
             how=how,
             city_zip=city_zip,
             units=units,
@@ -139,18 +199,20 @@ def city(
     ),
 ) -> None:
     """Get the weather by city."""
-    _runner(
-        how="city",
-        city_zip=city,
-        state_code=state_code,
-        country_code=country_code,
-        imperial=imperial,
-        am_pm=am_pm,
-        forecast_type=forecast_type,
-        temp_only=temp_only,
-        pager=pager,
-        clear_cache=clear_cache,
-        terminal_width=terminal_width,
+    asyncio.run(
+        _runner(
+            how="city",
+            city_zip=city,
+            state_code=state_code,
+            country_code=country_code,
+            imperial=imperial,
+            am_pm=am_pm,
+            forecast_type=forecast_type,
+            temp_only=temp_only,
+            pager=pager,
+            clear_cache=clear_cache,
+            terminal_width=terminal_width,
+        )
     )
 
 
@@ -196,18 +258,20 @@ def zip(
     ),
 ) -> None:
     """Get the weather by zip code."""
-    _runner(
-        how="zip",
-        city_zip=zip_code,
-        state_code=state_code,
-        country_code=country_code,
-        imperial=imperial,
-        am_pm=am_pm,
-        forecast_type=forecast_type,
-        temp_only=temp_only,
-        pager=pager,
-        clear_cache=clear_cache,
-        terminal_width=terminal_width,
+    asyncio.run(
+        _runner(
+            how="zip",
+            city_zip=zip_code,
+            state_code=state_code,
+            country_code=country_code,
+            imperial=imperial,
+            am_pm=am_pm,
+            forecast_type=forecast_type,
+            temp_only=temp_only,
+            pager=pager,
+            clear_cache=clear_cache,
+            terminal_width=terminal_width,
+        )
     )
 
 
