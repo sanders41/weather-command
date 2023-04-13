@@ -267,8 +267,8 @@ def daily_all(
 
         table.add_row(
             dt,
-            str(_round_to_int(daily.temp.min)),
             str(_round_to_int(daily.temp.max)),
+            str(_round_to_int(daily.temp.min)),
             f"{daily.humidity}%",
             str(_round_to_int(daily.dew_point)),
             pressure,
@@ -301,8 +301,8 @@ def _daily_temp_only(weather: OneCallWeather, units: str, am_pm: bool, location:
 
         table.add_row(
             dt,
-            str(_round_to_int(daily.temp.min)),
             str(_round_to_int(daily.temp.max)),
+            str(_round_to_int(daily.temp.min)),
         )
 
     return table
