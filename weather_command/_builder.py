@@ -237,8 +237,8 @@ def daily_all(
         else Table(header_style=HEADER_ROW_STYLE, show_lines=True, expand=True)
     )
     table.add_column("Date/Day :date:")
-    table.add_column(f"Low ({temp_units}) :thermometer:")
     table.add_column(f"High ({temp_units}) :thermometer:")
+    table.add_column(f"Low ({temp_units}) :thermometer:")
     table.add_column("Humidity")
     table.add_column(f"Dew Point ({temp_units})")
     table.add_column(f"Pressure {pressure_units}")
@@ -293,8 +293,8 @@ def _daily_temp_only(weather: OneCallWeather, units: str, am_pm: bool, location:
         show_lines=True,
     )
     table.add_column("Date/Day :date:")
-    table.add_column(f"Low ({temp_units}) :thermometer:")
     table.add_column(f"High ({temp_units}) :thermometer:")
+    table.add_column(f"Low ({temp_units}) :thermometer:")
 
     for daily in weather.daily:
         dt = _format_date_time(am_pm, daily.dt, weather.timezone_offset, "daily")
