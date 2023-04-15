@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "weather-command"
-version = "5.2.2"
+version = "6.0.0"
 description = "Command line weather app"
 authors = ["Paul Sanders <psanders1@gmail.com>"]
 license = "MIT"
@@ -37,7 +37,7 @@ requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
-weather-command = "weather_command.main:app"
+weather = "weather_command.main:app"
 
 [tool.black]
 line-length = 100

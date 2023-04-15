@@ -39,16 +39,16 @@ will prevent the need to re-add the key each time the shell is started.
 To get the weather for a city:
 
 ```sh
-weather-command city seattle
+weather city seattle
 ```
 
 Once installed you can also add aliases to your shell to make it quick to get a forecast. For example
 if your shell is zsh you can add something like the following to your `~/.zshrc` file:
 
 ```sh
-alias we="weather-command zip 98109 -i --am-pm"
-alias wed="weather-command zip 98109 -i --am-pm -f daily"
-alias weh="weather-command zip 98109 -i --am-pm -f hourly"
+alias we="weather zip 98109 -i --am-pm"
+alias wed="weather zip 98109 -i --am-pm -f daily"
+alias weh="weather zip 98109 -i --am-pm -f hourly"
 ```
 
 After adding this to the `~/.zshrc` you will need to restart your terminal. After that typing `we`
