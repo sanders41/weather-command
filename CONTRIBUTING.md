@@ -15,7 +15,7 @@ Please include:
 [GitHub markdown](https://docs.github.com/en/free-pro-team@latest/github/writing-on-github). For example:
 
     ```sh
-    weather-command city Seattle
+    weather city Seattle
     ```
 
 2. Explain what is currently happening and what you expect instead.
@@ -30,9 +30,9 @@ this project.
 Once the project is forked clone it to your local machine:
 
 ```sh
-git clone https://github.com/your-user-name/weather-command.git
+git clone git@github.com:your-user-name/weather-command
 cd weather-command
-git remote add upstream https://github.com/sanders41/weather-command.git
+git remote add upstream git@github.com:sanders41/weather-command
 ```
 
 This creates the directory weather-command and connects your repository to the upstream (main project) repository.
