@@ -54,6 +54,8 @@ def get_location_details(
     response_json = response.json()
 
     try:
+        # Sometimes the response comes back as a single location and sometimes it is a list of
+        # locations. The if/else here is to handle both of these cases.
         if isinstance(response_json, list):
             location = Location(**response_json[0])
         else:
