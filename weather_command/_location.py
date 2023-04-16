@@ -15,6 +15,7 @@ from weather_command._config import LOCATION_BASE_URL, console
 from weather_command.errors import UnknownSearchTypeError, check_status_error
 from weather_command.models.location import Location
 
+import hashlib
 
 @retry(
     retry=(retry_if_exception_type() & retry_unless_exception_type(UnknownSearchTypeError)),
@@ -41,6 +42,12 @@ def get_location_details(
 
     base_url = _build_url(how, city_zip, state, country)
 
+    cache_key = hashlib.sha256(base_url.encode()).hexdigest()
+
+    cache_hit = cache.get(cache_key)
+    if cache_hit and cache_hit.location:
+        return cache_hit.location
+
     response = httpx.get(base_url, headers={"user-agent": "weather-command"})
     try:
         response.raise_for_status()
@@ -54,15 +61,12 @@ def get_location_details(
     response_json = response.json()
 
     try:
-        # Sometimes the response comes back as a single location and sometimes it is a list of
-        # locations. The if/else here is to handle both of these cases.
         if isinstance(response_json, list):
             location = Location(**response_json[0])
         else:
             location = Location(**response_json)
 
-        if how == "zip":
-            cache.add(city_zip=city_zip, location=location)
+        cache.add(cache_key=cache_key, location=location)
     except ValidationError:
         _print_location_not_found_error()
         sys.exit(1)
