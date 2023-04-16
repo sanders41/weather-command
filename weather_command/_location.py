@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import sys
 from functools import lru_cache
 
@@ -15,7 +16,6 @@ from weather_command._config import LOCATION_BASE_URL, console
 from weather_command.errors import UnknownSearchTypeError, check_status_error
 from weather_command.models.location import Location
 
-import hashlib
 
 @retry(
     retry=(retry_if_exception_type() & retry_unless_exception_type(UnknownSearchTypeError)),
