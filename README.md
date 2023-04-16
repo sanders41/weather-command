@@ -80,6 +80,12 @@ will get the current forecast, `wed` will get the daily forecast and `weh` will 
 
 ![Hourl weather temp only](./assets/hourly_temp_only.png)
 
+## Settings
+weather now has the ability to save settings to default certain flags. The list of possible settings can be seen with:
+
+```sh
+weather settings --help
+```
 ## Contributing
 
 Contributions to this project are welcome. If you are interesting in contributing please see our [contributing guide](CONTRIBUTING.md)
