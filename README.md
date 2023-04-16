@@ -81,10 +81,10 @@ will get the current forecast, `wed` will get the daily forecast and `weh` will 
 ![Hourl weather temp only](./assets/hourly_temp_only.png)
 
 ## Settings
-The weather-command now has the ability to save settings to default certain flags. The list of possible settings can be seen with:
+weather now has the ability to save settings to default certain flags. The list of possible settings can be seen with:
 
 ```sh
-weather-command settings --help
+weather settings --help
 ```
 ## Contributing
 
