@@ -79,10 +79,10 @@ def test_add_no_cache_hit(
     else:
         one_call_weather = None
 
-    city_zip = "27405"
+    cache_key = "https://nominatim.openstreetmap.org/search?format=json&limit=1&postalcode=90210"
 
     cache_with_file.add(
-        city_zip=city_zip,
+        cache_key=cache_key,
         location=location,
         current_weather=current_weather,
         one_call_weather=one_call_weather,
@@ -93,19 +93,19 @@ def test_add_no_cache_hit(
 
     assert cache_values is not None
     if use_location:
-        assert cache_values[city_zip]["location"] is not None
+        assert cache_values[cache_key]["location"] is not None
     else:
-        assert cache_values[city_zip]["location"] is None
+        assert cache_values[cache_key]["location"] is None
 
     if use_current_weather:
-        assert cache_values[city_zip]["currentWeather"] is not None
+        assert cache_values[cache_key]["currentWeather"] is not None
     else:
-        assert cache_values[city_zip]["currentWeather"] is None
+        assert cache_values[cache_key]["currentWeather"] is None
 
     if use_one_call_weather:
-        assert cache_values[city_zip]["oneCallWeather"] is not None
+        assert cache_values[cache_key]["oneCallWeather"] is not None
     else:
-        assert cache_values[city_zip]["oneCallWeather"] is None
+        assert cache_values[cache_key]["oneCallWeather"] is None
 
 
 def test_add_eject(
@@ -114,10 +114,10 @@ def test_add_eject(
     mock_one_call_weather,
     cache_with_file,
 ):
-    city_zip = "27405"
+    cache_key = "https://nominatim.openstreetmap.org/search?format=json&limit=1&postalcode=27455"
 
     cache_with_file.add(
-        city_zip=city_zip,
+        cache_key=cache_key,
         location=mock_location,
         current_weather=mock_current_weather,
         one_call_weather=mock_one_call_weather,
@@ -129,8 +129,8 @@ def test_add_eject(
 
     assert cache_values is not None
     keys = cache_values.keys()
-    assert city_zip in keys
-    assert len(keys) == 1
+    assert cache_key in keys
+    assert len(keys) == 2
 
 
 @pytest.mark.parametrize(
@@ -169,10 +169,10 @@ def test_add_cache_hit(
     else:
         one_call_weather = None
 
-    city_zip = "27455"
+    cache_key = "https://nominatim.openstreetmap.org/search?format=json&limit=1&postalcode=27455"
 
     cache_with_file.add(
-        city_zip=city_zip,
+        cache_key=cache_key,
         location=location,
         current_weather=current_weather,
         one_call_weather=one_call_weather,
@@ -182,9 +182,9 @@ def test_add_cache_hit(
         cache_values = json.load(f)
 
     assert cache_values is not None
-    assert cache_values[city_zip]["location"] is not None
-    assert cache_values[city_zip]["currentWeather"] is not None
-    assert cache_values[city_zip]["oneCallWeather"] is not None
+    assert cache_values[cache_key]["location"] is not None
+    assert cache_values[cache_key]["currentWeather"] is not None
+    assert cache_values[cache_key]["oneCallWeather"] is not None
 
 
 def test_clear(cache):
@@ -203,7 +203,9 @@ def test_clear(cache):
 @patch("weather_command._cache.datetime")
 def test_get(mock_dt, cache_with_file):
     mock_dt.utcnow = Mock(return_value=datetime(2021, 12, 22, 1, 36, 38))
-    cache_values = cache_with_file.get("27455")
+    cache_values = cache_with_file.get(
+        "https://nominatim.openstreetmap.org/search?format=json&limit=1&postalcode=27455"
+    )
 
     assert cache_values is not None
     assert cache_values.current_weather is not None
@@ -211,7 +213,9 @@ def test_get(mock_dt, cache_with_file):
 
 
 def test_get_expired(cache_with_file):
-    cache_values = cache_with_file.get("27455")
+    cache_values = cache_with_file.get(
+        "https://nominatim.openstreetmap.org/search?format=json&limit=1&postalcode=27455"
+    )
 
     assert cache_values is not None
     assert cache_values.current_weather is None

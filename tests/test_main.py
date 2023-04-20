@@ -1,5 +1,7 @@
 import json
+from datetime import datetime
 from pathlib import Path
+from unittest.mock import Mock, patch
 
 import httpx
 import pytest
@@ -66,7 +68,62 @@ def test_main_default_params(
         with open(cache_with_file._cache_file, "r") as f:
             return json.load(f)
 
-    assert load_cache().get("27455") is not None
+    assert (
+        load_cache().get(
+            "https://nominatim.openstreetmap.org/search?format=json&limit=1&postalcode=27455"
+        )
+        is not None
+    )
+
+
+@pytest.mark.usefixtures("mock_cache_dir")
+@patch("weather_command._cache.datetime")
+def test_main_cache_hit(
+    mock_dt,
+    mock_location,
+    mock_current_weather,
+    mock_one_call_weather,
+    test_runner,
+    cache_with_file,
+):
+    mock_dt.utcnow = Mock(return_value=datetime(2021, 12, 22, 1, 36, 38))
+    location = mock_location
+    current_weather = mock_current_weather
+    one_call_weather = mock_one_call_weather
+
+    cache_key = "https://nominatim.openstreetmap.org/search?format=json&limit=1&postalcode=27455"
+
+    cache_with_file.add(
+        cache_key=cache_key,
+        location=location,
+        current_weather=current_weather,
+        one_call_weather=one_call_weather,
+    )
+    args = ["zip", "27455", "--terminal-width", 180]
+    result = test_runner.invoke(app, args, catch_exceptions=False)
+
+    out = result.stdout
+
+    assert "Greensboro" in out
+
+
+@pytest.mark.usefixtures("mock_cache_dir_with_file")
+def test_main_cache_hit_expired(
+    mock_one_call_weather_response, mock_current_weather_response, test_runner, monkeypatch
+):
+    async def mock_get_weather_response(*args, **kwargs):
+        if "onecall" in args[1]:
+            return mock_one_call_weather_response
+
+        return mock_current_weather_response
+
+    monkeypatch.setattr(httpx.AsyncClient, "get", mock_get_weather_response)
+    args = ["zip", "27455", "--terminal-width", 180]
+    result = test_runner.invoke(app, args, catch_exceptions=False)
+
+    out = result.stdout
+
+    assert "Greensboro" in out
 
 
 @pytest.mark.parametrize("imperial", ["--imperial", "-i"])

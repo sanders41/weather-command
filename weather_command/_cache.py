@@ -64,7 +64,7 @@ class Cache:
     def add(
         self,
         *,
-        city_zip: str,
+        cache_key: str,
         location: Location | None = None,
         current_weather: CurrentWeather | None = None,
         one_call_weather: OneCallWeather | None = None,
@@ -88,10 +88,10 @@ class Cache:
                 else None
             )
 
-            cache_hit = self.get(city_zip)
+            cache_hit = self.get(cache_key)
 
             if cache_hit:
-                cache[city_zip.lower()] = {
+                cache[cache_key.lower()] = {
                     "location": cache_hit.location.dict()
                     if cache_hit.location and not location_cache
                     else location_cache,
@@ -103,7 +103,7 @@ class Cache:
                     else one_call_weather_cache,
                 }
             else:
-                cache[city_zip.lower()] = {
+                cache[cache_key.lower()] = {
                     "location": location_cache,
                     "currentWeather": current_weather_cache,
                     "oneCallWeather": one_call_weather_cache,
@@ -111,7 +111,7 @@ class Cache:
 
             if self._cache:
                 for key in self._cache:
-                    if key != city_zip:
+                    if key != cache_key:
                         saved_cache = self._cache[key]
                         cache[key] = saved_cache.dict()
 
@@ -129,11 +129,11 @@ class Cache:
         if self._cache_file.exists():
             self._cache_file.unlink()
 
-    def get(self, city_zip: str) -> CacheItem | None:
-        if not self._cache or not self._cache.get(city_zip):
+    def get(self, cache_key: str) -> CacheItem | None:
+        if not self._cache or not self._cache.get(cache_key):
             return None
 
-        cache = self._cache[city_zip.lower()]
+        cache = self._cache[cache_key.lower()]
         if cache.current_weather:
             time_diff = datetime.utcnow() - cache.current_weather.date_time_saved
             if (time_diff.total_seconds() / 60) > cache.current_weather.cache_duration_minutes:

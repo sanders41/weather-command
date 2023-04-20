@@ -8,7 +8,7 @@ from rich.table import Table
 
 from weather_command._cache import Cache
 from weather_command._config import console
-from weather_command._location import get_location_details
+from weather_command._location import build_location_url, get_location_details
 from weather_command._utils import build_weather_url
 from weather_command._weather import get_current_weather, get_icon, get_one_call_weather
 from weather_command.models.location import Location
@@ -448,28 +448,28 @@ async def _gather_current_weather(
     country_code: str | None,
     units: str,
 ) -> tuple[CurrentWeather, Location]:
-    if how == "zip":
-        cache = Cache()
-        cache_hit = cache.get(city_zip)
-        if cache_hit:
-            if cache_hit.location:
-                location = cache_hit.location
-            else:
-                location = get_location_details(
-                    how=how, city_zip=city_zip, state=state_code, country=country_code
-                )
-            if cache_hit.current_weather:
-                current_weather = cache_hit.current_weather.current_weather
-                return cache_hit.current_weather.current_weather, location
-            else:
-                url = build_weather_url(
-                    forecast_type="current",
-                    units=units,
-                    lon=location.lon,
-                    lat=location.lat,
-                )
-                current_weather = await get_current_weather(url, how, city_zip)
-                return current_weather, location
+    location_url = build_location_url(how, city_zip, state_code, country_code)
+    cache = Cache()
+    cache_hit = cache.get(location_url)
+    if cache_hit:
+        if cache_hit.location:
+            location = cache_hit.location
+        else:
+            location = get_location_details(
+                how=how, city_zip=city_zip, state=state_code, country=country_code
+            )
+        if cache_hit.current_weather:
+            current_weather = cache_hit.current_weather.current_weather
+            return cache_hit.current_weather.current_weather, location
+        else:
+            url = build_weather_url(
+                forecast_type="current",
+                units=units,
+                lon=location.lon,
+                lat=location.lat,
+            )
+            current_weather = await get_current_weather(url, cache_key=location_url)
+            return current_weather, location
 
     location = get_location_details(
         how=how, city_zip=city_zip, state=state_code, country=country_code
@@ -481,7 +481,8 @@ async def _gather_current_weather(
         lon=location.lon,
         lat=location.lat,
     )
-    current_weather = await get_current_weather(url, how, city_zip)
+    current_weather = await get_current_weather(url, cache_key=location_url)
+
     return current_weather, location
 
 
@@ -493,31 +494,32 @@ async def _gather_one_call_weather(
     country_code: str | None,
     units: str,
 ) -> tuple[OneCallWeather, Location]:
-    if how == "zip":
-        cache = Cache()
-        cache_hit = cache.get(city_zip)
-        if cache_hit:
-            if cache_hit.location:
-                location = cache_hit.location
-            else:
-                location = get_location_details(
-                    how=how, city_zip=city_zip, state=state_code, country=country_code
-                )
-            if cache_hit.one_call_weather:
-                return cache_hit.one_call_weather.one_call_weather, location
-            else:
-                url = build_weather_url(
-                    forecast_type="daily", units=units, lon=location.lon, lat=location.lat
-                )
-                weather = await get_one_call_weather(url, how, city_zip)
-                return weather, location
+    location_url = build_location_url(how, city_zip, state_code, country_code)
+    cache = Cache()
+    cache_hit = cache.get(location_url)
+    if cache_hit:
+        if cache_hit.location:
+            location = cache_hit.location
+        else:
+            location = get_location_details(
+                how=how, city_zip=city_zip, state=state_code, country=country_code
+            )
+        if cache_hit.one_call_weather:
+            return cache_hit.one_call_weather.one_call_weather, location
+        else:
+            url = build_weather_url(
+                forecast_type="daily", units=units, lon=location.lon, lat=location.lat
+            )
+            weather = await get_one_call_weather(url, location_url)
+            return weather, location
 
     location = get_location_details(
         how=how, city_zip=city_zip, state=state_code, country=country_code
     )
 
     url = build_weather_url(forecast_type="daily", units=units, lon=location.lon, lat=location.lat)
-    weather = await get_one_call_weather(url, how, city_zip)
+    weather = await get_one_call_weather(url, location_url)
+
     return weather, location
 
 

@@ -17,7 +17,7 @@ from weather_command.models.weather import CurrentWeather, OneCallWeather
 
 
 @retry(stop=stop_after_attempt(5), wait=wait_fixed(0.5), reraise=True)
-async def get_current_weather(url: str, how: str, city_zip: str) -> CurrentWeather:
+async def get_current_weather(url: str, cache_key: str) -> CurrentWeather:
     try:
         async with AsyncClient() as client:
             response = await client.get(url)
@@ -31,14 +31,13 @@ async def get_current_weather(url: str, how: str, city_zip: str) -> CurrentWeath
     except ValidationError:
         _print_validation_error()
 
-    if how == "zip":
-        cache = Cache()
-        cache.add(city_zip=city_zip, current_weather=weather)
+    cache = Cache()
+    cache.add(cache_key=cache_key, current_weather=weather)
     return weather
 
 
 @retry(stop=stop_after_attempt(5), wait=wait_fixed(0.5), reraise=True)
-async def get_one_call_weather(url: str, how: str, city_zip: str) -> OneCallWeather:
+async def get_one_call_weather(url: str, cache_key: str) -> OneCallWeather:
     async with AsyncClient() as client:
         response = await client.get(url)
     try:
@@ -51,9 +50,8 @@ async def get_one_call_weather(url: str, how: str, city_zip: str) -> OneCallWeat
     except ValidationError:
         _print_validation_error()
 
-    if how == "zip":
-        cache = Cache()
-        cache.add(city_zip=city_zip, one_call_weather=weather)
+    cache = Cache()
+    cache.add(cache_key=cache_key, one_call_weather=weather)
 
     return weather
 
