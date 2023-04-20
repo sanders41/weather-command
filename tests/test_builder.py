@@ -73,11 +73,12 @@ async def test_current_weather_no_cache_hit(
 
 @pytest.mark.parametrize("pager", [True, False])
 @pytest.mark.parametrize("temp_only", [True, False])
+@pytest.mark.parametrize("how, city_zip", [("zip", "27455"), ("city", "greensboro")])
 @pytest.mark.usefixtures("mock_cache_dir_with_file")
 @patch("weather_command._cache.datetime")
-async def test_current_weather_cache_hit(mock_dt, temp_only, pager, capfd):
+async def test_current_weather_cache_hit(mock_dt, how, city_zip, temp_only, pager, capfd):
     mock_dt.utcnow = Mock(return_value=datetime(2021, 12, 22, 1, 36, 38))
-    await _builder.show_current("zip", "27455", temp_only=temp_only, pager=pager)
+    await _builder.show_current(how, city_zip, temp_only=temp_only, pager=pager)
     out, _ = capfd.readouterr()
     assert "Greensboro" in out
 

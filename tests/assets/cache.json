@@ -1,1 +1,3372 @@
-{"27455": {"location": {"display_name": "Greensboro, Guilford County, North Carolina, 27455, United States", "lat": 36.158075647227044, "lon": -79.81330895473118}, "currentWeather": {"cache_duration_minutes": 15, "date_time_saved": "2021-12-22T01:36:38.212266", "current_weather": {"coord": {"lon": -79.8133, "lat": 36.1581}, "weather": [{"id": 804, "main": "Clouds", "description": "overcast clouds", "icon": "04n"}], "base": "stations", "main": {"temp": 39.45, "feels_like": 39.45, "temp_min": 34.32, "temp_max": 43.23, "pressure": 1011, "humidity": 79}, "visibility": 10000, "wind": {"speed": 1.99, "deg": 19, "gust": 3.0}, "clouds": {"all": 90}, "rain": null, "snow": null, "dt": "2021-12-22T01:36:38+00:00", "sys": {"type": 2, "id": 2034083, "country": "US", "sunrise": "2021-12-21T12:26:39+00:00", "sunset": "2021-12-21T22:08:18+00:00"}, "timezone": -18000, "id": 4493990, "name": "Summerfield", "cod": 200}}, "oneCallWeather": {"cache_duration_minutes": 15, "date_time_saved": "2021-12-22T01:36:52.676059", "one_call_weather": {"lat": 36.1581, "lon": -79.8133, "timezone": "America/New_York", "timezone_offset": -18000, "current": {"dt": 1640137012, "sunrise": "2021-12-21T12:26:39+00:00", "sunset": "2021-12-21T22:08:18+00:00", "temp": 39.45, "feels_like": 39.45, "pressure": 1011, "humidity": 79, "dew_point": 33.49, "uvi": 0.0, "clouds": 90, "visibility": 10000, "wind_speed": 1.99, "wind_deg": 19, "wind_gust": 3.0, "weather": [{"id": 804, "main": "Clouds", "description": "overcast clouds", "icon": "04n"}]}, "minutely": [{"dt": "2021-12-22T01:37:00+00:00", "precipitation": 0.0}, {"dt": "2021-12-22T01:38:00+00:00", "precipitation": 0.0}, {"dt": "2021-12-22T01:39:00+00:00", "precipitation": 0.0}, {"dt": "2021-12-22T01:40:00+00:00", "precipitation": 0.0}, {"dt": "2021-12-22T01:41:00+00:00", "precipitation": 0.0}, {"dt": "2021-12-22T01:42:00+00:00", "precipitation": 0.0}, {"dt": "2021-12-22T01:43:00+00:00", "precipitation": 0.0}, {"dt": "2021-12-22T01:44:00+00:00", "precipitation": 0.0}, {"dt": "2021-12-22T01:45:00+00:00", "precipitation": 0.0}, {"dt": "2021-12-22T01:46:00+00:00", "precipitation": 0.0}, {"dt": "2021-12-22T01:47:00+00:00", "precipitation": 0.0}, {"dt": "2021-12-22T01:48:00+00:00", "precipitation": 0.0}, {"dt": "2021-12-22T01:49:00+00:00", "precipitation": 0.0}, {"dt": "2021-12-22T01:50:00+00:00", "precipitation": 0.0}, {"dt": "2021-12-22T01:51:00+00:00", "precipitation": 0.0}, {"dt": "2021-12-22T01:52:00+00:00", "precipitation": 0.0}, {"dt": "2021-12-22T01:53:00+00:00", "precipitation": 0.0}, {"dt": "2021-12-22T01:54:00+00:00", "precipitation": 0.0}, {"dt": "2021-12-22T01:55:00+00:00", "precipitation": 0.0}, {"dt": "2021-12-22T01:56:00+00:00", "precipitation": 0.0}, {"dt": "2021-12-22T01:57:00+00:00", "precipitation": 0.0}, {"dt": "2021-12-22T01:58:00+00:00", "precipitation": 0.0}, {"dt": "2021-12-22T01:59:00+00:00", "precipitation": 0.0}, {"dt": "2021-12-22T02:00:00+00:00", "precipitation": 0.0}, {"dt": "2021-12-22T02:01:00+00:00", "precipitation": 0.0}, {"dt": "2021-12-22T02:02:00+00:00", "precipitation": 0.0}, {"dt": "2021-12-22T02:03:00+00:00", "precipitation": 0.0}, {"dt": "2021-12-22T02:04:00+00:00", "precipitation": 0.0}, {"dt": "2021-12-22T02:05:00+00:00", "precipitation": 0.0}, {"dt": "2021-12-22T02:06:00+00:00", "precipitation": 0.0}, {"dt": "2021-12-22T02:07:00+00:00", "precipitation": 0.0}, {"dt": "2021-12-22T02:08:00+00:00", "precipitation": 0.0}, {"dt": "2021-12-22T02:09:00+00:00", "precipitation": 0.0}, {"dt": "2021-12-22T02:10:00+00:00", "precipitation": 0.0}, {"dt": "2021-12-22T02:11:00+00:00", "precipitation": 0.0}, {"dt": "2021-12-22T02:12:00+00:00", "precipitation": 0.0}, {"dt": "2021-12-22T02:13:00+00:00", "precipitation": 0.0}, {"dt": "2021-12-22T02:14:00+00:00", "precipitation": 0.0}, {"dt": "2021-12-22T02:15:00+00:00", "precipitation": 0.0}, {"dt": "2021-12-22T02:16:00+00:00", "precipitation": 0.0}, {"dt": "2021-12-22T02:17:00+00:00", "precipitation": 0.0}, {"dt": "2021-12-22T02:18:00+00:00", "precipitation": 0.0}, {"dt": "2021-12-22T02:19:00+00:00", "precipitation": 0.0}, {"dt": "2021-12-22T02:20:00+00:00", "precipitation": 0.0}, {"dt": "2021-12-22T02:21:00+00:00", "precipitation": 0.0}, {"dt": "2021-12-22T02:22:00+00:00", "precipitation": 0.0}, {"dt": "2021-12-22T02:23:00+00:00", "precipitation": 0.0}, {"dt": "2021-12-22T02:24:00+00:00", "precipitation": 0.0}, {"dt": "2021-12-22T02:25:00+00:00", "precipitation": 0.0}, {"dt": "2021-12-22T02:26:00+00:00", "precipitation": 0.0}, {"dt": "2021-12-22T02:27:00+00:00", "precipitation": 0.0}, {"dt": "2021-12-22T02:28:00+00:00", "precipitation": 0.0}, {"dt": "2021-12-22T02:29:00+00:00", "precipitation": 0.0}, {"dt": "2021-12-22T02:30:00+00:00", "precipitation": 0.0}, {"dt": "2021-12-22T02:31:00+00:00", "precipitation": 0.0}, {"dt": "2021-12-22T02:32:00+00:00", "precipitation": 0.0}, {"dt": "2021-12-22T02:33:00+00:00", "precipitation": 0.0}, {"dt": "2021-12-22T02:34:00+00:00", "precipitation": 0.0}, {"dt": "2021-12-22T02:35:00+00:00", "precipitation": 0.0}, {"dt": "2021-12-22T02:36:00+00:00", "precipitation": 0.0}, {"dt": "2021-12-22T02:37:00+00:00", "precipitation": 0.0}], "hourly": [{"dt": "2021-12-22T01:00:00+00:00", "temp": 39.22, "feels_like": 35.87, "pressure": 1011, "humidity": 75, "dew_point": 31.98, "uvi": 0.0, "weather": [{"id": 804, "main": "Clouds", "description": "overcast clouds", "icon": "04n"}], "clouds": 92, "visibility": 10000, "wind_speed": 4.61, "wind_gust": 10.16, "wind_deg": 5, "rain": null, "snow": null, "pop": 0}, {"dt": "2021-12-22T02:00:00+00:00", "temp": 39.45, "feels_like": 36.36, "pressure": 1011, "humidity": 79, "dew_point": 33.49, "uvi": 0.0, "weather": [{"id": 804, "main": "Clouds", "description": "overcast clouds", "icon": "04n"}], "clouds": 90, "visibility": 10000, "wind_speed": 4.36, "wind_gust": 8.59, "wind_deg": 4, "rain": null, "snow": null, "pop": 0}, {"dt": "2021-12-22T03:00:00+00:00", "temp": 39.4, "feels_like": 35.82, "pressure": 1011, "humidity": 75, "dew_point": 32.14, "uvi": 0.0, "weather": [{"id": 804, "main": "Clouds", "description": "overcast clouds", "icon": "04n"}], "clouds": 92, "visibility": 10000, "wind_speed": 4.94, "wind_gust": 12.33, "wind_deg": 4, "rain": null, "snow": null, "pop": 0}, {"dt": "2021-12-22T04:00:00+00:00", "temp": 39.45, "feels_like": 36.77, "pressure": 1011, "humidity": 71, "dew_point": 30.99, "uvi": 0.0, "weather": [{"id": 804, "main": "Clouds", "description": "overcast clouds", "icon": "04n"}], "clouds": 94, "visibility": 10000, "wind_speed": 3.91, "wind_gust": 8.75, "wind_deg": 34, "rain": null, "snow": null, "pop": 0}, {"dt": "2021-12-22T05:00:00+00:00", "temp": 39.63, "feels_like": 36.84, "pressure": 1010, "humidity": 67, "dew_point": 29.88, "uvi": 0.0, "weather": [{"id": 804, "main": "Clouds", "description": "overcast clouds", "icon": "04n"}], "clouds": 96, "visibility": 10000, "wind_speed": 4.05, "wind_gust": 9.15, "wind_deg": 30, "rain": null, "snow": null, "pop": 0}, {"dt": "2021-12-22T06:00:00+00:00", "temp": 39.9, "feels_like": 36.54, "pressure": 1009, "humidity": 64, "dew_point": 29.12, "uvi": 0.0, "weather": [{"id": 804, "main": "Clouds", "description": "overcast clouds", "icon": "04n"}], "clouds": 98, "visibility": 10000, "wind_speed": 4.76, "wind_gust": 9.13, "wind_deg": 334, "rain": null, "snow": null, "pop": 0}, {"dt": "2021-12-22T07:00:00+00:00", "temp": 39.52, "feels_like": 34.75, "pressure": 1008, "humidity": 62, "dew_point": 27.61, "uvi": 0.0, "weather": [{"id": 804, "main": "Clouds", "description": "overcast clouds", "icon": "04n"}], "clouds": 96, "visibility": 10000, "wind_speed": 6.69, "wind_gust": 15.39, "wind_deg": 333, "rain": null, "snow": null, "pop": 0}, {"dt": "2021-12-22T08:00:00+00:00", "temp": 36.68, "feels_like": 31.86, "pressure": 1008, "humidity": 65, "dew_point": 25.84, "uvi": 0.0, "weather": [{"id": 803, "main": "Clouds", "description": "broken clouds", "icon": "04n"}], "clouds": 83, "visibility": 10000, "wind_speed": 5.93, "wind_gust": 16.35, "wind_deg": 328, "rain": null, "snow": null, "pop": 0}, {"dt": "2021-12-22T09:00:00+00:00", "temp": 36.14, "feels_like": 30.92, "pressure": 1008, "humidity": 60, "dew_point": 23.77, "uvi": 0.0, "weather": [{"id": 804, "main": "Clouds", "description": "overcast clouds", "icon": "04n"}], "clouds": 87, "visibility": 10000, "wind_speed": 6.33, "wind_gust": 21.21, "wind_deg": 316, "rain": null, "snow": null, "pop": 0}, {"dt": "2021-12-22T10:00:00+00:00", "temp": 36.86, "feels_like": 31.03, "pressure": 1008, "humidity": 61, "dew_point": 24.57, "uvi": 0.0, "weather": [{"id": 803, "main": "Clouds", "description": "broken clouds", "icon": "04n"}], "clouds": 79, "visibility": 10000, "wind_speed": 7.54, "wind_gust": 27.2, "wind_deg": 320, "rain": null, "snow": null, "pop": 0}, {"dt": "2021-12-22T11:00:00+00:00", "temp": 37.24, "feels_like": 32.25, "pressure": 1008, "humidity": 67, "dew_point": 27.34, "uvi": 0.0, "weather": [{"id": 803, "main": "Clouds", "description": "broken clouds", "icon": "04n"}], "clouds": 80, "visibility": 10000, "wind_speed": 6.31, "wind_gust": 20.42, "wind_deg": 310, "rain": null, "snow": null, "pop": 0}, {"dt": "2021-12-22T12:00:00+00:00", "temp": 37.6, "feels_like": 32.67, "pressure": 1008, "humidity": 72, "dew_point": 29.25, "uvi": 0.0, "weather": [{"id": 803, "main": "Clouds", "description": "broken clouds", "icon": "04n"}], "clouds": 82, "visibility": 10000, "wind_speed": 6.33, "wind_gust": 17.56, "wind_deg": 304, "rain": null, "snow": null, "pop": 0}, {"dt": "2021-12-22T13:00:00+00:00", "temp": 38.89, "feels_like": 33.08, "pressure": 1009, "humidity": 71, "dew_point": 30.11, "uvi": 0.0, "weather": [{"id": 802, "main": "Clouds", "description": "scattered clouds", "icon": "03d"}], "clouds": 40, "visibility": 10000, "wind_speed": 8.3, "wind_gust": 22.32, "wind_deg": 303, "rain": null, "snow": null, "pop": 0}, {"dt": "2021-12-22T14:00:00+00:00", "temp": 42.96, "feels_like": 37.29, "pressure": 1010, "humidity": 62, "dew_point": 30.83, "uvi": 0.48, "weather": [{"id": 801, "main": "Clouds", "description": "few clouds", "icon": "02d"}], "clouds": 23, "visibility": 10000, "wind_speed": 10.04, "wind_gust": 24.94, "wind_deg": 311, "rain": null, "snow": null, "pop": 0}, {"dt": "2021-12-22T15:00:00+00:00", "temp": 45.73, "feels_like": 40.12, "pressure": 1011, "humidity": 53, "dew_point": 29.75, "uvi": 1.15, "weather": [{"id": 801, "main": "Clouds", "description": "few clouds", "icon": "02d"}], "clouds": 16, "visibility": 10000, "wind_speed": 11.79, "wind_gust": 24.47, "wind_deg": 318, "rain": null, "snow": null, "pop": 0}, {"dt": "2021-12-22T16:00:00+00:00", "temp": 47.59, "feels_like": 42.06, "pressure": 1012, "humidity": 44, "dew_point": 26.6, "uvi": 1.85, "weather": [{"id": 801, "main": "Clouds", "description": "few clouds", "icon": "02d"}], "clouds": 13, "visibility": 10000, "wind_speed": 13.11, "wind_gust": 22.79, "wind_deg": 317, "rain": null, "snow": null, "pop": 0}, {"dt": "2021-12-22T17:00:00+00:00", "temp": 48.56, "feels_like": 43.0, "pressure": 1012, "humidity": 36, "dew_point": 22.86, "uvi": 2.25, "weather": [{"id": 801, "main": "Clouds", "description": "few clouds", "icon": "02d"}], "clouds": 11, "visibility": 10000, "wind_speed": 14.18, "wind_gust": 24.27, "wind_deg": 318, "rain": null, "snow": null, "pop": 0}, {"dt": "2021-12-22T18:00:00+00:00", "temp": 48.79, "feels_like": 43.25, "pressure": 1012, "humidity": 32, "dew_point": 20.46, "uvi": 2.17, "weather": [{"id": 800, "main": "Clear", "description": "clear sky", "icon": "01d"}], "clouds": 9, "visibility": 10000, "wind_speed": 14.36, "wind_gust": 23.22, "wind_deg": 318, "rain": null, "snow": null, "pop": 0}, {"dt": "2021-12-22T19:00:00+00:00", "temp": 49.06, "feels_like": 43.59, "pressure": 1012, "humidity": 31, "dew_point": 19.87, "uvi": 1.6, "weather": [{"id": 800, "main": "Clear", "description": "clear sky", "icon": "01d"}], "clouds": 0, "visibility": 10000, "wind_speed": 14.41, "wind_gust": 24.87, "wind_deg": 319, "rain": null, "snow": null, "pop": 0}, {"dt": "2021-12-22T20:00:00+00:00", "temp": 48.4, "feels_like": 43.18, "pressure": 1013, "humidity": 33, "dew_point": 20.34, "uvi": 0.88, "weather": [{"id": 800, "main": "Clear", "description": "clear sky", "icon": "01d"}], "clouds": 0, "visibility": 10000, "wind_speed": 12.82, "wind_gust": 24.85, "wind_deg": 320, "rain": null, "snow": null, "pop": 0}, {"dt": "2021-12-22T21:00:00+00:00", "temp": 46.31, "feels_like": 40.98, "pressure": 1014, "humidity": 35, "dew_point": 20.32, "uvi": 0.31, "weather": [{"id": 800, "main": "Clear", "description": "clear sky", "icon": "01d"}], "clouds": 0, "visibility": 10000, "wind_speed": 11.39, "wind_gust": 24.47, "wind_deg": 322, "rain": null, "snow": null, "pop": 0}, {"dt": "2021-12-22T22:00:00+00:00", "temp": 42.51, "feels_like": 36.66, "pressure": 1015, "humidity": 39, "dew_point": 19.49, "uvi": 0.0, "weather": [{"id": 800, "main": "Clear", "description": "clear sky", "icon": "01d"}], "clouds": 0, "visibility": 10000, "wind_speed": 10.22, "wind_gust": 21.94, "wind_deg": 325, "rain": null, "snow": null, "pop": 0}, {"dt": "2021-12-22T23:00:00+00:00", "temp": 39.6, "feels_like": 33.42, "pressure": 1017, "humidity": 43, "dew_point": 19.06, "uvi": 0.0, "weather": [{"id": 800, "main": "Clear", "description": "clear sky", "icon": "01n"}], "clouds": 0, "visibility": 10000, "wind_speed": 9.37, "wind_gust": 22.41, "wind_deg": 330, "rain": null, "snow": null, "pop": 0}, {"dt": "2021-12-23T00:00:00+00:00", "temp": 37.67, "feels_like": 31.3, "pressure": 1018, "humidity": 46, "dew_point": 18.91, "uvi": 0.0, "weather": [{"id": 800, "main": "Clear", "description": "clear sky", "icon": "01n"}], "clouds": 0, "visibility": 10000, "wind_speed": 8.86, "wind_gust": 23.13, "wind_deg": 332, "rain": null, "snow": null, "pop": 0}, {"dt": "2021-12-23T01:00:00+00:00", "temp": 36.23, "feels_like": 29.55, "pressure": 1019, "humidity": 48, "dew_point": 18.36, "uvi": 0.0, "weather": [{"id": 800, "main": "Clear", "description": "clear sky", "icon": "01n"}], "clouds": 0, "visibility": 10000, "wind_speed": 8.81, "wind_gust": 23.85, "wind_deg": 333, "rain": null, "snow": null, "pop": 0}, {"dt": "2021-12-23T02:00:00+00:00", "temp": 34.59, "feels_like": 28.36, "pressure": 1020, "humidity": 51, "dew_point": 18.05, "uvi": 0.0, "weather": [{"id": 800, "main": "Clear", "description": "clear sky", "icon": "01n"}], "clouds": 0, "visibility": 10000, "wind_speed": 7.4, "wind_gust": 20.94, "wind_deg": 333, "rain": null, "snow": null, "pop": 0}, {"dt": "2021-12-23T03:00:00+00:00", "temp": 33.35, "feels_like": 27.64, "pressure": 1020, "humidity": 52, "dew_point": 17.67, "uvi": 0.0, "weather": [{"id": 800, "main": "Clear", "description": "clear sky", "icon": "01n"}], "clouds": 0, "visibility": 10000, "wind_speed": 6.26, "wind_gust": 16.96, "wind_deg": 333, "rain": null, "snow": null, "pop": 0}, {"dt": "2021-12-23T04:00:00+00:00", "temp": 32.32, "feels_like": 27.57, "pressure": 1021, "humidity": 53, "dew_point": 17.13, "uvi": 0.0, "weather": [{"id": 800, "main": "Clear", "description": "clear sky", "icon": "01n"}], "clouds": 0, "visibility": 10000, "wind_speed": 4.88, "wind_gust": 12.35, "wind_deg": 341, "rain": null, "snow": null, "pop": 0}, {"dt": "2021-12-23T05:00:00+00:00", "temp": 31.39, "feels_like": 28.02, "pressure": 1021, "humidity": 54, "dew_point": 16.43, "uvi": 0.0, "weather": [{"id": 800, "main": "Clear", "description": "clear sky", "icon": "01n"}], "clouds": 0, "visibility": 10000, "wind_speed": 3.44, "wind_gust": 7.29, "wind_deg": 359, "rain": null, "snow": null, "pop": 0}, {"dt": "2021-12-23T06:00:00+00:00", "temp": 30.56, "feels_like": 30.56, "pressure": 1022, "humidity": 54, "dew_point": 15.89, "uvi": 0.0, "weather": [{"id": 800, "main": "Clear", "description": "clear sky", "icon": "01n"}], "clouds": 0, "visibility": 10000, "wind_speed": 1.3, "wind_gust": 2.06, "wind_deg": 343, "rain": null, "snow": null, "pop": 0}, {"dt": "2021-12-23T07:00:00+00:00", "temp": 30.06, "feels_like": 30.06, "pressure": 1023, "humidity": 54, "dew_point": 15.48, "uvi": 0.0, "weather": [{"id": 800, "main": "Clear", "description": "clear sky", "icon": "01n"}], "clouds": 0, "visibility": 10000, "wind_speed": 1.05, "wind_gust": 1.74, "wind_deg": 33, "rain": null, "snow": null, "pop": 0}, {"dt": "2021-12-23T08:00:00+00:00", "temp": 29.91, "feels_like": 29.91, "pressure": 1023, "humidity": 54, "dew_point": 15.04, "uvi": 0.0, "weather": [{"id": 800, "main": "Clear", "description": "clear sky", "icon": "01n"}], "clouds": 0, "visibility": 10000, "wind_speed": 1.59, "wind_gust": 1.99, "wind_deg": 70, "rain": null, "snow": null, "pop": 0}, {"dt": "2021-12-23T09:00:00+00:00", "temp": 29.73, "feels_like": 29.73, "pressure": 1023, "humidity": 53, "dew_point": 14.79, "uvi": 0.0, "weather": [{"id": 800, "main": "Clear", "description": "clear sky", "icon": "01n"}], "clouds": 0, "visibility": 10000, "wind_speed": 1.3, "wind_gust": 1.7, "wind_deg": 48, "rain": null, "snow": null, "pop": 0}, {"dt": "2021-12-23T10:00:00+00:00", "temp": 29.59, "feels_like": 29.59, "pressure": 1024, "humidity": 53, "dew_point": 14.56, "uvi": 0.0, "weather": [{"id": 800, "main": "Clear", "description": "clear sky", "icon": "01n"}], "clouds": 0, "visibility": 10000, "wind_speed": 0.92, "wind_gust": 1.34, "wind_deg": 77, "rain": null, "snow": null, "pop": 0}, {"dt": "2021-12-23T11:00:00+00:00", "temp": 29.61, "feels_like": 29.61, "pressure": 1024, "humidity": 53, "dew_point": 14.4, "uvi": 0.0, "weather": [{"id": 800, "main": "Clear", "description": "clear sky", "icon": "01n"}], "clouds": 0, "visibility": 10000, "wind_speed": 0.18, "wind_gust": 1.19, "wind_deg": 87, "rain": null, "snow": null, "pop": 0}, {"dt": "2021-12-23T12:00:00+00:00", "temp": 29.57, "feels_like": 29.57, "pressure": 1025, "humidity": 52, "dew_point": 14.09, "uvi": 0.0, "weather": [{"id": 800, "main": "Clear", "description": "clear sky", "icon": "01n"}], "clouds": 0, "visibility": 10000, "wind_speed": 1.19, "wind_gust": 1.43, "wind_deg": 148, "rain": null, "snow": null, "pop": 0}, {"dt": "2021-12-23T13:00:00+00:00", "temp": 30.87, "feels_like": 30.87, "pressure": 1026, "humidity": 49, "dew_point": 14.11, "uvi": 0.0, "weather": [{"id": 800, "main": "Clear", "description": "clear sky", "icon": "01d"}], "clouds": 0, "visibility": 10000, "wind_speed": 0.63, "wind_gust": 1.05, "wind_deg": 193, "rain": null, "snow": null, "pop": 0}, {"dt": "2021-12-23T14:00:00+00:00", "temp": 35.53, "feels_like": 35.53, "pressure": 1026, "humidity": 41, "dew_point": 13.96, "uvi": 0.46, "weather": [{"id": 800, "main": "Clear", "description": "clear sky", "icon": "01d"}], "clouds": 0, "visibility": 10000, "wind_speed": 2.33, "wind_gust": 3.47, "wind_deg": 179, "rain": null, "snow": null, "pop": 0}, {"dt": "2021-12-23T15:00:00+00:00", "temp": 39.99, "feels_like": 37.58, "pressure": 1026, "humidity": 34, "dew_point": 13.77, "uvi": 1.1, "weather": [{"id": 800, "main": "Clear", "description": "clear sky", "icon": "01d"}], "clouds": 0, "visibility": 10000, "wind_speed": 3.71, "wind_gust": 5.35, "wind_deg": 182, "rain": null, "snow": null, "pop": 0}, {"dt": "2021-12-23T16:00:00+00:00", "temp": 43.66, "feels_like": 41.05, "pressure": 1025, "humidity": 30, "dew_point": 14.0, "uvi": 1.76, "weather": [{"id": 800, "main": "Clear", "description": "clear sky", "icon": "01d"}], "clouds": 1, "visibility": 10000, "wind_speed": 4.63, "wind_gust": 6.64, "wind_deg": 206, "rain": null, "snow": null, "pop": 0}, {"dt": "2021-12-23T17:00:00+00:00", "temp": 46.45, "feels_like": 43.81, "pressure": 1024, "humidity": 28, "dew_point": 14.79, "uvi": 2.13, "weather": [{"id": 800, "main": "Clear", "description": "clear sky", "icon": "01d"}], "clouds": 1, "visibility": 10000, "wind_speed": 5.39, "wind_gust": 7.99, "wind_deg": 214, "rain": null, "snow": null, "pop": 0}, {"dt": "2021-12-23T18:00:00+00:00", "temp": 48.27, "feels_like": 45.16, "pressure": 1023, "humidity": 27, "dew_point": 16.2, "uvi": 2.05, "weather": [{"id": 800, "main": "Clear", "description": "clear sky", "icon": "01d"}], "clouds": 1, "visibility": 10000, "wind_speed": 6.89, "wind_gust": 9.98, "wind_deg": 210, "rain": null, "snow": null, "pop": 0}, {"dt": "2021-12-23T19:00:00+00:00", "temp": 49.26, "feels_like": 45.75, "pressure": 1022, "humidity": 29, "dew_point": 18.18, "uvi": 1.55, "weather": [{"id": 800, "main": "Clear", "description": "clear sky", "icon": "01d"}], "clouds": 0, "visibility": 10000, "wind_speed": 8.28, "wind_gust": 11.92, "wind_deg": 218, "rain": null, "snow": null, "pop": 0}, {"dt": "2021-12-23T20:00:00+00:00", "temp": 49.3, "feels_like": 45.68, "pressure": 1022, "humidity": 31, "dew_point": 20.05, "uvi": 0.85, "weather": [{"id": 800, "main": "Clear", "description": "clear sky", "icon": "01d"}], "clouds": 0, "visibility": 10000, "wind_speed": 8.59, "wind_gust": 12.71, "wind_deg": 218, "rain": null, "snow": null, "pop": 0}, {"dt": "2021-12-23T21:00:00+00:00", "temp": 47.84, "feels_like": 44.31, "pressure": 1022, "humidity": 37, "dew_point": 22.96, "uvi": 0.3, "weather": [{"id": 800, "main": "Clear", "description": "clear sky", "icon": "01d"}], "clouds": 0, "visibility": 10000, "wind_speed": 7.61, "wind_gust": 14.88, "wind_deg": 212, "rain": null, "snow": null, "pop": 0}, {"dt": "2021-12-23T22:00:00+00:00", "temp": 42.49, "feels_like": 38.23, "pressure": 1022, "humidity": 47, "dew_point": 23.94, "uvi": 0.0, "weather": [{"id": 800, "main": "Clear", "description": "clear sky", "icon": "01d"}], "clouds": 0, "visibility": 10000, "wind_speed": 6.85, "wind_gust": 17.74, "wind_deg": 202, "rain": null, "snow": null, "pop": 0}, {"dt": "2021-12-23T23:00:00+00:00", "temp": 39.36, "feels_like": 34.47, "pressure": 1022, "humidity": 54, "dew_point": 24.08, "uvi": 0.0, "weather": [{"id": 800, "main": "Clear", "description": "clear sky", "icon": "01n"}], "clouds": 0, "visibility": 10000, "wind_speed": 6.82, "wind_gust": 20.98, "wind_deg": 196, "rain": null, "snow": null, "pop": 0}, {"dt": "2021-12-24T00:00:00+00:00", "temp": 39.09, "feels_like": 33.46, "pressure": 1022, "humidity": 55, "dew_point": 24.12, "uvi": 0.0, "weather": [{"id": 800, "main": "Clear", "description": "clear sky", "icon": "01n"}], "clouds": 0, "visibility": 10000, "wind_speed": 8.03, "wind_gust": 25.99, "wind_deg": 199, "rain": null, "snow": null, "pop": 0}], "daily": [{"dt": "2021-12-21T17:00:00+00:00", "sunrise": "2021-12-21T12:26:39+00:00", "sunset": "2021-12-21T22:08:18+00:00", "moonrise": "2021-12-22T00:18:00+00:00", "moonset": "2021-12-21T14:34:00+00:00", "moon_phase": 0.58, "temp": {"day": 42.37, "min": 31.75, "max": 42.37, "night": 39.45, "eve": 39.16, "morn": 32.95}, "feels_like": {"day": 39.87, "min": 0.0, "max": 0.0, "night": 36.77, "eve": 35.46, "morn": 32.95}, "pressure": 1017, "humidity": 40, "dew_point": 19.53, "wind_speed": 5.1, "wind_deg": 45, "wind_gust": 12.33, "weather": [{"id": 804, "main": "Clouds", "description": "overcast clouds", "icon": "04d"}], "clouds": 100, "pop": 0, "rain": 0.0, "uvi": 1.49}, {"dt": "2021-12-22T17:00:00+00:00", "sunrise": "2021-12-22T12:27:07+00:00", "sunset": "2021-12-22T22:08:47+00:00", "moonrise": "2021-12-23T01:18:00+00:00", "moonset": "2021-12-22T15:14:00+00:00", "moon_phase": 0.61, "temp": {"day": 48.56, "min": 32.32, "max": 49.06, "night": 32.32, "eve": 39.6, "morn": 37.24}, "feels_like": {"day": 43.0, "min": 0.0, "max": 0.0, "night": 27.57, "eve": 33.42, "morn": 32.25}, "pressure": 1012, "humidity": 36, "dew_point": 22.86, "wind_speed": 14.41, "wind_deg": 319, "wind_gust": 27.2, "weather": [{"id": 801, "main": "Clouds", "description": "few clouds", "icon": "02d"}], "clouds": 11, "pop": 0, "rain": 0.0, "uvi": 2.25}, {"dt": "2021-12-23T17:00:00+00:00", "sunrise": "2021-12-23T12:27:34+00:00", "sunset": "2021-12-23T22:09:18+00:00", "moonrise": "2021-12-24T02:19:00+00:00", "moonset": "2021-12-23T15:50:00+00:00", "moon_phase": 0.64, "temp": {"day": 46.45, "min": 29.57, "max": 49.3, "night": 38.91, "eve": 39.36, "morn": 29.61}, "feels_like": {"day": 43.81, "min": 0.0, "max": 0.0, "night": 32.32, "eve": 34.47, "morn": 29.61}, "pressure": 1024, "humidity": 28, "dew_point": 14.79, "wind_speed": 9.93, "wind_deg": 214, "wind_gust": 33.2, "weather": [{"id": 800, "main": "Clear", "description": "clear sky", "icon": "01d"}], "clouds": 1, "pop": 0, "rain": 0.0, "uvi": 2.13}, {"dt": "2021-12-24T17:00:00+00:00", "sunrise": "2021-12-24T12:27:59+00:00", "sunset": "2021-12-24T22:09:51+00:00", "moonrise": "2021-12-25T03:21:00+00:00", "moonset": "2021-12-24T16:22:00+00:00", "moon_phase": 0.67, "temp": {"day": 53.53, "min": 37.26, "max": 55.0, "night": 48.97, "eve": 46.94, "morn": 37.26}, "feels_like": {"day": 50.74, "min": 0.0, "max": 0.0, "night": 44.26, "eve": 43.93, "morn": 32.4}, "pressure": 1019, "humidity": 46, "dew_point": 33.24, "wind_speed": 11.56, "wind_deg": 220, "wind_gust": 35.77, "weather": [{"id": 804, "main": "Clouds", "description": "overcast clouds", "icon": "04d"}], "clouds": 100, "pop": 0, "rain": 0.0, "uvi": 1.6}, {"dt": "2021-12-25T17:00:00+00:00", "sunrise": "2021-12-25T12:28:22+00:00", "sunset": "2021-12-25T22:10:25+00:00", "moonrise": "2021-12-26T04:23:00+00:00", "moonset": "2021-12-25T16:50:00+00:00", "moon_phase": 0.7, "temp": {"day": 60.71, "min": 46.18, "max": 60.71, "night": 59.02, "eve": 59.05, "morn": 46.18}, "feels_like": {"day": 59.72, "min": 0.0, "max": 0.0, "night": 58.62, "eve": 58.51, "morn": 41.5}, "pressure": 1008, "humidity": 69, "dew_point": 50.49, "wind_speed": 12.95, "wind_deg": 234, "wind_gust": 37.38, "weather": [{"id": 804, "main": "Clouds", "description": "overcast clouds", "icon": "04d"}], "clouds": 87, "pop": 0, "rain": 0.0, "uvi": 2.05}, {"dt": "2021-12-26T17:00:00+00:00", "sunrise": "2021-12-26T12:28:44+00:00", "sunset": "2021-12-26T22:11:01+00:00", "moonrise": "1970-01-01T00:00:00+00:00", "moonset": "2021-12-26T17:17:00+00:00", "moon_phase": 0.75, "temp": {"day": 54.1, "min": 40.3, "max": 59.92, "night": 40.3, "eve": 44.15, "morn": 51.1}, "feels_like": {"day": 51.04, "min": 0.0, "max": 0.0, "night": 36.05, "eve": 37.85, "morn": 47.79}, "pressure": 1012, "humidity": 39, "dew_point": 29.48, "wind_speed": 17.25, "wind_deg": 311, "wind_gust": 39.19, "weather": [{"id": 800, "main": "Clear", "description": "clear sky", "icon": "01d"}], "clouds": 0, "pop": 0, "rain": 0.0, "uvi": 3.0}, {"dt": "2021-12-27T17:00:00+00:00", "sunrise": "2021-12-27T12:29:03+00:00", "sunset": "2021-12-27T22:11:38+00:00", "moonrise": "2021-12-27T05:26:00+00:00", "moonset": "2021-12-27T17:45:00+00:00", "moon_phase": 0.77, "temp": {"day": 43.45, "min": 38.64, "max": 46.98, "night": 46.98, "eve": 46.0, "morn": 40.5}, "feels_like": {"day": 41.02, "min": 0.0, "max": 0.0, "night": 45.37, "eve": 46.0, "morn": 40.5}, "pressure": 1020, "humidity": 61, "dew_point": 30.76, "wind_speed": 4.34, "wind_deg": 170, "wind_gust": 10.78, "weather": [{"id": 500, "main": "Rain", "description": "light rain", "icon": "10d"}], "clouds": 100, "pop": 0, "rain": 0.31, "uvi": 3.0}, {"dt": "2021-12-28T17:00:00+00:00", "sunrise": "2021-12-28T12:29:21+00:00", "sunset": "2021-12-28T22:12:18+00:00", "moonrise": "2021-12-28T06:32:00+00:00", "moonset": "2021-12-28T18:14:00+00:00", "moon_phase": 0.81, "temp": {"day": 60.55, "min": 44.8, "max": 60.55, "night": 54.25, "eve": 55.08, "morn": 45.73}, "feels_like": {"day": 58.89, "min": 0.0, "max": 0.0, "night": 53.51, "eve": 54.14, "morn": 44.44}, "pressure": 1015, "humidity": 55, "dew_point": 44.22, "wind_speed": 5.95, "wind_deg": 173, "wind_gust": 19.1, "weather": [{"id": 500, "main": "Rain", "description": "light rain", "icon": "10d"}], "clouds": 92, "pop": 0, "rain": 0.11, "uvi": 3.0}]}}}}
+{
+  "https://nominatim.openstreetmap.org/search?format=json&limit=1&city=greensboro": {
+    "location": {
+      "display_name": "Greensboro, Guilford County, North Carolina, 27455, United States",
+      "lat": 36.158075647227044,
+      "lon": -79.81330895473118
+    },
+    "currentWeather": {
+      "cache_duration_minutes": 15,
+      "date_time_saved": "2021-12-22T01:36:38.212266",
+      "current_weather": {
+        "coord": { "lon": -79.8133, "lat": 36.1581 },
+        "weather": [
+          {
+            "id": 804,
+            "main": "Clouds",
+            "description": "overcast clouds",
+            "icon": "04n"
+          }
+        ],
+        "base": "stations",
+        "main": {
+          "temp": 39.45,
+          "feels_like": 39.45,
+          "temp_min": 34.32,
+          "temp_max": 43.23,
+          "pressure": 1011,
+          "humidity": 79
+        },
+        "visibility": 10000,
+        "wind": { "speed": 1.99, "deg": 19, "gust": 3.0 },
+        "clouds": { "all": 90 },
+        "rain": null,
+        "snow": null,
+        "dt": "2021-12-22T01:36:38+00:00",
+        "sys": {
+          "type": 2,
+          "id": 2034083,
+          "country": "US",
+          "sunrise": "2021-12-21T12:26:39+00:00",
+          "sunset": "2021-12-21T22:08:18+00:00"
+        },
+        "timezone": -18000,
+        "id": 4493990,
+        "name": "Summerfield",
+        "cod": 200
+      }
+    },
+    "oneCallWeather": {
+      "cache_duration_minutes": 15,
+      "date_time_saved": "2021-12-22T01:36:52.676059",
+      "one_call_weather": {
+        "lat": 36.1581,
+        "lon": -79.8133,
+        "timezone": "America/New_York",
+        "timezone_offset": -18000,
+        "current": {
+          "dt": 1640137012,
+          "sunrise": "2021-12-21T12:26:39+00:00",
+          "sunset": "2021-12-21T22:08:18+00:00",
+          "temp": 39.45,
+          "feels_like": 39.45,
+          "pressure": 1011,
+          "humidity": 79,
+          "dew_point": 33.49,
+          "uvi": 0.0,
+          "clouds": 90,
+          "visibility": 10000,
+          "wind_speed": 1.99,
+          "wind_deg": 19,
+          "wind_gust": 3.0,
+          "weather": [
+            {
+              "id": 804,
+              "main": "Clouds",
+              "description": "overcast clouds",
+              "icon": "04n"
+            }
+          ]
+        },
+        "minutely": [
+          { "dt": "2021-12-22T01:37:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T01:38:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T01:39:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T01:40:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T01:41:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T01:42:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T01:43:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T01:44:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T01:45:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T01:46:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T01:47:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T01:48:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T01:49:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T01:50:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T01:51:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T01:52:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T01:53:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T01:54:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T01:55:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T01:56:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T01:57:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T01:58:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T01:59:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:00:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:01:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:02:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:03:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:04:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:05:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:06:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:07:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:08:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:09:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:10:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:11:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:12:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:13:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:14:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:15:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:16:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:17:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:18:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:19:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:20:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:21:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:22:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:23:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:24:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:25:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:26:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:27:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:28:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:29:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:30:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:31:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:32:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:33:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:34:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:35:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:36:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:37:00+00:00", "precipitation": 0.0 }
+        ],
+        "hourly": [
+          {
+            "dt": "2021-12-22T01:00:00+00:00",
+            "temp": 39.22,
+            "feels_like": 35.87,
+            "pressure": 1011,
+            "humidity": 75,
+            "dew_point": 31.98,
+            "uvi": 0.0,
+            "weather": [
+              {
+                "id": 804,
+                "main": "Clouds",
+                "description": "overcast clouds",
+                "icon": "04n"
+              }
+            ],
+            "clouds": 92,
+            "visibility": 10000,
+            "wind_speed": 4.61,
+            "wind_gust": 10.16,
+            "wind_deg": 5,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-22T02:00:00+00:00",
+            "temp": 39.45,
+            "feels_like": 36.36,
+            "pressure": 1011,
+            "humidity": 79,
+            "dew_point": 33.49,
+            "uvi": 0.0,
+            "weather": [
+              {
+                "id": 804,
+                "main": "Clouds",
+                "description": "overcast clouds",
+                "icon": "04n"
+              }
+            ],
+            "clouds": 90,
+            "visibility": 10000,
+            "wind_speed": 4.36,
+            "wind_gust": 8.59,
+            "wind_deg": 4,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-22T03:00:00+00:00",
+            "temp": 39.4,
+            "feels_like": 35.82,
+            "pressure": 1011,
+            "humidity": 75,
+            "dew_point": 32.14,
+            "uvi": 0.0,
+            "weather": [
+              {
+                "id": 804,
+                "main": "Clouds",
+                "description": "overcast clouds",
+                "icon": "04n"
+              }
+            ],
+            "clouds": 92,
+            "visibility": 10000,
+            "wind_speed": 4.94,
+            "wind_gust": 12.33,
+            "wind_deg": 4,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-22T04:00:00+00:00",
+            "temp": 39.45,
+            "feels_like": 36.77,
+            "pressure": 1011,
+            "humidity": 71,
+            "dew_point": 30.99,
+            "uvi": 0.0,
+            "weather": [
+              {
+                "id": 804,
+                "main": "Clouds",
+                "description": "overcast clouds",
+                "icon": "04n"
+              }
+            ],
+            "clouds": 94,
+            "visibility": 10000,
+            "wind_speed": 3.91,
+            "wind_gust": 8.75,
+            "wind_deg": 34,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-22T05:00:00+00:00",
+            "temp": 39.63,
+            "feels_like": 36.84,
+            "pressure": 1010,
+            "humidity": 67,
+            "dew_point": 29.88,
+            "uvi": 0.0,
+            "weather": [
+              {
+                "id": 804,
+                "main": "Clouds",
+                "description": "overcast clouds",
+                "icon": "04n"
+              }
+            ],
+            "clouds": 96,
+            "visibility": 10000,
+            "wind_speed": 4.05,
+            "wind_gust": 9.15,
+            "wind_deg": 30,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-22T06:00:00+00:00",
+            "temp": 39.9,
+            "feels_like": 36.54,
+            "pressure": 1009,
+            "humidity": 64,
+            "dew_point": 29.12,
+            "uvi": 0.0,
+            "weather": [
+              {
+                "id": 804,
+                "main": "Clouds",
+                "description": "overcast clouds",
+                "icon": "04n"
+              }
+            ],
+            "clouds": 98,
+            "visibility": 10000,
+            "wind_speed": 4.76,
+            "wind_gust": 9.13,
+            "wind_deg": 334,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-22T07:00:00+00:00",
+            "temp": 39.52,
+            "feels_like": 34.75,
+            "pressure": 1008,
+            "humidity": 62,
+            "dew_point": 27.61,
+            "uvi": 0.0,
+            "weather": [
+              {
+                "id": 804,
+                "main": "Clouds",
+                "description": "overcast clouds",
+                "icon": "04n"
+              }
+            ],
+            "clouds": 96,
+            "visibility": 10000,
+            "wind_speed": 6.69,
+            "wind_gust": 15.39,
+            "wind_deg": 333,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-22T08:00:00+00:00",
+            "temp": 36.68,
+            "feels_like": 31.86,
+            "pressure": 1008,
+            "humidity": 65,
+            "dew_point": 25.84,
+            "uvi": 0.0,
+            "weather": [
+              {
+                "id": 803,
+                "main": "Clouds",
+                "description": "broken clouds",
+                "icon": "04n"
+              }
+            ],
+            "clouds": 83,
+            "visibility": 10000,
+            "wind_speed": 5.93,
+            "wind_gust": 16.35,
+            "wind_deg": 328,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-22T09:00:00+00:00",
+            "temp": 36.14,
+            "feels_like": 30.92,
+            "pressure": 1008,
+            "humidity": 60,
+            "dew_point": 23.77,
+            "uvi": 0.0,
+            "weather": [
+              {
+                "id": 804,
+                "main": "Clouds",
+                "description": "overcast clouds",
+                "icon": "04n"
+              }
+            ],
+            "clouds": 87,
+            "visibility": 10000,
+            "wind_speed": 6.33,
+            "wind_gust": 21.21,
+            "wind_deg": 316,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-22T10:00:00+00:00",
+            "temp": 36.86,
+            "feels_like": 31.03,
+            "pressure": 1008,
+            "humidity": 61,
+            "dew_point": 24.57,
+            "uvi": 0.0,
+            "weather": [
+              {
+                "id": 803,
+                "main": "Clouds",
+                "description": "broken clouds",
+                "icon": "04n"
+              }
+            ],
+            "clouds": 79,
+            "visibility": 10000,
+            "wind_speed": 7.54,
+            "wind_gust": 27.2,
+            "wind_deg": 320,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-22T11:00:00+00:00",
+            "temp": 37.24,
+            "feels_like": 32.25,
+            "pressure": 1008,
+            "humidity": 67,
+            "dew_point": 27.34,
+            "uvi": 0.0,
+            "weather": [
+              {
+                "id": 803,
+                "main": "Clouds",
+                "description": "broken clouds",
+                "icon": "04n"
+              }
+            ],
+            "clouds": 80,
+            "visibility": 10000,
+            "wind_speed": 6.31,
+            "wind_gust": 20.42,
+            "wind_deg": 310,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-22T12:00:00+00:00",
+            "temp": 37.6,
+            "feels_like": 32.67,
+            "pressure": 1008,
+            "humidity": 72,
+            "dew_point": 29.25,
+            "uvi": 0.0,
+            "weather": [
+              {
+                "id": 803,
+                "main": "Clouds",
+                "description": "broken clouds",
+                "icon": "04n"
+              }
+            ],
+            "clouds": 82,
+            "visibility": 10000,
+            "wind_speed": 6.33,
+            "wind_gust": 17.56,
+            "wind_deg": 304,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-22T13:00:00+00:00",
+            "temp": 38.89,
+            "feels_like": 33.08,
+            "pressure": 1009,
+            "humidity": 71,
+            "dew_point": 30.11,
+            "uvi": 0.0,
+            "weather": [
+              {
+                "id": 802,
+                "main": "Clouds",
+                "description": "scattered clouds",
+                "icon": "03d"
+              }
+            ],
+            "clouds": 40,
+            "visibility": 10000,
+            "wind_speed": 8.3,
+            "wind_gust": 22.32,
+            "wind_deg": 303,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-22T14:00:00+00:00",
+            "temp": 42.96,
+            "feels_like": 37.29,
+            "pressure": 1010,
+            "humidity": 62,
+            "dew_point": 30.83,
+            "uvi": 0.48,
+            "weather": [
+              {
+                "id": 801,
+                "main": "Clouds",
+                "description": "few clouds",
+                "icon": "02d"
+              }
+            ],
+            "clouds": 23,
+            "visibility": 10000,
+            "wind_speed": 10.04,
+            "wind_gust": 24.94,
+            "wind_deg": 311,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-22T15:00:00+00:00",
+            "temp": 45.73,
+            "feels_like": 40.12,
+            "pressure": 1011,
+            "humidity": 53,
+            "dew_point": 29.75,
+            "uvi": 1.15,
+            "weather": [
+              {
+                "id": 801,
+                "main": "Clouds",
+                "description": "few clouds",
+                "icon": "02d"
+              }
+            ],
+            "clouds": 16,
+            "visibility": 10000,
+            "wind_speed": 11.79,
+            "wind_gust": 24.47,
+            "wind_deg": 318,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-22T16:00:00+00:00",
+            "temp": 47.59,
+            "feels_like": 42.06,
+            "pressure": 1012,
+            "humidity": 44,
+            "dew_point": 26.6,
+            "uvi": 1.85,
+            "weather": [
+              {
+                "id": 801,
+                "main": "Clouds",
+                "description": "few clouds",
+                "icon": "02d"
+              }
+            ],
+            "clouds": 13,
+            "visibility": 10000,
+            "wind_speed": 13.11,
+            "wind_gust": 22.79,
+            "wind_deg": 317,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-22T17:00:00+00:00",
+            "temp": 48.56,
+            "feels_like": 43.0,
+            "pressure": 1012,
+            "humidity": 36,
+            "dew_point": 22.86,
+            "uvi": 2.25,
+            "weather": [
+              {
+                "id": 801,
+                "main": "Clouds",
+                "description": "few clouds",
+                "icon": "02d"
+              }
+            ],
+            "clouds": 11,
+            "visibility": 10000,
+            "wind_speed": 14.18,
+            "wind_gust": 24.27,
+            "wind_deg": 318,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-22T18:00:00+00:00",
+            "temp": 48.79,
+            "feels_like": 43.25,
+            "pressure": 1012,
+            "humidity": 32,
+            "dew_point": 20.46,
+            "uvi": 2.17,
+            "weather": [
+              {
+                "id": 800,
+                "main": "Clear",
+                "description": "clear sky",
+                "icon": "01d"
+              }
+            ],
+            "clouds": 9,
+            "visibility": 10000,
+            "wind_speed": 14.36,
+            "wind_gust": 23.22,
+            "wind_deg": 318,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-22T19:00:00+00:00",
+            "temp": 49.06,
+            "feels_like": 43.59,
+            "pressure": 1012,
+            "humidity": 31,
+            "dew_point": 19.87,
+            "uvi": 1.6,
+            "weather": [
+              {
+                "id": 800,
+                "main": "Clear",
+                "description": "clear sky",
+                "icon": "01d"
+              }
+            ],
+            "clouds": 0,
+            "visibility": 10000,
+            "wind_speed": 14.41,
+            "wind_gust": 24.87,
+            "wind_deg": 319,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-22T20:00:00+00:00",
+            "temp": 48.4,
+            "feels_like": 43.18,
+            "pressure": 1013,
+            "humidity": 33,
+            "dew_point": 20.34,
+            "uvi": 0.88,
+            "weather": [
+              {
+                "id": 800,
+                "main": "Clear",
+                "description": "clear sky",
+                "icon": "01d"
+              }
+            ],
+            "clouds": 0,
+            "visibility": 10000,
+            "wind_speed": 12.82,
+            "wind_gust": 24.85,
+            "wind_deg": 320,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-22T21:00:00+00:00",
+            "temp": 46.31,
+            "feels_like": 40.98,
+            "pressure": 1014,
+            "humidity": 35,
+            "dew_point": 20.32,
+            "uvi": 0.31,
+            "weather": [
+              {
+                "id": 800,
+                "main": "Clear",
+                "description": "clear sky",
+                "icon": "01d"
+              }
+            ],
+            "clouds": 0,
+            "visibility": 10000,
+            "wind_speed": 11.39,
+            "wind_gust": 24.47,
+            "wind_deg": 322,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-22T22:00:00+00:00",
+            "temp": 42.51,
+            "feels_like": 36.66,
+            "pressure": 1015,
+            "humidity": 39,
+            "dew_point": 19.49,
+            "uvi": 0.0,
+            "weather": [
+              {
+                "id": 800,
+                "main": "Clear",
+                "description": "clear sky",
+                "icon": "01d"
+              }
+            ],
+            "clouds": 0,
+            "visibility": 10000,
+            "wind_speed": 10.22,
+            "wind_gust": 21.94,
+            "wind_deg": 325,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-22T23:00:00+00:00",
+            "temp": 39.6,
+            "feels_like": 33.42,
+            "pressure": 1017,
+            "humidity": 43,
+            "dew_point": 19.06,
+            "uvi": 0.0,
+            "weather": [
+              {
+                "id": 800,
+                "main": "Clear",
+                "description": "clear sky",
+                "icon": "01n"
+              }
+            ],
+            "clouds": 0,
+            "visibility": 10000,
+            "wind_speed": 9.37,
+            "wind_gust": 22.41,
+            "wind_deg": 330,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-23T00:00:00+00:00",
+            "temp": 37.67,
+            "feels_like": 31.3,
+            "pressure": 1018,
+            "humidity": 46,
+            "dew_point": 18.91,
+            "uvi": 0.0,
+            "weather": [
+              {
+                "id": 800,
+                "main": "Clear",
+                "description": "clear sky",
+                "icon": "01n"
+              }
+            ],
+            "clouds": 0,
+            "visibility": 10000,
+            "wind_speed": 8.86,
+            "wind_gust": 23.13,
+            "wind_deg": 332,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-23T01:00:00+00:00",
+            "temp": 36.23,
+            "feels_like": 29.55,
+            "pressure": 1019,
+            "humidity": 48,
+            "dew_point": 18.36,
+            "uvi": 0.0,
+            "weather": [
+              {
+                "id": 800,
+                "main": "Clear",
+                "description": "clear sky",
+                "icon": "01n"
+              }
+            ],
+            "clouds": 0,
+            "visibility": 10000,
+            "wind_speed": 8.81,
+            "wind_gust": 23.85,
+            "wind_deg": 333,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-23T02:00:00+00:00",
+            "temp": 34.59,
+            "feels_like": 28.36,
+            "pressure": 1020,
+            "humidity": 51,
+            "dew_point": 18.05,
+            "uvi": 0.0,
+            "weather": [
+              {
+                "id": 800,
+                "main": "Clear",
+                "description": "clear sky",
+                "icon": "01n"
+              }
+            ],
+            "clouds": 0,
+            "visibility": 10000,
+            "wind_speed": 7.4,
+            "wind_gust": 20.94,
+            "wind_deg": 333,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-23T03:00:00+00:00",
+            "temp": 33.35,
+            "feels_like": 27.64,
+            "pressure": 1020,
+            "humidity": 52,
+            "dew_point": 17.67,
+            "uvi": 0.0,
+            "weather": [
+              {
+                "id": 800,
+                "main": "Clear",
+                "description": "clear sky",
+                "icon": "01n"
+              }
+            ],
+            "clouds": 0,
+            "visibility": 10000,
+            "wind_speed": 6.26,
+            "wind_gust": 16.96,
+            "wind_deg": 333,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-23T04:00:00+00:00",
+            "temp": 32.32,
+            "feels_like": 27.57,
+            "pressure": 1021,
+            "humidity": 53,
+            "dew_point": 17.13,
+            "uvi": 0.0,
+            "weather": [
+              {
+                "id": 800,
+                "main": "Clear",
+                "description": "clear sky",
+                "icon": "01n"
+              }
+            ],
+            "clouds": 0,
+            "visibility": 10000,
+            "wind_speed": 4.88,
+            "wind_gust": 12.35,
+            "wind_deg": 341,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-23T05:00:00+00:00",
+            "temp": 31.39,
+            "feels_like": 28.02,
+            "pressure": 1021,
+            "humidity": 54,
+            "dew_point": 16.43,
+            "uvi": 0.0,
+            "weather": [
+              {
+                "id": 800,
+                "main": "Clear",
+                "description": "clear sky",
+                "icon": "01n"
+              }
+            ],
+            "clouds": 0,
+            "visibility": 10000,
+            "wind_speed": 3.44,
+            "wind_gust": 7.29,
+            "wind_deg": 359,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-23T06:00:00+00:00",
+            "temp": 30.56,
+            "feels_like": 30.56,
+            "pressure": 1022,
+            "humidity": 54,
+            "dew_point": 15.89,
+            "uvi": 0.0,
+            "weather": [
+              {
+                "id": 800,
+                "main": "Clear",
+                "description": "clear sky",
+                "icon": "01n"
+              }
+            ],
+            "clouds": 0,
+            "visibility": 10000,
+            "wind_speed": 1.3,
+            "wind_gust": 2.06,
+            "wind_deg": 343,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-23T07:00:00+00:00",
+            "temp": 30.06,
+            "feels_like": 30.06,
+            "pressure": 1023,
+            "humidity": 54,
+            "dew_point": 15.48,
+            "uvi": 0.0,
+            "weather": [
+              {
+                "id": 800,
+                "main": "Clear",
+                "description": "clear sky",
+                "icon": "01n"
+              }
+            ],
+            "clouds": 0,
+            "visibility": 10000,
+            "wind_speed": 1.05,
+            "wind_gust": 1.74,
+            "wind_deg": 33,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-23T08:00:00+00:00",
+            "temp": 29.91,
+            "feels_like": 29.91,
+            "pressure": 1023,
+            "humidity": 54,
+            "dew_point": 15.04,
+            "uvi": 0.0,
+            "weather": [
+              {
+                "id": 800,
+                "main": "Clear",
+                "description": "clear sky",
+                "icon": "01n"
+              }
+            ],
+            "clouds": 0,
+            "visibility": 10000,
+            "wind_speed": 1.59,
+            "wind_gust": 1.99,
+            "wind_deg": 70,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-23T09:00:00+00:00",
+            "temp": 29.73,
+            "feels_like": 29.73,
+            "pressure": 1023,
+            "humidity": 53,
+            "dew_point": 14.79,
+            "uvi": 0.0,
+            "weather": [
+              {
+                "id": 800,
+                "main": "Clear",
+                "description": "clear sky",
+                "icon": "01n"
+              }
+            ],
+            "clouds": 0,
+            "visibility": 10000,
+            "wind_speed": 1.3,
+            "wind_gust": 1.7,
+            "wind_deg": 48,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-23T10:00:00+00:00",
+            "temp": 29.59,
+            "feels_like": 29.59,
+            "pressure": 1024,
+            "humidity": 53,
+            "dew_point": 14.56,
+            "uvi": 0.0,
+            "weather": [
+              {
+                "id": 800,
+                "main": "Clear",
+                "description": "clear sky",
+                "icon": "01n"
+              }
+            ],
+            "clouds": 0,
+            "visibility": 10000,
+            "wind_speed": 0.92,
+            "wind_gust": 1.34,
+            "wind_deg": 77,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-23T11:00:00+00:00",
+            "temp": 29.61,
+            "feels_like": 29.61,
+            "pressure": 1024,
+            "humidity": 53,
+            "dew_point": 14.4,
+            "uvi": 0.0,
+            "weather": [
+              {
+                "id": 800,
+                "main": "Clear",
+                "description": "clear sky",
+                "icon": "01n"
+              }
+            ],
+            "clouds": 0,
+            "visibility": 10000,
+            "wind_speed": 0.18,
+            "wind_gust": 1.19,
+            "wind_deg": 87,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-23T12:00:00+00:00",
+            "temp": 29.57,
+            "feels_like": 29.57,
+            "pressure": 1025,
+            "humidity": 52,
+            "dew_point": 14.09,
+            "uvi": 0.0,
+            "weather": [
+              {
+                "id": 800,
+                "main": "Clear",
+                "description": "clear sky",
+                "icon": "01n"
+              }
+            ],
+            "clouds": 0,
+            "visibility": 10000,
+            "wind_speed": 1.19,
+            "wind_gust": 1.43,
+            "wind_deg": 148,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-23T13:00:00+00:00",
+            "temp": 30.87,
+            "feels_like": 30.87,
+            "pressure": 1026,
+            "humidity": 49,
+            "dew_point": 14.11,
+            "uvi": 0.0,
+            "weather": [
+              {
+                "id": 800,
+                "main": "Clear",
+                "description": "clear sky",
+                "icon": "01d"
+              }
+            ],
+            "clouds": 0,
+            "visibility": 10000,
+            "wind_speed": 0.63,
+            "wind_gust": 1.05,
+            "wind_deg": 193,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-23T14:00:00+00:00",
+            "temp": 35.53,
+            "feels_like": 35.53,
+            "pressure": 1026,
+            "humidity": 41,
+            "dew_point": 13.96,
+            "uvi": 0.46,
+            "weather": [
+              {
+                "id": 800,
+                "main": "Clear",
+                "description": "clear sky",
+                "icon": "01d"
+              }
+            ],
+            "clouds": 0,
+            "visibility": 10000,
+            "wind_speed": 2.33,
+            "wind_gust": 3.47,
+            "wind_deg": 179,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-23T15:00:00+00:00",
+            "temp": 39.99,
+            "feels_like": 37.58,
+            "pressure": 1026,
+            "humidity": 34,
+            "dew_point": 13.77,
+            "uvi": 1.1,
+            "weather": [
+              {
+                "id": 800,
+                "main": "Clear",
+                "description": "clear sky",
+                "icon": "01d"
+              }
+            ],
+            "clouds": 0,
+            "visibility": 10000,
+            "wind_speed": 3.71,
+            "wind_gust": 5.35,
+            "wind_deg": 182,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-23T16:00:00+00:00",
+            "temp": 43.66,
+            "feels_like": 41.05,
+            "pressure": 1025,
+            "humidity": 30,
+            "dew_point": 14.0,
+            "uvi": 1.76,
+            "weather": [
+              {
+                "id": 800,
+                "main": "Clear",
+                "description": "clear sky",
+                "icon": "01d"
+              }
+            ],
+            "clouds": 1,
+            "visibility": 10000,
+            "wind_speed": 4.63,
+            "wind_gust": 6.64,
+            "wind_deg": 206,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-23T17:00:00+00:00",
+            "temp": 46.45,
+            "feels_like": 43.81,
+            "pressure": 1024,
+            "humidity": 28,
+            "dew_point": 14.79,
+            "uvi": 2.13,
+            "weather": [
+              {
+                "id": 800,
+                "main": "Clear",
+                "description": "clear sky",
+                "icon": "01d"
+              }
+            ],
+            "clouds": 1,
+            "visibility": 10000,
+            "wind_speed": 5.39,
+            "wind_gust": 7.99,
+            "wind_deg": 214,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-23T18:00:00+00:00",
+            "temp": 48.27,
+            "feels_like": 45.16,
+            "pressure": 1023,
+            "humidity": 27,
+            "dew_point": 16.2,
+            "uvi": 2.05,
+            "weather": [
+              {
+                "id": 800,
+                "main": "Clear",
+                "description": "clear sky",
+                "icon": "01d"
+              }
+            ],
+            "clouds": 1,
+            "visibility": 10000,
+            "wind_speed": 6.89,
+            "wind_gust": 9.98,
+            "wind_deg": 210,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-23T19:00:00+00:00",
+            "temp": 49.26,
+            "feels_like": 45.75,
+            "pressure": 1022,
+            "humidity": 29,
+            "dew_point": 18.18,
+            "uvi": 1.55,
+            "weather": [
+              {
+                "id": 800,
+                "main": "Clear",
+                "description": "clear sky",
+                "icon": "01d"
+              }
+            ],
+            "clouds": 0,
+            "visibility": 10000,
+            "wind_speed": 8.28,
+            "wind_gust": 11.92,
+            "wind_deg": 218,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-23T20:00:00+00:00",
+            "temp": 49.3,
+            "feels_like": 45.68,
+            "pressure": 1022,
+            "humidity": 31,
+            "dew_point": 20.05,
+            "uvi": 0.85,
+            "weather": [
+              {
+                "id": 800,
+                "main": "Clear",
+                "description": "clear sky",
+                "icon": "01d"
+              }
+            ],
+            "clouds": 0,
+            "visibility": 10000,
+            "wind_speed": 8.59,
+            "wind_gust": 12.71,
+            "wind_deg": 218,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-23T21:00:00+00:00",
+            "temp": 47.84,
+            "feels_like": 44.31,
+            "pressure": 1022,
+            "humidity": 37,
+            "dew_point": 22.96,
+            "uvi": 0.3,
+            "weather": [
+              {
+                "id": 800,
+                "main": "Clear",
+                "description": "clear sky",
+                "icon": "01d"
+              }
+            ],
+            "clouds": 0,
+            "visibility": 10000,
+            "wind_speed": 7.61,
+            "wind_gust": 14.88,
+            "wind_deg": 212,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-23T22:00:00+00:00",
+            "temp": 42.49,
+            "feels_like": 38.23,
+            "pressure": 1022,
+            "humidity": 47,
+            "dew_point": 23.94,
+            "uvi": 0.0,
+            "weather": [
+              {
+                "id": 800,
+                "main": "Clear",
+                "description": "clear sky",
+                "icon": "01d"
+              }
+            ],
+            "clouds": 0,
+            "visibility": 10000,
+            "wind_speed": 6.85,
+            "wind_gust": 17.74,
+            "wind_deg": 202,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-23T23:00:00+00:00",
+            "temp": 39.36,
+            "feels_like": 34.47,
+            "pressure": 1022,
+            "humidity": 54,
+            "dew_point": 24.08,
+            "uvi": 0.0,
+            "weather": [
+              {
+                "id": 800,
+                "main": "Clear",
+                "description": "clear sky",
+                "icon": "01n"
+              }
+            ],
+            "clouds": 0,
+            "visibility": 10000,
+            "wind_speed": 6.82,
+            "wind_gust": 20.98,
+            "wind_deg": 196,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-24T00:00:00+00:00",
+            "temp": 39.09,
+            "feels_like": 33.46,
+            "pressure": 1022,
+            "humidity": 55,
+            "dew_point": 24.12,
+            "uvi": 0.0,
+            "weather": [
+              {
+                "id": 800,
+                "main": "Clear",
+                "description": "clear sky",
+                "icon": "01n"
+              }
+            ],
+            "clouds": 0,
+            "visibility": 10000,
+            "wind_speed": 8.03,
+            "wind_gust": 25.99,
+            "wind_deg": 199,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          }
+        ],
+        "daily": [
+          {
+            "dt": "2021-12-21T17:00:00+00:00",
+            "sunrise": "2021-12-21T12:26:39+00:00",
+            "sunset": "2021-12-21T22:08:18+00:00",
+            "moonrise": "2021-12-22T00:18:00+00:00",
+            "moonset": "2021-12-21T14:34:00+00:00",
+            "moon_phase": 0.58,
+            "temp": {
+              "day": 42.37,
+              "min": 31.75,
+              "max": 42.37,
+              "night": 39.45,
+              "eve": 39.16,
+              "morn": 32.95
+            },
+            "feels_like": {
+              "day": 39.87,
+              "min": 0.0,
+              "max": 0.0,
+              "night": 36.77,
+              "eve": 35.46,
+              "morn": 32.95
+            },
+            "pressure": 1017,
+            "humidity": 40,
+            "dew_point": 19.53,
+            "wind_speed": 5.1,
+            "wind_deg": 45,
+            "wind_gust": 12.33,
+            "weather": [
+              {
+                "id": 804,
+                "main": "Clouds",
+                "description": "overcast clouds",
+                "icon": "04d"
+              }
+            ],
+            "clouds": 100,
+            "pop": 0,
+            "rain": 0.0,
+            "uvi": 1.49
+          },
+          {
+            "dt": "2021-12-22T17:00:00+00:00",
+            "sunrise": "2021-12-22T12:27:07+00:00",
+            "sunset": "2021-12-22T22:08:47+00:00",
+            "moonrise": "2021-12-23T01:18:00+00:00",
+            "moonset": "2021-12-22T15:14:00+00:00",
+            "moon_phase": 0.61,
+            "temp": {
+              "day": 48.56,
+              "min": 32.32,
+              "max": 49.06,
+              "night": 32.32,
+              "eve": 39.6,
+              "morn": 37.24
+            },
+            "feels_like": {
+              "day": 43.0,
+              "min": 0.0,
+              "max": 0.0,
+              "night": 27.57,
+              "eve": 33.42,
+              "morn": 32.25
+            },
+            "pressure": 1012,
+            "humidity": 36,
+            "dew_point": 22.86,
+            "wind_speed": 14.41,
+            "wind_deg": 319,
+            "wind_gust": 27.2,
+            "weather": [
+              {
+                "id": 801,
+                "main": "Clouds",
+                "description": "few clouds",
+                "icon": "02d"
+              }
+            ],
+            "clouds": 11,
+            "pop": 0,
+            "rain": 0.0,
+            "uvi": 2.25
+          },
+          {
+            "dt": "2021-12-23T17:00:00+00:00",
+            "sunrise": "2021-12-23T12:27:34+00:00",
+            "sunset": "2021-12-23T22:09:18+00:00",
+            "moonrise": "2021-12-24T02:19:00+00:00",
+            "moonset": "2021-12-23T15:50:00+00:00",
+            "moon_phase": 0.64,
+            "temp": {
+              "day": 46.45,
+              "min": 29.57,
+              "max": 49.3,
+              "night": 38.91,
+              "eve": 39.36,
+              "morn": 29.61
+            },
+            "feels_like": {
+              "day": 43.81,
+              "min": 0.0,
+              "max": 0.0,
+              "night": 32.32,
+              "eve": 34.47,
+              "morn": 29.61
+            },
+            "pressure": 1024,
+            "humidity": 28,
+            "dew_point": 14.79,
+            "wind_speed": 9.93,
+            "wind_deg": 214,
+            "wind_gust": 33.2,
+            "weather": [
+              {
+                "id": 800,
+                "main": "Clear",
+                "description": "clear sky",
+                "icon": "01d"
+              }
+            ],
+            "clouds": 1,
+            "pop": 0,
+            "rain": 0.0,
+            "uvi": 2.13
+          },
+          {
+            "dt": "2021-12-24T17:00:00+00:00",
+            "sunrise": "2021-12-24T12:27:59+00:00",
+            "sunset": "2021-12-24T22:09:51+00:00",
+            "moonrise": "2021-12-25T03:21:00+00:00",
+            "moonset": "2021-12-24T16:22:00+00:00",
+            "moon_phase": 0.67,
+            "temp": {
+              "day": 53.53,
+              "min": 37.26,
+              "max": 55.0,
+              "night": 48.97,
+              "eve": 46.94,
+              "morn": 37.26
+            },
+            "feels_like": {
+              "day": 50.74,
+              "min": 0.0,
+              "max": 0.0,
+              "night": 44.26,
+              "eve": 43.93,
+              "morn": 32.4
+            },
+            "pressure": 1019,
+            "humidity": 46,
+            "dew_point": 33.24,
+            "wind_speed": 11.56,
+            "wind_deg": 220,
+            "wind_gust": 35.77,
+            "weather": [
+              {
+                "id": 804,
+                "main": "Clouds",
+                "description": "overcast clouds",
+                "icon": "04d"
+              }
+            ],
+            "clouds": 100,
+            "pop": 0,
+            "rain": 0.0,
+            "uvi": 1.6
+          },
+          {
+            "dt": "2021-12-25T17:00:00+00:00",
+            "sunrise": "2021-12-25T12:28:22+00:00",
+            "sunset": "2021-12-25T22:10:25+00:00",
+            "moonrise": "2021-12-26T04:23:00+00:00",
+            "moonset": "2021-12-25T16:50:00+00:00",
+            "moon_phase": 0.7,
+            "temp": {
+              "day": 60.71,
+              "min": 46.18,
+              "max": 60.71,
+              "night": 59.02,
+              "eve": 59.05,
+              "morn": 46.18
+            },
+            "feels_like": {
+              "day": 59.72,
+              "min": 0.0,
+              "max": 0.0,
+              "night": 58.62,
+              "eve": 58.51,
+              "morn": 41.5
+            },
+            "pressure": 1008,
+            "humidity": 69,
+            "dew_point": 50.49,
+            "wind_speed": 12.95,
+            "wind_deg": 234,
+            "wind_gust": 37.38,
+            "weather": [
+              {
+                "id": 804,
+                "main": "Clouds",
+                "description": "overcast clouds",
+                "icon": "04d"
+              }
+            ],
+            "clouds": 87,
+            "pop": 0,
+            "rain": 0.0,
+            "uvi": 2.05
+          },
+          {
+            "dt": "2021-12-26T17:00:00+00:00",
+            "sunrise": "2021-12-26T12:28:44+00:00",
+            "sunset": "2021-12-26T22:11:01+00:00",
+            "moonrise": "1970-01-01T00:00:00+00:00",
+            "moonset": "2021-12-26T17:17:00+00:00",
+            "moon_phase": 0.75,
+            "temp": {
+              "day": 54.1,
+              "min": 40.3,
+              "max": 59.92,
+              "night": 40.3,
+              "eve": 44.15,
+              "morn": 51.1
+            },
+            "feels_like": {
+              "day": 51.04,
+              "min": 0.0,
+              "max": 0.0,
+              "night": 36.05,
+              "eve": 37.85,
+              "morn": 47.79
+            },
+            "pressure": 1012,
+            "humidity": 39,
+            "dew_point": 29.48,
+            "wind_speed": 17.25,
+            "wind_deg": 311,
+            "wind_gust": 39.19,
+            "weather": [
+              {
+                "id": 800,
+                "main": "Clear",
+                "description": "clear sky",
+                "icon": "01d"
+              }
+            ],
+            "clouds": 0,
+            "pop": 0,
+            "rain": 0.0,
+            "uvi": 3.0
+          },
+          {
+            "dt": "2021-12-27T17:00:00+00:00",
+            "sunrise": "2021-12-27T12:29:03+00:00",
+            "sunset": "2021-12-27T22:11:38+00:00",
+            "moonrise": "2021-12-27T05:26:00+00:00",
+            "moonset": "2021-12-27T17:45:00+00:00",
+            "moon_phase": 0.77,
+            "temp": {
+              "day": 43.45,
+              "min": 38.64,
+              "max": 46.98,
+              "night": 46.98,
+              "eve": 46.0,
+              "morn": 40.5
+            },
+            "feels_like": {
+              "day": 41.02,
+              "min": 0.0,
+              "max": 0.0,
+              "night": 45.37,
+              "eve": 46.0,
+              "morn": 40.5
+            },
+            "pressure": 1020,
+            "humidity": 61,
+            "dew_point": 30.76,
+            "wind_speed": 4.34,
+            "wind_deg": 170,
+            "wind_gust": 10.78,
+            "weather": [
+              {
+                "id": 500,
+                "main": "Rain",
+                "description": "light rain",
+                "icon": "10d"
+              }
+            ],
+            "clouds": 100,
+            "pop": 0,
+            "rain": 0.31,
+            "uvi": 3.0
+          },
+          {
+            "dt": "2021-12-28T17:00:00+00:00",
+            "sunrise": "2021-12-28T12:29:21+00:00",
+            "sunset": "2021-12-28T22:12:18+00:00",
+            "moonrise": "2021-12-28T06:32:00+00:00",
+            "moonset": "2021-12-28T18:14:00+00:00",
+            "moon_phase": 0.81,
+            "temp": {
+              "day": 60.55,
+              "min": 44.8,
+              "max": 60.55,
+              "night": 54.25,
+              "eve": 55.08,
+              "morn": 45.73
+            },
+            "feels_like": {
+              "day": 58.89,
+              "min": 0.0,
+              "max": 0.0,
+              "night": 53.51,
+              "eve": 54.14,
+              "morn": 44.44
+            },
+            "pressure": 1015,
+            "humidity": 55,
+            "dew_point": 44.22,
+            "wind_speed": 5.95,
+            "wind_deg": 173,
+            "wind_gust": 19.1,
+            "weather": [
+              {
+                "id": 500,
+                "main": "Rain",
+                "description": "light rain",
+                "icon": "10d"
+              }
+            ],
+            "clouds": 92,
+            "pop": 0,
+            "rain": 0.11,
+            "uvi": 3.0
+          }
+        ]
+      }
+    }
+  },
+  "https://nominatim.openstreetmap.org/search?format=json&limit=1&postalcode=27455": {
+    "location": {
+      "display_name": "Greensboro, Guilford County, North Carolina, 27455, United States",
+      "lat": 36.158075647227044,
+      "lon": -79.81330895473118
+    },
+    "currentWeather": {
+      "cache_duration_minutes": 15,
+      "date_time_saved": "2021-12-22T01:36:38.212266",
+      "current_weather": {
+        "coord": { "lon": -79.8133, "lat": 36.1581 },
+        "weather": [
+          {
+            "id": 804,
+            "main": "Clouds",
+            "description": "overcast clouds",
+            "icon": "04n"
+          }
+        ],
+        "base": "stations",
+        "main": {
+          "temp": 39.45,
+          "feels_like": 39.45,
+          "temp_min": 34.32,
+          "temp_max": 43.23,
+          "pressure": 1011,
+          "humidity": 79
+        },
+        "visibility": 10000,
+        "wind": { "speed": 1.99, "deg": 19, "gust": 3.0 },
+        "clouds": { "all": 90 },
+        "rain": null,
+        "snow": null,
+        "dt": "2021-12-22T01:36:38+00:00",
+        "sys": {
+          "type": 2,
+          "id": 2034083,
+          "country": "US",
+          "sunrise": "2021-12-21T12:26:39+00:00",
+          "sunset": "2021-12-21T22:08:18+00:00"
+        },
+        "timezone": -18000,
+        "id": 4493990,
+        "name": "Summerfield",
+        "cod": 200
+      }
+    },
+    "oneCallWeather": {
+      "cache_duration_minutes": 15,
+      "date_time_saved": "2021-12-22T01:36:52.676059",
+      "one_call_weather": {
+        "lat": 36.1581,
+        "lon": -79.8133,
+        "timezone": "America/New_York",
+        "timezone_offset": -18000,
+        "current": {
+          "dt": 1640137012,
+          "sunrise": "2021-12-21T12:26:39+00:00",
+          "sunset": "2021-12-21T22:08:18+00:00",
+          "temp": 39.45,
+          "feels_like": 39.45,
+          "pressure": 1011,
+          "humidity": 79,
+          "dew_point": 33.49,
+          "uvi": 0.0,
+          "clouds": 90,
+          "visibility": 10000,
+          "wind_speed": 1.99,
+          "wind_deg": 19,
+          "wind_gust": 3.0,
+          "weather": [
+            {
+              "id": 804,
+              "main": "Clouds",
+              "description": "overcast clouds",
+              "icon": "04n"
+            }
+          ]
+        },
+        "minutely": [
+          { "dt": "2021-12-22T01:37:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T01:38:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T01:39:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T01:40:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T01:41:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T01:42:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T01:43:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T01:44:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T01:45:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T01:46:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T01:47:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T01:48:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T01:49:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T01:50:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T01:51:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T01:52:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T01:53:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T01:54:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T01:55:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T01:56:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T01:57:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T01:58:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T01:59:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:00:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:01:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:02:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:03:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:04:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:05:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:06:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:07:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:08:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:09:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:10:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:11:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:12:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:13:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:14:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:15:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:16:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:17:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:18:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:19:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:20:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:21:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:22:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:23:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:24:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:25:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:26:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:27:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:28:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:29:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:30:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:31:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:32:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:33:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:34:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:35:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:36:00+00:00", "precipitation": 0.0 },
+          { "dt": "2021-12-22T02:37:00+00:00", "precipitation": 0.0 }
+        ],
+        "hourly": [
+          {
+            "dt": "2021-12-22T01:00:00+00:00",
+            "temp": 39.22,
+            "feels_like": 35.87,
+            "pressure": 1011,
+            "humidity": 75,
+            "dew_point": 31.98,
+            "uvi": 0.0,
+            "weather": [
+              {
+                "id": 804,
+                "main": "Clouds",
+                "description": "overcast clouds",
+                "icon": "04n"
+              }
+            ],
+            "clouds": 92,
+            "visibility": 10000,
+            "wind_speed": 4.61,
+            "wind_gust": 10.16,
+            "wind_deg": 5,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-22T02:00:00+00:00",
+            "temp": 39.45,
+            "feels_like": 36.36,
+            "pressure": 1011,
+            "humidity": 79,
+            "dew_point": 33.49,
+            "uvi": 0.0,
+            "weather": [
+              {
+                "id": 804,
+                "main": "Clouds",
+                "description": "overcast clouds",
+                "icon": "04n"
+              }
+            ],
+            "clouds": 90,
+            "visibility": 10000,
+            "wind_speed": 4.36,
+            "wind_gust": 8.59,
+            "wind_deg": 4,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-22T03:00:00+00:00",
+            "temp": 39.4,
+            "feels_like": 35.82,
+            "pressure": 1011,
+            "humidity": 75,
+            "dew_point": 32.14,
+            "uvi": 0.0,
+            "weather": [
+              {
+                "id": 804,
+                "main": "Clouds",
+                "description": "overcast clouds",
+                "icon": "04n"
+              }
+            ],
+            "clouds": 92,
+            "visibility": 10000,
+            "wind_speed": 4.94,
+            "wind_gust": 12.33,
+            "wind_deg": 4,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-22T04:00:00+00:00",
+            "temp": 39.45,
+            "feels_like": 36.77,
+            "pressure": 1011,
+            "humidity": 71,
+            "dew_point": 30.99,
+            "uvi": 0.0,
+            "weather": [
+              {
+                "id": 804,
+                "main": "Clouds",
+                "description": "overcast clouds",
+                "icon": "04n"
+              }
+            ],
+            "clouds": 94,
+            "visibility": 10000,
+            "wind_speed": 3.91,
+            "wind_gust": 8.75,
+            "wind_deg": 34,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-22T05:00:00+00:00",
+            "temp": 39.63,
+            "feels_like": 36.84,
+            "pressure": 1010,
+            "humidity": 67,
+            "dew_point": 29.88,
+            "uvi": 0.0,
+            "weather": [
+              {
+                "id": 804,
+                "main": "Clouds",
+                "description": "overcast clouds",
+                "icon": "04n"
+              }
+            ],
+            "clouds": 96,
+            "visibility": 10000,
+            "wind_speed": 4.05,
+            "wind_gust": 9.15,
+            "wind_deg": 30,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-22T06:00:00+00:00",
+            "temp": 39.9,
+            "feels_like": 36.54,
+            "pressure": 1009,
+            "humidity": 64,
+            "dew_point": 29.12,
+            "uvi": 0.0,
+            "weather": [
+              {
+                "id": 804,
+                "main": "Clouds",
+                "description": "overcast clouds",
+                "icon": "04n"
+              }
+            ],
+            "clouds": 98,
+            "visibility": 10000,
+            "wind_speed": 4.76,
+            "wind_gust": 9.13,
+            "wind_deg": 334,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-22T07:00:00+00:00",
+            "temp": 39.52,
+            "feels_like": 34.75,
+            "pressure": 1008,
+            "humidity": 62,
+            "dew_point": 27.61,
+            "uvi": 0.0,
+            "weather": [
+              {
+                "id": 804,
+                "main": "Clouds",
+                "description": "overcast clouds",
+                "icon": "04n"
+              }
+            ],
+            "clouds": 96,
+            "visibility": 10000,
+            "wind_speed": 6.69,
+            "wind_gust": 15.39,
+            "wind_deg": 333,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-22T08:00:00+00:00",
+            "temp": 36.68,
+            "feels_like": 31.86,
+            "pressure": 1008,
+            "humidity": 65,
+            "dew_point": 25.84,
+            "uvi": 0.0,
+            "weather": [
+              {
+                "id": 803,
+                "main": "Clouds",
+                "description": "broken clouds",
+                "icon": "04n"
+              }
+            ],
+            "clouds": 83,
+            "visibility": 10000,
+            "wind_speed": 5.93,
+            "wind_gust": 16.35,
+            "wind_deg": 328,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-22T09:00:00+00:00",
+            "temp": 36.14,
+            "feels_like": 30.92,
+            "pressure": 1008,
+            "humidity": 60,
+            "dew_point": 23.77,
+            "uvi": 0.0,
+            "weather": [
+              {
+                "id": 804,
+                "main": "Clouds",
+                "description": "overcast clouds",
+                "icon": "04n"
+              }
+            ],
+            "clouds": 87,
+            "visibility": 10000,
+            "wind_speed": 6.33,
+            "wind_gust": 21.21,
+            "wind_deg": 316,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-22T10:00:00+00:00",
+            "temp": 36.86,
+            "feels_like": 31.03,
+            "pressure": 1008,
+            "humidity": 61,
+            "dew_point": 24.57,
+            "uvi": 0.0,
+            "weather": [
+              {
+                "id": 803,
+                "main": "Clouds",
+                "description": "broken clouds",
+                "icon": "04n"
+              }
+            ],
+            "clouds": 79,
+            "visibility": 10000,
+            "wind_speed": 7.54,
+            "wind_gust": 27.2,
+            "wind_deg": 320,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-22T11:00:00+00:00",
+            "temp": 37.24,
+            "feels_like": 32.25,
+            "pressure": 1008,
+            "humidity": 67,
+            "dew_point": 27.34,
+            "uvi": 0.0,
+            "weather": [
+              {
+                "id": 803,
+                "main": "Clouds",
+                "description": "broken clouds",
+                "icon": "04n"
+              }
+            ],
+            "clouds": 80,
+            "visibility": 10000,
+            "wind_speed": 6.31,
+            "wind_gust": 20.42,
+            "wind_deg": 310,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-22T12:00:00+00:00",
+            "temp": 37.6,
+            "feels_like": 32.67,
+            "pressure": 1008,
+            "humidity": 72,
+            "dew_point": 29.25,
+            "uvi": 0.0,
+            "weather": [
+              {
+                "id": 803,
+                "main": "Clouds",
+                "description": "broken clouds",
+                "icon": "04n"
+              }
+            ],
+            "clouds": 82,
+            "visibility": 10000,
+            "wind_speed": 6.33,
+            "wind_gust": 17.56,
+            "wind_deg": 304,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-22T13:00:00+00:00",
+            "temp": 38.89,
+            "feels_like": 33.08,
+            "pressure": 1009,
+            "humidity": 71,
+            "dew_point": 30.11,
+            "uvi": 0.0,
+            "weather": [
+              {
+                "id": 802,
+                "main": "Clouds",
+                "description": "scattered clouds",
+                "icon": "03d"
+              }
+            ],
+            "clouds": 40,
+            "visibility": 10000,
+            "wind_speed": 8.3,
+            "wind_gust": 22.32,
+            "wind_deg": 303,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-22T14:00:00+00:00",
+            "temp": 42.96,
+            "feels_like": 37.29,
+            "pressure": 1010,
+            "humidity": 62,
+            "dew_point": 30.83,
+            "uvi": 0.48,
+            "weather": [
+              {
+                "id": 801,
+                "main": "Clouds",
+                "description": "few clouds",
+                "icon": "02d"
+              }
+            ],
+            "clouds": 23,
+            "visibility": 10000,
+            "wind_speed": 10.04,
+            "wind_gust": 24.94,
+            "wind_deg": 311,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-22T15:00:00+00:00",
+            "temp": 45.73,
+            "feels_like": 40.12,
+            "pressure": 1011,
+            "humidity": 53,
+            "dew_point": 29.75,
+            "uvi": 1.15,
+            "weather": [
+              {
+                "id": 801,
+                "main": "Clouds",
+                "description": "few clouds",
+                "icon": "02d"
+              }
+            ],
+            "clouds": 16,
+            "visibility": 10000,
+            "wind_speed": 11.79,
+            "wind_gust": 24.47,
+            "wind_deg": 318,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-22T16:00:00+00:00",
+            "temp": 47.59,
+            "feels_like": 42.06,
+            "pressure": 1012,
+            "humidity": 44,
+            "dew_point": 26.6,
+            "uvi": 1.85,
+            "weather": [
+              {
+                "id": 801,
+                "main": "Clouds",
+                "description": "few clouds",
+                "icon": "02d"
+              }
+            ],
+            "clouds": 13,
+            "visibility": 10000,
+            "wind_speed": 13.11,
+            "wind_gust": 22.79,
+            "wind_deg": 317,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-22T17:00:00+00:00",
+            "temp": 48.56,
+            "feels_like": 43.0,
+            "pressure": 1012,
+            "humidity": 36,
+            "dew_point": 22.86,
+            "uvi": 2.25,
+            "weather": [
+              {
+                "id": 801,
+                "main": "Clouds",
+                "description": "few clouds",
+                "icon": "02d"
+              }
+            ],
+            "clouds": 11,
+            "visibility": 10000,
+            "wind_speed": 14.18,
+            "wind_gust": 24.27,
+            "wind_deg": 318,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-22T18:00:00+00:00",
+            "temp": 48.79,
+            "feels_like": 43.25,
+            "pressure": 1012,
+            "humidity": 32,
+            "dew_point": 20.46,
+            "uvi": 2.17,
+            "weather": [
+              {
+                "id": 800,
+                "main": "Clear",
+                "description": "clear sky",
+                "icon": "01d"
+              }
+            ],
+            "clouds": 9,
+            "visibility": 10000,
+            "wind_speed": 14.36,
+            "wind_gust": 23.22,
+            "wind_deg": 318,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-22T19:00:00+00:00",
+            "temp": 49.06,
+            "feels_like": 43.59,
+            "pressure": 1012,
+            "humidity": 31,
+            "dew_point": 19.87,
+            "uvi": 1.6,
+            "weather": [
+              {
+                "id": 800,
+                "main": "Clear",
+                "description": "clear sky",
+                "icon": "01d"
+              }
+            ],
+            "clouds": 0,
+            "visibility": 10000,
+            "wind_speed": 14.41,
+            "wind_gust": 24.87,
+            "wind_deg": 319,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-22T20:00:00+00:00",
+            "temp": 48.4,
+            "feels_like": 43.18,
+            "pressure": 1013,
+            "humidity": 33,
+            "dew_point": 20.34,
+            "uvi": 0.88,
+            "weather": [
+              {
+                "id": 800,
+                "main": "Clear",
+                "description": "clear sky",
+                "icon": "01d"
+              }
+            ],
+            "clouds": 0,
+            "visibility": 10000,
+            "wind_speed": 12.82,
+            "wind_gust": 24.85,
+            "wind_deg": 320,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-22T21:00:00+00:00",
+            "temp": 46.31,
+            "feels_like": 40.98,
+            "pressure": 1014,
+            "humidity": 35,
+            "dew_point": 20.32,
+            "uvi": 0.31,
+            "weather": [
+              {
+                "id": 800,
+                "main": "Clear",
+                "description": "clear sky",
+                "icon": "01d"
+              }
+            ],
+            "clouds": 0,
+            "visibility": 10000,
+            "wind_speed": 11.39,
+            "wind_gust": 24.47,
+            "wind_deg": 322,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-22T22:00:00+00:00",
+            "temp": 42.51,
+            "feels_like": 36.66,
+            "pressure": 1015,
+            "humidity": 39,
+            "dew_point": 19.49,
+            "uvi": 0.0,
+            "weather": [
+              {
+                "id": 800,
+                "main": "Clear",
+                "description": "clear sky",
+                "icon": "01d"
+              }
+            ],
+            "clouds": 0,
+            "visibility": 10000,
+            "wind_speed": 10.22,
+            "wind_gust": 21.94,
+            "wind_deg": 325,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-22T23:00:00+00:00",
+            "temp": 39.6,
+            "feels_like": 33.42,
+            "pressure": 1017,
+            "humidity": 43,
+            "dew_point": 19.06,
+            "uvi": 0.0,
+            "weather": [
+              {
+                "id": 800,
+                "main": "Clear",
+                "description": "clear sky",
+                "icon": "01n"
+              }
+            ],
+            "clouds": 0,
+            "visibility": 10000,
+            "wind_speed": 9.37,
+            "wind_gust": 22.41,
+            "wind_deg": 330,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-23T00:00:00+00:00",
+            "temp": 37.67,
+            "feels_like": 31.3,
+            "pressure": 1018,
+            "humidity": 46,
+            "dew_point": 18.91,
+            "uvi": 0.0,
+            "weather": [
+              {
+                "id": 800,
+                "main": "Clear",
+                "description": "clear sky",
+                "icon": "01n"
+              }
+            ],
+            "clouds": 0,
+            "visibility": 10000,
+            "wind_speed": 8.86,
+            "wind_gust": 23.13,
+            "wind_deg": 332,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-23T01:00:00+00:00",
+            "temp": 36.23,
+            "feels_like": 29.55,
+            "pressure": 1019,
+            "humidity": 48,
+            "dew_point": 18.36,
+            "uvi": 0.0,
+            "weather": [
+              {
+                "id": 800,
+                "main": "Clear",
+                "description": "clear sky",
+                "icon": "01n"
+              }
+            ],
+            "clouds": 0,
+            "visibility": 10000,
+            "wind_speed": 8.81,
+            "wind_gust": 23.85,
+            "wind_deg": 333,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-23T02:00:00+00:00",
+            "temp": 34.59,
+            "feels_like": 28.36,
+            "pressure": 1020,
+            "humidity": 51,
+            "dew_point": 18.05,
+            "uvi": 0.0,
+            "weather": [
+              {
+                "id": 800,
+                "main": "Clear",
+                "description": "clear sky",
+                "icon": "01n"
+              }
+            ],
+            "clouds": 0,
+            "visibility": 10000,
+            "wind_speed": 7.4,
+            "wind_gust": 20.94,
+            "wind_deg": 333,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-23T03:00:00+00:00",
+            "temp": 33.35,
+            "feels_like": 27.64,
+            "pressure": 1020,
+            "humidity": 52,
+            "dew_point": 17.67,
+            "uvi": 0.0,
+            "weather": [
+              {
+                "id": 800,
+                "main": "Clear",
+                "description": "clear sky",
+                "icon": "01n"
+              }
+            ],
+            "clouds": 0,
+            "visibility": 10000,
+            "wind_speed": 6.26,
+            "wind_gust": 16.96,
+            "wind_deg": 333,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-23T04:00:00+00:00",
+            "temp": 32.32,
+            "feels_like": 27.57,
+            "pressure": 1021,
+            "humidity": 53,
+            "dew_point": 17.13,
+            "uvi": 0.0,
+            "weather": [
+              {
+                "id": 800,
+                "main": "Clear",
+                "description": "clear sky",
+                "icon": "01n"
+              }
+            ],
+            "clouds": 0,
+            "visibility": 10000,
+            "wind_speed": 4.88,
+            "wind_gust": 12.35,
+            "wind_deg": 341,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-23T05:00:00+00:00",
+            "temp": 31.39,
+            "feels_like": 28.02,
+            "pressure": 1021,
+            "humidity": 54,
+            "dew_point": 16.43,
+            "uvi": 0.0,
+            "weather": [
+              {
+                "id": 800,
+                "main": "Clear",
+                "description": "clear sky",
+                "icon": "01n"
+              }
+            ],
+            "clouds": 0,
+            "visibility": 10000,
+            "wind_speed": 3.44,
+            "wind_gust": 7.29,
+            "wind_deg": 359,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-23T06:00:00+00:00",
+            "temp": 30.56,
+            "feels_like": 30.56,
+            "pressure": 1022,
+            "humidity": 54,
+            "dew_point": 15.89,
+            "uvi": 0.0,
+            "weather": [
+              {
+                "id": 800,
+                "main": "Clear",
+                "description": "clear sky",
+                "icon": "01n"
+              }
+            ],
+            "clouds": 0,
+            "visibility": 10000,
+            "wind_speed": 1.3,
+            "wind_gust": 2.06,
+            "wind_deg": 343,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-23T07:00:00+00:00",
+            "temp": 30.06,
+            "feels_like": 30.06,
+            "pressure": 1023,
+            "humidity": 54,
+            "dew_point": 15.48,
+            "uvi": 0.0,
+            "weather": [
+              {
+                "id": 800,
+                "main": "Clear",
+                "description": "clear sky",
+                "icon": "01n"
+              }
+            ],
+            "clouds": 0,
+            "visibility": 10000,
+            "wind_speed": 1.05,
+            "wind_gust": 1.74,
+            "wind_deg": 33,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-23T08:00:00+00:00",
+            "temp": 29.91,
+            "feels_like": 29.91,
+            "pressure": 1023,
+            "humidity": 54,
+            "dew_point": 15.04,
+            "uvi": 0.0,
+            "weather": [
+              {
+                "id": 800,
+                "main": "Clear",
+                "description": "clear sky",
+                "icon": "01n"
+              }
+            ],
+            "clouds": 0,
+            "visibility": 10000,
+            "wind_speed": 1.59,
+            "wind_gust": 1.99,
+            "wind_deg": 70,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-23T09:00:00+00:00",
+            "temp": 29.73,
+            "feels_like": 29.73,
+            "pressure": 1023,
+            "humidity": 53,
+            "dew_point": 14.79,
+            "uvi": 0.0,
+            "weather": [
+              {
+                "id": 800,
+                "main": "Clear",
+                "description": "clear sky",
+                "icon": "01n"
+              }
+            ],
+            "clouds": 0,
+            "visibility": 10000,
+            "wind_speed": 1.3,
+            "wind_gust": 1.7,
+            "wind_deg": 48,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-23T10:00:00+00:00",
+            "temp": 29.59,
+            "feels_like": 29.59,
+            "pressure": 1024,
+            "humidity": 53,
+            "dew_point": 14.56,
+            "uvi": 0.0,
+            "weather": [
+              {
+                "id": 800,
+                "main": "Clear",
+                "description": "clear sky",
+                "icon": "01n"
+              }
+            ],
+            "clouds": 0,
+            "visibility": 10000,
+            "wind_speed": 0.92,
+            "wind_gust": 1.34,
+            "wind_deg": 77,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-23T11:00:00+00:00",
+            "temp": 29.61,
+            "feels_like": 29.61,
+            "pressure": 1024,
+            "humidity": 53,
+            "dew_point": 14.4,
+            "uvi": 0.0,
+            "weather": [
+              {
+                "id": 800,
+                "main": "Clear",
+                "description": "clear sky",
+                "icon": "01n"
+              }
+            ],
+            "clouds": 0,
+            "visibility": 10000,
+            "wind_speed": 0.18,
+            "wind_gust": 1.19,
+            "wind_deg": 87,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-23T12:00:00+00:00",
+            "temp": 29.57,
+            "feels_like": 29.57,
+            "pressure": 1025,
+            "humidity": 52,
+            "dew_point": 14.09,
+            "uvi": 0.0,
+            "weather": [
+              {
+                "id": 800,
+                "main": "Clear",
+                "description": "clear sky",
+                "icon": "01n"
+              }
+            ],
+            "clouds": 0,
+            "visibility": 10000,
+            "wind_speed": 1.19,
+            "wind_gust": 1.43,
+            "wind_deg": 148,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-23T13:00:00+00:00",
+            "temp": 30.87,
+            "feels_like": 30.87,
+            "pressure": 1026,
+            "humidity": 49,
+            "dew_point": 14.11,
+            "uvi": 0.0,
+            "weather": [
+              {
+                "id": 800,
+                "main": "Clear",
+                "description": "clear sky",
+                "icon": "01d"
+              }
+            ],
+            "clouds": 0,
+            "visibility": 10000,
+            "wind_speed": 0.63,
+            "wind_gust": 1.05,
+            "wind_deg": 193,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-23T14:00:00+00:00",
+            "temp": 35.53,
+            "feels_like": 35.53,
+            "pressure": 1026,
+            "humidity": 41,
+            "dew_point": 13.96,
+            "uvi": 0.46,
+            "weather": [
+              {
+                "id": 800,
+                "main": "Clear",
+                "description": "clear sky",
+                "icon": "01d"
+              }
+            ],
+            "clouds": 0,
+            "visibility": 10000,
+            "wind_speed": 2.33,
+            "wind_gust": 3.47,
+            "wind_deg": 179,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-23T15:00:00+00:00",
+            "temp": 39.99,
+            "feels_like": 37.58,
+            "pressure": 1026,
+            "humidity": 34,
+            "dew_point": 13.77,
+            "uvi": 1.1,
+            "weather": [
+              {
+                "id": 800,
+                "main": "Clear",
+                "description": "clear sky",
+                "icon": "01d"
+              }
+            ],
+            "clouds": 0,
+            "visibility": 10000,
+            "wind_speed": 3.71,
+            "wind_gust": 5.35,
+            "wind_deg": 182,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-23T16:00:00+00:00",
+            "temp": 43.66,
+            "feels_like": 41.05,
+            "pressure": 1025,
+            "humidity": 30,
+            "dew_point": 14.0,
+            "uvi": 1.76,
+            "weather": [
+              {
+                "id": 800,
+                "main": "Clear",
+                "description": "clear sky",
+                "icon": "01d"
+              }
+            ],
+            "clouds": 1,
+            "visibility": 10000,
+            "wind_speed": 4.63,
+            "wind_gust": 6.64,
+            "wind_deg": 206,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-23T17:00:00+00:00",
+            "temp": 46.45,
+            "feels_like": 43.81,
+            "pressure": 1024,
+            "humidity": 28,
+            "dew_point": 14.79,
+            "uvi": 2.13,
+            "weather": [
+              {
+                "id": 800,
+                "main": "Clear",
+                "description": "clear sky",
+                "icon": "01d"
+              }
+            ],
+            "clouds": 1,
+            "visibility": 10000,
+            "wind_speed": 5.39,
+            "wind_gust": 7.99,
+            "wind_deg": 214,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-23T18:00:00+00:00",
+            "temp": 48.27,
+            "feels_like": 45.16,
+            "pressure": 1023,
+            "humidity": 27,
+            "dew_point": 16.2,
+            "uvi": 2.05,
+            "weather": [
+              {
+                "id": 800,
+                "main": "Clear",
+                "description": "clear sky",
+                "icon": "01d"
+              }
+            ],
+            "clouds": 1,
+            "visibility": 10000,
+            "wind_speed": 6.89,
+            "wind_gust": 9.98,
+            "wind_deg": 210,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-23T19:00:00+00:00",
+            "temp": 49.26,
+            "feels_like": 45.75,
+            "pressure": 1022,
+            "humidity": 29,
+            "dew_point": 18.18,
+            "uvi": 1.55,
+            "weather": [
+              {
+                "id": 800,
+                "main": "Clear",
+                "description": "clear sky",
+                "icon": "01d"
+              }
+            ],
+            "clouds": 0,
+            "visibility": 10000,
+            "wind_speed": 8.28,
+            "wind_gust": 11.92,
+            "wind_deg": 218,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-23T20:00:00+00:00",
+            "temp": 49.3,
+            "feels_like": 45.68,
+            "pressure": 1022,
+            "humidity": 31,
+            "dew_point": 20.05,
+            "uvi": 0.85,
+            "weather": [
+              {
+                "id": 800,
+                "main": "Clear",
+                "description": "clear sky",
+                "icon": "01d"
+              }
+            ],
+            "clouds": 0,
+            "visibility": 10000,
+            "wind_speed": 8.59,
+            "wind_gust": 12.71,
+            "wind_deg": 218,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-23T21:00:00+00:00",
+            "temp": 47.84,
+            "feels_like": 44.31,
+            "pressure": 1022,
+            "humidity": 37,
+            "dew_point": 22.96,
+            "uvi": 0.3,
+            "weather": [
+              {
+                "id": 800,
+                "main": "Clear",
+                "description": "clear sky",
+                "icon": "01d"
+              }
+            ],
+            "clouds": 0,
+            "visibility": 10000,
+            "wind_speed": 7.61,
+            "wind_gust": 14.88,
+            "wind_deg": 212,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-23T22:00:00+00:00",
+            "temp": 42.49,
+            "feels_like": 38.23,
+            "pressure": 1022,
+            "humidity": 47,
+            "dew_point": 23.94,
+            "uvi": 0.0,
+            "weather": [
+              {
+                "id": 800,
+                "main": "Clear",
+                "description": "clear sky",
+                "icon": "01d"
+              }
+            ],
+            "clouds": 0,
+            "visibility": 10000,
+            "wind_speed": 6.85,
+            "wind_gust": 17.74,
+            "wind_deg": 202,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-23T23:00:00+00:00",
+            "temp": 39.36,
+            "feels_like": 34.47,
+            "pressure": 1022,
+            "humidity": 54,
+            "dew_point": 24.08,
+            "uvi": 0.0,
+            "weather": [
+              {
+                "id": 800,
+                "main": "Clear",
+                "description": "clear sky",
+                "icon": "01n"
+              }
+            ],
+            "clouds": 0,
+            "visibility": 10000,
+            "wind_speed": 6.82,
+            "wind_gust": 20.98,
+            "wind_deg": 196,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          },
+          {
+            "dt": "2021-12-24T00:00:00+00:00",
+            "temp": 39.09,
+            "feels_like": 33.46,
+            "pressure": 1022,
+            "humidity": 55,
+            "dew_point": 24.12,
+            "uvi": 0.0,
+            "weather": [
+              {
+                "id": 800,
+                "main": "Clear",
+                "description": "clear sky",
+                "icon": "01n"
+              }
+            ],
+            "clouds": 0,
+            "visibility": 10000,
+            "wind_speed": 8.03,
+            "wind_gust": 25.99,
+            "wind_deg": 199,
+            "rain": null,
+            "snow": null,
+            "pop": 0
+          }
+        ],
+        "daily": [
+          {
+            "dt": "2021-12-21T17:00:00+00:00",
+            "sunrise": "2021-12-21T12:26:39+00:00",
+            "sunset": "2021-12-21T22:08:18+00:00",
+            "moonrise": "2021-12-22T00:18:00+00:00",
+            "moonset": "2021-12-21T14:34:00+00:00",
+            "moon_phase": 0.58,
+            "temp": {
+              "day": 42.37,
+              "min": 31.75,
+              "max": 42.37,
+              "night": 39.45,
+              "eve": 39.16,
+              "morn": 32.95
+            },
+            "feels_like": {
+              "day": 39.87,
+              "min": 0.0,
+              "max": 0.0,
+              "night": 36.77,
+              "eve": 35.46,
+              "morn": 32.95
+            },
+            "pressure": 1017,
+            "humidity": 40,
+            "dew_point": 19.53,
+            "wind_speed": 5.1,
+            "wind_deg": 45,
+            "wind_gust": 12.33,
+            "weather": [
+              {
+                "id": 804,
+                "main": "Clouds",
+                "description": "overcast clouds",
+                "icon": "04d"
+              }
+            ],
+            "clouds": 100,
+            "pop": 0,
+            "rain": 0.0,
+            "uvi": 1.49
+          },
+          {
+            "dt": "2021-12-22T17:00:00+00:00",
+            "sunrise": "2021-12-22T12:27:07+00:00",
+            "sunset": "2021-12-22T22:08:47+00:00",
+            "moonrise": "2021-12-23T01:18:00+00:00",
+            "moonset": "2021-12-22T15:14:00+00:00",
+            "moon_phase": 0.61,
+            "temp": {
+              "day": 48.56,
+              "min": 32.32,
+              "max": 49.06,
+              "night": 32.32,
+              "eve": 39.6,
+              "morn": 37.24
+            },
+            "feels_like": {
+              "day": 43.0,
+              "min": 0.0,
+              "max": 0.0,
+              "night": 27.57,
+              "eve": 33.42,
+              "morn": 32.25
+            },
+            "pressure": 1012,
+            "humidity": 36,
+            "dew_point": 22.86,
+            "wind_speed": 14.41,
+            "wind_deg": 319,
+            "wind_gust": 27.2,
+            "weather": [
+              {
+                "id": 801,
+                "main": "Clouds",
+                "description": "few clouds",
+                "icon": "02d"
+              }
+            ],
+            "clouds": 11,
+            "pop": 0,
+            "rain": 0.0,
+            "uvi": 2.25
+          },
+          {
+            "dt": "2021-12-23T17:00:00+00:00",
+            "sunrise": "2021-12-23T12:27:34+00:00",
+            "sunset": "2021-12-23T22:09:18+00:00",
+            "moonrise": "2021-12-24T02:19:00+00:00",
+            "moonset": "2021-12-23T15:50:00+00:00",
+            "moon_phase": 0.64,
+            "temp": {
+              "day": 46.45,
+              "min": 29.57,
+              "max": 49.3,
+              "night": 38.91,
+              "eve": 39.36,
+              "morn": 29.61
+            },
+            "feels_like": {
+              "day": 43.81,
+              "min": 0.0,
+              "max": 0.0,
+              "night": 32.32,
+              "eve": 34.47,
+              "morn": 29.61
+            },
+            "pressure": 1024,
+            "humidity": 28,
+            "dew_point": 14.79,
+            "wind_speed": 9.93,
+            "wind_deg": 214,
+            "wind_gust": 33.2,
+            "weather": [
+              {
+                "id": 800,
+                "main": "Clear",
+                "description": "clear sky",
+                "icon": "01d"
+              }
+            ],
+            "clouds": 1,
+            "pop": 0,
+            "rain": 0.0,
+            "uvi": 2.13
+          },
+          {
+            "dt": "2021-12-24T17:00:00+00:00",
+            "sunrise": "2021-12-24T12:27:59+00:00",
+            "sunset": "2021-12-24T22:09:51+00:00",
+            "moonrise": "2021-12-25T03:21:00+00:00",
+            "moonset": "2021-12-24T16:22:00+00:00",
+            "moon_phase": 0.67,
+            "temp": {
+              "day": 53.53,
+              "min": 37.26,
+              "max": 55.0,
+              "night": 48.97,
+              "eve": 46.94,
+              "morn": 37.26
+            },
+            "feels_like": {
+              "day": 50.74,
+              "min": 0.0,
+              "max": 0.0,
+              "night": 44.26,
+              "eve": 43.93,
+              "morn": 32.4
+            },
+            "pressure": 1019,
+            "humidity": 46,
+            "dew_point": 33.24,
+            "wind_speed": 11.56,
+            "wind_deg": 220,
+            "wind_gust": 35.77,
+            "weather": [
+              {
+                "id": 804,
+                "main": "Clouds",
+                "description": "overcast clouds",
+                "icon": "04d"
+              }
+            ],
+            "clouds": 100,
+            "pop": 0,
+            "rain": 0.0,
+            "uvi": 1.6
+          },
+          {
+            "dt": "2021-12-25T17:00:00+00:00",
+            "sunrise": "2021-12-25T12:28:22+00:00",
+            "sunset": "2021-12-25T22:10:25+00:00",
+            "moonrise": "2021-12-26T04:23:00+00:00",
+            "moonset": "2021-12-25T16:50:00+00:00",
+            "moon_phase": 0.7,
+            "temp": {
+              "day": 60.71,
+              "min": 46.18,
+              "max": 60.71,
+              "night": 59.02,
+              "eve": 59.05,
+              "morn": 46.18
+            },
+            "feels_like": {
+              "day": 59.72,
+              "min": 0.0,
+              "max": 0.0,
+              "night": 58.62,
+              "eve": 58.51,
+              "morn": 41.5
+            },
+            "pressure": 1008,
+            "humidity": 69,
+            "dew_point": 50.49,
+            "wind_speed": 12.95,
+            "wind_deg": 234,
+            "wind_gust": 37.38,
+            "weather": [
+              {
+                "id": 804,
+                "main": "Clouds",
+                "description": "overcast clouds",
+                "icon": "04d"
+              }
+            ],
+            "clouds": 87,
+            "pop": 0,
+            "rain": 0.0,
+            "uvi": 2.05
+          },
+          {
+            "dt": "2021-12-26T17:00:00+00:00",
+            "sunrise": "2021-12-26T12:28:44+00:00",
+            "sunset": "2021-12-26T22:11:01+00:00",
+            "moonrise": "1970-01-01T00:00:00+00:00",
+            "moonset": "2021-12-26T17:17:00+00:00",
+            "moon_phase": 0.75,
+            "temp": {
+              "day": 54.1,
+              "min": 40.3,
+              "max": 59.92,
+              "night": 40.3,
+              "eve": 44.15,
+              "morn": 51.1
+            },
+            "feels_like": {
+              "day": 51.04,
+              "min": 0.0,
+              "max": 0.0,
+              "night": 36.05,
+              "eve": 37.85,
+              "morn": 47.79
+            },
+            "pressure": 1012,
+            "humidity": 39,
+            "dew_point": 29.48,
+            "wind_speed": 17.25,
+            "wind_deg": 311,
+            "wind_gust": 39.19,
+            "weather": [
+              {
+                "id": 800,
+                "main": "Clear",
+                "description": "clear sky",
+                "icon": "01d"
+              }
+            ],
+            "clouds": 0,
+            "pop": 0,
+            "rain": 0.0,
+            "uvi": 3.0
+          },
+          {
+            "dt": "2021-12-27T17:00:00+00:00",
+            "sunrise": "2021-12-27T12:29:03+00:00",
+            "sunset": "2021-12-27T22:11:38+00:00",
+            "moonrise": "2021-12-27T05:26:00+00:00",
+            "moonset": "2021-12-27T17:45:00+00:00",
+            "moon_phase": 0.77,
+            "temp": {
+              "day": 43.45,
+              "min": 38.64,
+              "max": 46.98,
+              "night": 46.98,
+              "eve": 46.0,
+              "morn": 40.5
+            },
+            "feels_like": {
+              "day": 41.02,
+              "min": 0.0,
+              "max": 0.0,
+              "night": 45.37,
+              "eve": 46.0,
+              "morn": 40.5
+            },
+            "pressure": 1020,
+            "humidity": 61,
+            "dew_point": 30.76,
+            "wind_speed": 4.34,
+            "wind_deg": 170,
+            "wind_gust": 10.78,
+            "weather": [
+              {
+                "id": 500,
+                "main": "Rain",
+                "description": "light rain",
+                "icon": "10d"
+              }
+            ],
+            "clouds": 100,
+            "pop": 0,
+            "rain": 0.31,
+            "uvi": 3.0
+          },
+          {
+            "dt": "2021-12-28T17:00:00+00:00",
+            "sunrise": "2021-12-28T12:29:21+00:00",
+            "sunset": "2021-12-28T22:12:18+00:00",
+            "moonrise": "2021-12-28T06:32:00+00:00",
+            "moonset": "2021-12-28T18:14:00+00:00",
+            "moon_phase": 0.81,
+            "temp": {
+              "day": 60.55,
+              "min": 44.8,
+              "max": 60.55,
+              "night": 54.25,
+              "eve": 55.08,
+              "morn": 45.73
+            },
+            "feels_like": {
+              "day": 58.89,
+              "min": 0.0,
+              "max": 0.0,
+              "night": 53.51,
+              "eve": 54.14,
+              "morn": 44.44
+            },
+            "pressure": 1015,
+            "humidity": 55,
+            "dew_point": 44.22,
+            "wind_speed": 5.95,
+            "wind_deg": 173,
+            "wind_gust": 19.1,
+            "weather": [
+              {
+                "id": 500,
+                "main": "Rain",
+                "description": "light rain",
+                "icon": "10d"
+              }
+            ],
+            "clouds": 92,
+            "pop": 0,
+            "rain": 0.11,
+            "uvi": 3.0
+          }
+        ]
+      }
+    }
+  }
+}

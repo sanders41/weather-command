@@ -33,7 +33,7 @@ async def test_current_weather_http_error_404(capfd, monkeypatch):
     monkeypatch.setattr(httpx.AsyncClient, "get", mock_get_response)
 
     with pytest.raises(SystemExit):
-        await get_current_weather(url="https://test.com", how="city", city_zip="test")
+        await get_current_weather(url="https://test.com", cache_key="https:somekey.com")
 
     out, _ = capfd.readouterr()
     assert "Unable" in out
@@ -46,7 +46,7 @@ async def test_get_current_weather_https_error(monkeypatch):
     monkeypatch.setattr(httpx.AsyncClient, "get", mock_get_response)
 
     with pytest.raises(httpx.HTTPStatusError):
-        await get_current_weather(url="https://test.com", how="city", city_zip="test")
+        await get_current_weather(url="https://test.com", cache_key="https://somekey.com")
 
 
 async def test_get_current_weather_validation_error(capfd, monkeypatch):
@@ -58,7 +58,7 @@ async def test_get_current_weather_validation_error(capfd, monkeypatch):
     monkeypatch.setattr(httpx.AsyncClient, "get", mock_get_response)
 
     with pytest.raises(SystemExit):
-        await get_current_weather(url="https://test.com", how="city", city_zip="test")
+        await get_current_weather(url="https://test.com", cache_key="https://somekey.com")
 
     out, _ = capfd.readouterr()
     assert "Unable" in out
@@ -71,7 +71,7 @@ async def test_one_call_current_weather_http_error_404(capfd, monkeypatch):
     monkeypatch.setattr(httpx.AsyncClient, "get", mock_get_response)
 
     with pytest.raises(SystemExit):
-        await get_one_call_weather(url="https://test.com", how="city", city_zip="test")
+        await get_one_call_weather(url="https://test.com", cache_key="https://somekey.com")
 
     out, _ = capfd.readouterr()
     assert "Unable" in out
@@ -84,7 +84,7 @@ async def test_get_one_callcurrent_weather_https_error(monkeypatch):
     monkeypatch.setattr(httpx.AsyncClient, "get", mock_get_response)
 
     with pytest.raises(httpx.HTTPStatusError):
-        await get_one_call_weather(url="https://test.com", how="city", city_zip="test")
+        await get_one_call_weather(url="https://test.com", cache_key="https://somekey.com")
 
 
 async def test_get_one_call_weather_validation_error(capfd, monkeypatch):
@@ -96,7 +96,7 @@ async def test_get_one_call_weather_validation_error(capfd, monkeypatch):
     monkeypatch.setattr(httpx.AsyncClient, "get", mock_get_response)
 
     with pytest.raises(SystemExit):
-        await get_one_call_weather(url="https://test.com", how="city", city_zip="test")
+        await get_one_call_weather(url="https://test.com", cache_key="https://somekey.com")
 
     out, _ = capfd.readouterr()
     assert "Unable" in out

@@ -34,12 +34,10 @@ def get_location_details(
 
     cache = Cache()
 
-    if how == "zip":
-        cache_hit = cache.get(city_zip)
-        if cache_hit and cache_hit.location:
-            return cache_hit.location
-
-    base_url = _build_url(how, city_zip, state, country)
+    base_url = build_location_url(how, city_zip, state, country)
+    cache_hit = cache.get(base_url)
+    if cache_hit and cache_hit.location:
+        return cache_hit.location
 
     response = httpx.get(base_url, headers={"user-agent": "weather-command"})
     try:
@@ -61,8 +59,7 @@ def get_location_details(
         else:
             location = Location(**response_json)
 
-        if how == "zip":
-            cache.add(city_zip=city_zip, location=location)
+        cache.add(cache_key=base_url, location=location)
     except ValidationError:
         _print_location_not_found_error()
         sys.exit(1)
@@ -71,7 +68,7 @@ def get_location_details(
 
 
 @lru_cache(maxsize=1)
-def _build_url(how: str, city_zip: str, state: str | None, country: str | None) -> str:
+def build_location_url(how: str, city_zip: str, state: str | None, country: str | None) -> str:
     """Cache so if retries are needed the url only needs to be built once."""
     if how == "zip":
         base_url = f"{LOCATION_BASE_URL}&postalcode={city_zip}"

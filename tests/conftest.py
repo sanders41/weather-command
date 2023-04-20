@@ -20,7 +20,7 @@ from weather_command._builder import (
 )
 from weather_command._cache import Cache
 from weather_command._config import Settings, append_api_key, load_settings
-from weather_command._location import _build_url
+from weather_command._location import build_location_url
 from weather_command._weather import get_icon
 from weather_command.models.location import Location
 from weather_command.models.weather import CurrentWeather, OneCallWeather
@@ -33,7 +33,7 @@ ASSETS_PATH = ROOT_PATH / "tests" / "assets"
 def clear_lru_cache():
     yield
     append_api_key.cache_clear()
-    _build_url.cache_clear()
+    build_location_url.cache_clear()
     load_settings.cache_clear()
     get_icon.cache_clear()
     _format_date_time.cache_clear()

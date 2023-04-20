@@ -8,7 +8,7 @@ from weather_command import settings_commands
 from weather_command._builder import show_current, show_daily, show_hourly
 from weather_command._cache import Cache
 from weather_command._config import console, load_settings
-from weather_command._location import get_location_details
+from weather_command._location import build_location_url, get_location_details
 from weather_command._utils import build_weather_url
 from weather_command._weather import get_current_weather, get_one_call_weather
 
@@ -38,8 +38,9 @@ async def _preload_cache(
 ) -> None:
     with console.status("Getting weather..."):
         retrieve: List[Coroutine] = []
+        location_url = build_location_url(how, city_zip, state_code, country_code)
         cache = Cache()
-        cache_hit = cache.get(city_zip)
+        cache_hit = cache.get(location_url)
         if cache_hit:
             if cache_hit.location:
                 location = cache_hit.location
@@ -57,26 +58,26 @@ async def _preload_cache(
                     lon=location.lon,
                     lat=location.lat,
                 )
-                retrieve.append(get_current_weather(url, how, city_zip))
+                retrieve.append(get_current_weather(url, location_url))
             if not cache_hit.one_call_weather:
                 url = build_weather_url(
                     forecast_type="daily", units=units, lon=location.lon, lat=location.lat
                 )
-                retrieve.append(get_one_call_weather(url, how, city_zip))
+                retrieve.append(get_one_call_weather(url, location_url))
         else:
             location = get_location_details(
-                how="zip", city_zip=city_zip, state=state_code, country=country_code
+                how=how, city_zip=city_zip, state=state_code, country=country_code
             )
 
             url = build_weather_url(
                 forecast_type="current", units=units, lon=location.lon, lat=location.lat
             )
-            retrieve.append(get_current_weather(url, how, city_zip))
+            retrieve.append(get_current_weather(url, location_url))
 
             url = build_weather_url(
                 forecast_type="daily", units=units, lon=location.lon, lat=location.lat
             )
-            retrieve.append(get_one_call_weather(url, how, city_zip))
+            retrieve.append(get_one_call_weather(url, location_url))
 
         if retrieve:
             await asyncio.gather(*retrieve)
@@ -116,7 +117,7 @@ async def _runner(
         cache = Cache()
         cache.clear()
 
-    if not clear_cache and how == "zip":
+    if not clear_cache:
         await _preload_cache(how, city_zip, state_code, country_code, units)
 
     if forecast_type == "current":
