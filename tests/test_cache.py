@@ -1,6 +1,6 @@
 import json
 import os
-from datetime import date, datetime
+from datetime import date, datetime, timezone
 from pathlib import Path
 from unittest.mock import Mock, patch
 
@@ -153,7 +153,7 @@ def test_add_cache_hit(
     use_one_call_weather,
     cache_with_file,
 ):
-    mock_dt.utcnow = Mock(return_value=datetime(2021, 12, 22, 1, 36, 38))
+    mock_dt.now = Mock(return_value=datetime(2021, 12, 22, 1, 36, 38, tzinfo=timezone.utc))
     if use_location:
         location = mock_location
     else:
@@ -202,7 +202,7 @@ def test_clear(cache):
 
 @patch("weather_command._cache.datetime")
 def test_get(mock_dt, cache_with_file):
-    mock_dt.utcnow = Mock(return_value=datetime(2021, 12, 22, 1, 36, 38))
+    mock_dt.now = Mock(return_value=datetime(2021, 12, 22, 1, 36, 38, tzinfo=timezone.utc))
     cache_values = cache_with_file.get(
         "https://nominatim.openstreetmap.org/search?format=json&limit=1&postalcode=27455"
     )

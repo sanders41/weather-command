@@ -7,7 +7,7 @@
     },
     "currentWeather": {
       "cache_duration_minutes": 15,
-      "date_time_saved": "2021-12-22T01:36:38.212266",
+      "date_time_saved": "2021-12-22T01:36:38.212266+00:00",
       "current_weather": {
         "coord": { "lon": -79.8133, "lat": 36.1581 },
         "weather": [
@@ -48,7 +48,7 @@
     },
     "oneCallWeather": {
       "cache_duration_minutes": 15,
-      "date_time_saved": "2021-12-22T01:36:52.676059",
+      "date_time_saved": "2021-12-22T01:36:52.676059+00:00",
       "one_call_weather": {
         "lat": 36.1581,
         "lon": -79.8133,
@@ -1692,7 +1692,7 @@
     },
     "currentWeather": {
       "cache_duration_minutes": 15,
-      "date_time_saved": "2021-12-22T01:36:38.212266",
+      "date_time_saved": "2021-12-22T01:36:38.212266+00:00",
       "current_weather": {
         "coord": { "lon": -79.8133, "lat": 36.1581 },
         "weather": [
@@ -1733,7 +1733,7 @@
     },
     "oneCallWeather": {
       "cache_duration_minutes": 15,
-      "date_time_saved": "2021-12-22T01:36:52.676059",
+      "date_time_saved": "2021-12-22T01:36:52.676059+00:00",
       "one_call_weather": {
         "lat": 36.1581,
         "lon": -79.8133,
