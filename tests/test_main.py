@@ -1,5 +1,5 @@
 import json
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from unittest.mock import Mock, patch
 
@@ -86,7 +86,7 @@ def test_main_cache_hit(
     test_runner,
     cache_with_file,
 ):
-    mock_dt.utcnow = Mock(return_value=datetime(2021, 12, 22, 1, 36, 38))
+    mock_dt.now = Mock(return_value=datetime(2021, 12, 22, 1, 36, 38, tzinfo=timezone.utc))
     location = mock_location
     current_weather = mock_current_weather
     one_call_weather = mock_one_call_weather

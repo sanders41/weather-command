@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import json
 import os
-from datetime import date, datetime
+from datetime import date, datetime, timezone
 from json import JSONEncoder
 from pathlib import Path
 from typing import Any, Optional
@@ -75,14 +75,14 @@ class Cache:
             location_cache = location.dict() if location else None
             current_weather_cache = (
                 CurrentWeatherCache(
-                    date_time_saved=datetime.utcnow(), current_weather=current_weather
+                    date_time_saved=datetime.now(tz=timezone.utc), current_weather=current_weather
                 ).dict()
                 if current_weather
                 else None
             )
             one_call_weather_cache = (
                 OneCallWeatherCache(
-                    date_time_saved=datetime.utcnow(), one_call_weather=one_call_weather
+                    date_time_saved=datetime.now(tz=timezone.utc), one_call_weather=one_call_weather
                 ).dict()
                 if one_call_weather
                 else None
@@ -135,12 +135,12 @@ class Cache:
 
         cache = self._cache[cache_key.lower()]
         if cache.current_weather:
-            time_diff = datetime.utcnow() - cache.current_weather.date_time_saved
+            time_diff = datetime.now(tz=timezone.utc) - cache.current_weather.date_time_saved
             if (time_diff.total_seconds() / 60) > cache.current_weather.cache_duration_minutes:
                 cache.current_weather = None
 
         if cache.one_call_weather:
-            time_diff = datetime.utcnow() - cache.one_call_weather.date_time_saved
+            time_diff = datetime.now(tz=timezone.utc) - cache.one_call_weather.date_time_saved
             if (time_diff.total_seconds() / 60) > cache.one_call_weather.cache_duration_minutes:
                 cache.one_call_weather = None
 

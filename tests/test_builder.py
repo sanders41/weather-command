@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timezone
 from os import getenv
 from unittest.mock import Mock, patch
 
@@ -77,7 +77,7 @@ async def test_current_weather_no_cache_hit(
 @pytest.mark.usefixtures("mock_cache_dir_with_file")
 @patch("weather_command._cache.datetime")
 async def test_current_weather_cache_hit(mock_dt, how, city_zip, temp_only, pager, capfd):
-    mock_dt.utcnow = Mock(return_value=datetime(2021, 12, 22, 1, 36, 38))
+    mock_dt.now = Mock(return_value=datetime(2021, 12, 22, 1, 36, 38, tzinfo=timezone.utc))
     await _builder.show_current(how, city_zip, temp_only=temp_only, pager=pager)
     out, _ = capfd.readouterr()
     assert "Greensboro" in out
@@ -136,7 +136,7 @@ async def test_show_daily_no_cache_hit(
 @pytest.mark.usefixtures("mock_cache_dir_with_file")
 @patch("weather_command._cache.datetime")
 async def test_show_daily_cache_hit(mock_dt, temp_only, pager, capfd):
-    mock_dt.utcnow = Mock(return_value=datetime(2021, 12, 22, 1, 36, 38))
+    mock_dt.now = Mock(return_value=datetime(2021, 12, 22, 1, 36, 38, tzinfo=timezone.utc))
     await _builder.show_daily("zip", "27455", temp_only=temp_only, pager=pager)
     out, _ = capfd.readouterr()
     assert "Greensboro" in out
@@ -215,7 +215,7 @@ async def test_show_hourly_no_cache_hit(
 @pytest.mark.usefixtures("mock_cache_dir_with_file")
 @patch("weather_command._cache.datetime")
 async def test_show_hourly_cache_hit(mock_dt, temp_only, pager, capfd):
-    mock_dt.utcnow = Mock(return_value=datetime(2021, 12, 22, 1, 36, 38))
+    mock_dt.now = Mock(return_value=datetime(2021, 12, 22, 1, 36, 38, tzinfo=timezone.utc))
     await _builder.show_hourly("zip", "27455", temp_only=temp_only, pager=pager)
     out, _ = capfd.readouterr()
     assert "Greensboro" in out
