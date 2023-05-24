@@ -58,27 +58,27 @@ will get the current forecast, `wed` will get the daily forecast and `weh` will 
 
 - Current Weather
 
-![Current weather](https:/raw.githubusercontent.com/sanders41/weather-command/main/assets/current.png)
+![Current weather](https://raw.githubusercontent.com/sanders41/weather-command/main/assets/current.png)
 
 - Current Weather Temp Only
 
-![Current weather temp only](https:/raw.githubusercontent.com/sanders41/weather-command/main/assets/current_temp_only.png)
+![Current weather temp only](https://raw.githubusercontent.com/sanders41/weather-command/main/assets/current_temp_only.png)
 
 - Daily Weather
 
-![Daily weather](https:/raw.githubusercontent.com/sanders41/weather-command/main/assets/daily.png)
+![Daily weather](https://raw.githubusercontent.com/sanders41/weather-command/main/assets/daily.png)
 
 - Daily Weather Temp Only
 
-![Daily weather temp only](https:/raw.githubusercontent.com/sanders41/weather-command/main/assets/daily_temp_only.png)
+![Daily weather temp only](https://raw.githubusercontent.com/sanders41/weather-command/main/assets/daily_temp_only.png)
 
 - Hourly Weather
 
-![Hourly weather](https:/raw.githubusercontent.com/sanders41/weather-command/main/assets/hourly.png)
+![Hourly weather](https://raw.githubusercontent.com/sanders41/weather-command/main/assets/hourly.png)
 
 - Hourly Weather Temp Only
 
-![Hourl weather temp only](https:/raw.githubusercontent.com/sanders41/weather-command/main/assets/hourly_temp_only.png)
+![Hourl weather temp only](https://raw.githubusercontent.com/sanders41/weather-command/main/assets/hourly_temp_only.png)
 
 ## Settings
 weather now has the ability to save settings to default certain flags. The list of possible settings can be seen with:
