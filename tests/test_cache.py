@@ -23,7 +23,7 @@ def test_encoder(tmp_path):
     with open(cache_file, "w") as f:
         json.dump(data, f, cls=DateTimeEncoder)
 
-    with open(cache_file, "r") as f:
+    with open(cache_file) as f:
         result = json.load(f)
 
     data["date"] = str(data["date"])
@@ -88,7 +88,7 @@ def test_add_no_cache_hit(
         one_call_weather=one_call_weather,
     )
 
-    with open(cache_with_file._cache_file, "r") as f:
+    with open(cache_with_file._cache_file) as f:
         cache_values = json.load(f)
 
     assert cache_values is not None
@@ -124,7 +124,7 @@ def test_add_eject(
         cache_size=1,
     )
 
-    with open(cache_with_file._cache_file, "r") as f:
+    with open(cache_with_file._cache_file) as f:
         cache_values = json.load(f)
 
     assert cache_values is not None
@@ -178,7 +178,7 @@ def test_add_cache_hit(
         one_call_weather=one_call_weather,
     )
 
-    with open(cache_with_file._cache_file, "r") as f:
+    with open(cache_with_file._cache_file) as f:
         cache_values = json.load(f)
 
     assert cache_values is not None

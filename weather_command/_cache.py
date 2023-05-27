@@ -1,11 +1,9 @@
-from __future__ import annotations
-
 import json
 import os
 from datetime import date, datetime, timezone
 from json import JSONEncoder
 from pathlib import Path
-from typing import Any, Optional
+from typing import Any, Dict, Optional, Union
 
 from camel_converter.pydantic_base import CamelBase
 
@@ -53,21 +51,21 @@ def _get_default_directory() -> Path:
 class Cache:
     get_default_directory = staticmethod(_get_default_directory)
 
-    def __init__(self, cache_dir: Path | None = None) -> None:
+    def __init__(self, cache_dir: Union[Path, None] = None) -> None:
         self.cache_dir = cache_dir or Cache.get_default_directory()
         self._cache_file = self.cache_dir / "cache.json"
         if not self.cache_dir.exists():
             self.cache_dir.mkdir(parents=True)
 
-        self._cache: dict[str, CacheItem] | None = self._load()
+        self._cache: Union[Dict[str, CacheItem], None] = self._load()
 
     def add(
         self,
         *,
         cache_key: str,
-        location: Location | None = None,
-        current_weather: CurrentWeather | None = None,
-        one_call_weather: OneCallWeather | None = None,
+        location: Union[Location, None] = None,
+        current_weather: Union[CurrentWeather, None] = None,
+        one_call_weather: Union[OneCallWeather, None] = None,
         cache_size: int = 5,
     ) -> None:
         def save_cache() -> None:
@@ -129,7 +127,7 @@ class Cache:
         if self._cache_file.exists():
             self._cache_file.unlink()
 
-    def get(self, cache_key: str) -> CacheItem | None:
+    def get(self, cache_key: str) -> Union[CacheItem, None]:
         if not self._cache or not self._cache.get(cache_key):
             return None
 
@@ -146,11 +144,11 @@ class Cache:
 
         return cache
 
-    def _load(self) -> dict[str, CacheItem] | None:
+    def _load(self) -> Union[Dict[str, CacheItem], None]:
         if not self._cache_file.exists():
             return None
 
-        with open(self._cache_file, "r") as f:
+        with open(self._cache_file) as f:
             json_cache = json.load(f)
 
         return {k: CacheItem(**v) for k, v in json_cache.items()}
