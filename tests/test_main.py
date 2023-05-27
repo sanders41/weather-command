@@ -65,7 +65,7 @@ def test_main_default_params(
     assert "mm" in out
 
     def load_cache():
-        with open(cache_with_file._cache_file, "r") as f:
+        with open(cache_with_file._cache_file) as f:
             return json.load(f)
 
     assert (
