@@ -69,7 +69,7 @@ class Cache:
         cache_size: int = 5,
     ) -> None:
         def save_cache() -> None:
-            cache: dict[str, Any] = {}
+            cache: Dict[str, Any] = {}
             location_cache = location.dict() if location else None
             current_weather_cache = (
                 CurrentWeatherCache(
