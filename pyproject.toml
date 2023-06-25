@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "weather-command"
-version = "6.1.1"
+version = "6.1.2"
 description = "Command line weather app"
 authors = ["Paul Sanders <psanders1@gmail.com>"]
 license = "MIT"
@@ -11,7 +11,7 @@ documentation = "https://github.com/sanders41/weather-command"
 keywords = ["weather", "cli"]
 
 [tool.poetry.dependencies]
-python = "^3.7"
+python = "^3.8"
 rich = "13.4.2"
 httpx = "0.24.1"
 pydantic = "1.10.9"
@@ -83,5 +83,5 @@ exclude_lines = ["if __name__ == .__main__.:", "pragma: no cover"]
 select = ["E", "F", "UP", "I001", "T201", "T203"]
 ignore = ["E501"]
 line-length = 100
-target-version = "py37"
+target-version = "py38"
 fix = true
