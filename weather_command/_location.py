@@ -4,7 +4,7 @@ import sys
 from functools import lru_cache
 
 import httpx
-from pydantic.error_wrappers import ValidationError
+from pydantic import ValidationError
 from tenacity import retry
 from tenacity.retry import retry_if_exception_type, retry_unless_exception_type
 from tenacity.stop import stop_after_attempt

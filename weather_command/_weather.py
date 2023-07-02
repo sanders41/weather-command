@@ -5,7 +5,7 @@ from enum import Enum
 from functools import lru_cache
 
 from httpx import AsyncClient, HTTPStatusError
-from pydantic.error_wrappers import ValidationError
+from pydantic import ValidationError
 from tenacity import retry
 from tenacity.stop import stop_after_attempt
 from tenacity.wait import wait_fixed
