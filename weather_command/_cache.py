@@ -70,18 +70,18 @@ class Cache:
     ) -> None:
         def save_cache() -> None:
             cache: Dict[str, Any] = {}
-            location_cache = location.dict() if location else None
+            location_cache = location.model_dump() if location else None
             current_weather_cache = (
                 CurrentWeatherCache(
                     date_time_saved=datetime.now(tz=timezone.utc), current_weather=current_weather
-                ).dict()
+                ).model_dump()
                 if current_weather
                 else None
             )
             one_call_weather_cache = (
                 OneCallWeatherCache(
                     date_time_saved=datetime.now(tz=timezone.utc), one_call_weather=one_call_weather
-                ).dict()
+                ).model_dump()
                 if one_call_weather
                 else None
             )
@@ -90,13 +90,13 @@ class Cache:
 
             if cache_hit:
                 cache[cache_key.lower()] = {
-                    "location": cache_hit.location.dict()
+                    "location": cache_hit.location.model_dump()
                     if cache_hit.location and not location_cache
                     else location_cache,
-                    "currentWeather": cache_hit.current_weather.dict()
+                    "currentWeather": cache_hit.current_weather.model_dump()
                     if cache_hit.current_weather and not current_weather_cache
                     else current_weather_cache,
-                    "oneCallWeather": cache_hit.one_call_weather.dict()
+                    "oneCallWeather": cache_hit.one_call_weather.model_dump()
                     if cache_hit.one_call_weather and not one_call_weather_cache
                     else one_call_weather_cache,
                 }
@@ -111,7 +111,7 @@ class Cache:
                 for key in self._cache:
                     if key != cache_key:
                         saved_cache = self._cache[key]
-                        cache[key] = saved_cache.dict()
+                        cache[key] = saved_cache.model_dump()
 
             with open(self._cache_file, "w") as f:
                 json.dump(cache, f, cls=DateTimeEncoder)
