@@ -20,8 +20,8 @@ repos:
     - id: mypy
       files: weather_command/
       additional_dependencies: [types-PyYAML]
-  - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: v0.0.275
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.0.276
     hooks:
     - id: ruff
       args: [--fix, --exit-non-zero-on-fix]
