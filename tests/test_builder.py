@@ -67,8 +67,8 @@ async def test_current_weather_no_cache_hit(
     mock_cache_get_call.return_value = CacheItem()
     mock_location_details_call.return_value = mock_location
     await _builder.show_current("zip", "27455")
-    assert mock_cache_get_call.called_once()
-    assert mock_location_details_call.called_once()
+    mock_cache_get_call.assert_called()
+    mock_location_details_call.assert_called()
 
 
 @pytest.mark.parametrize("pager", [True, False])
@@ -127,8 +127,8 @@ async def test_show_daily_no_cache_hit(
     mock_cache_get_call.return_value = CacheItem()
     mock_location_details_call.return_value = mock_location
     await _builder.show_daily("zip", "27455")
-    assert mock_cache_get_call.called_once()
-    assert mock_location_details_call.called_once()
+    mock_cache_get_call.assert_called()
+    mock_location_details_call.assert_called()
 
 
 @pytest.mark.parametrize("pager", [True, False])
@@ -206,8 +206,8 @@ async def test_show_hourly_no_cache_hit(
     mock_cache_get_call.return_value = CacheItem()
     mock_location_details_call.return_value = mock_location
     await _builder.show_hourly("zip", "27455")
-    assert mock_cache_get_call.called_once()
-    assert mock_location_details_call.called_once()
+    mock_cache_get_call.assert_called()
+    mock_location_details_call.assert_called()
 
 
 @pytest.mark.parametrize("pager", [True, False])
