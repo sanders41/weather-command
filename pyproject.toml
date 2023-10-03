@@ -12,7 +12,7 @@ keywords = ["weather", "cli"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
-rich = "13.5.3"
+rich = "13.6.0"
 httpx = "0.25.0"
 pydantic = "2.4.2"
 camel-converter = {version = "3.0.2", extras = ["pydantic"]}
