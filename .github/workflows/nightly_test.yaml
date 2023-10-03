@@ -12,31 +12,17 @@ jobs:
       XDG_CACHE_HOME: /tmp/.cache
     steps:
     - uses: actions/checkout@v4
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: "3.11"
-    - name: Get full Python version
-      id: full-python-version
-      run: echo ::set-output name=version::$(python -c "import sys; print('-'.join(str(v) for v in sys.version_info))")
     - name: Install Poetry
-      run: |
-        pip install pipx
-        pipx install poetry
+      run: pipx install poetry
     - name: Configure poetry
       run: |
         poetry config virtualenvs.create true
         poetry config virtualenvs.in-project true
-    - name: Cache poetry venv
-      uses: actions/cache@v3
-      id: poetry-cache
+    - name: Set up Python
+      uses: actions/setup-python@v4
       with:
-        path: .venv
-        key: venv-${{ runner.os }}-${{ steps.full-python-version.outputs.version }}-${{ hashFiles('**/poetry.lock') }}
-    - name: Ensure cache is healthy
-      if: steps.poetry-cache.outputs.cache-hit == 'true'
-      shell: bash
-      run: timeout 10s poetry run pip --version || rm -rf .venv
+        python-version: "3.11"
+        cache: "poetry"
     - name: Make cache directory
       run: mkdir -p $XDG_CACHE_HOME
     - name: Install Dependencies
