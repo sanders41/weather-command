@@ -21,7 +21,6 @@ tenacity = "8.2.3"
 pyyaml = "6.0.1"
 
 [tool.poetry.group.dev.dependencies]
-black = "23.11.0"
 mypy = "1.7.1"
 pre-commit = "3.5.0"
 pytest = "7.4.3"
@@ -37,27 +36,6 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
 weather = "weather_command.main:app"
-
-[tool.black]
-line-length = 100
-include = '\.pyi?$'
-exclude = '''
-/(
-    \.egg
-  | \.git
-  | \.hg
-  | \.mypy_cache
-  | \.nox
-  | \.tox
-  | \.venv
-  | \venv
-  | _build
-  | buck-out
-  | build
-  | dist
-  | setup.py
-)/
-'''
 
 [tool.mypy]
 check_untyped_defs = true
@@ -81,7 +59,24 @@ exclude_lines = ["if __name__ == .__main__.:", "pragma: no cover"]
 
 [tool.ruff]
 select = ["E", "F", "UP", "I001", "T201", "T203"]
-ignore = ["E501"]
+ignore=[
+  # Recommened ignores by ruff when using formatter
+  "E501",
+  "W191",
+  "E111",
+  "E114",
+  "E117",
+  "D206",
+  "D300",
+  "Q000",
+  "Q001",
+  "Q002",
+  "Q003",
+  "COM812",
+  "COM819",
+  "ISC001",
+  "ISC002",
+]
 line-length = 100
 target-version = "py38"
 fix = true

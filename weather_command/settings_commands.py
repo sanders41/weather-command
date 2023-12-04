@@ -38,7 +38,7 @@ def api_key(
         prompt=True,
         hide_input=True,
         help="OpenWeather API key",
-    )
+    ),
 ) -> None:
     """Save the OpenWeather API key. Can also be set by using the OPEN_WEATHER_API_KEY environment variable."""
     settings = load_settings()
