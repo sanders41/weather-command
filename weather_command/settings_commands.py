@@ -73,7 +73,7 @@ def temp_only(temp_only: bool = Option(..., prompt=True, help="Only display temp
 
 @app.command()
 def time_format(
-    time_format: TimeFormat = Option(..., prompt=True, help="Preferred time format")
+    time_format: TimeFormat = Option(..., prompt=True, help="Preferred time format"),
 ) -> None:
     """Save the preferred time format."""
     settings = load_settings()
