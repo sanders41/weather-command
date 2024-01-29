@@ -90,15 +90,21 @@ class Cache:
 
             if cache_hit:
                 cache[cache_key.lower()] = {
-                    "location": cache_hit.location.model_dump()
-                    if cache_hit.location and not location_cache
-                    else location_cache,
-                    "currentWeather": cache_hit.current_weather.model_dump()
-                    if cache_hit.current_weather and not current_weather_cache
-                    else current_weather_cache,
-                    "oneCallWeather": cache_hit.one_call_weather.model_dump()
-                    if cache_hit.one_call_weather and not one_call_weather_cache
-                    else one_call_weather_cache,
+                    "location": (
+                        cache_hit.location.model_dump()
+                        if cache_hit.location and not location_cache
+                        else location_cache
+                    ),
+                    "currentWeather": (
+                        cache_hit.current_weather.model_dump()
+                        if cache_hit.current_weather and not current_weather_cache
+                        else current_weather_cache
+                    ),
+                    "oneCallWeather": (
+                        cache_hit.one_call_weather.model_dump()
+                        if cache_hit.one_call_weather and not one_call_weather_cache
+                        else one_call_weather_cache
+                    ),
                 }
             else:
                 cache[cache_key.lower()] = {
