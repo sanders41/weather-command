@@ -14,7 +14,7 @@ keywords = ["weather", "cli"]
 python = "^3.8"
 rich = "13.7.0"
 httpx = "0.26.0"
-pydantic = "2.6.0"
+pydantic = "2.6.1"
 camel-converter = {version = "3.1.1", extras = ["pydantic"]}
 typer = "0.9.0"
 tenacity = "8.2.3"
