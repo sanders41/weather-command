@@ -54,6 +54,10 @@ minversion = "6.0"
 addopts = "--cov=weather_command --cov-report term-missing"
 asyncio_mode = "auto"
 
+[tool.coverage.run]
+parallel = true
+source = ["weather_command"]
+
 [tool.coverage.report]
 exclude_lines = ["if __name__ == .__main__.:", "pragma: no cover"]
 
