@@ -59,7 +59,7 @@ jobs:
   coverage:
     name: Combine & check coverage
     if: always()
-    needs: test
+    needs: testing
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
