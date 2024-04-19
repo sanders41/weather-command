@@ -13,7 +13,7 @@ from rich.theme import Theme
 
 from weather_command.errors import MissingApiKey
 
-WEATHER_BASE_URL = "https://api.openweathermap.org/data/2.5"
+WEATHER_BASE_URL = "https://api.openweathermap.org/data/3.0"
 LOCATION_BASE_URL = "https://nominatim.openstreetmap.org/search?format=json&limit=1"
 
 custom_style = Theme({"error": "red", "date": "green"})
