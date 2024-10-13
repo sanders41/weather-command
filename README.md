@@ -8,6 +8,10 @@
 
 A command line weather app
 
+NOTE: [OpenWeather](https://openweathermap.org/) is now requiring a credit card to use the service
+even if you stay under the paid amount of calls. I am not interesting in providing my credit card
+so instead I am archiving the project.
+
 ## Installation
 
 Installation with [pipx](https://github.com/pypa/pipx) is recommended.
@@ -81,11 +85,13 @@ will get the current forecast, `wed` will get the daily forecast and `weh` will 
 ![Hourl weather temp only](https://raw.githubusercontent.com/sanders41/weather-command/main/assets/hourly_temp_only.png)
 
 ## Settings
+
 weather now has the ability to save settings to default certain flags. The list of possible settings can be seen with:
 
 ```sh
 weather settings --help
 ```
+
 ## Contributing
 
 Contributions to this project are welcome. If you are interested in contributing please see our [contributing guide](CONTRIBUTING.md)
